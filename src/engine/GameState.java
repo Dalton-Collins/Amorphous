@@ -16,13 +16,17 @@ public class GameState {
 		players.add(new Player(deck1, 0));
 		players.add(new Player(deck2, 1));
 		
-		for(int i = 0; i < 30; i++){
-			deck1.cards.add(new TestMinion(players.get(0), this));
-			deck2.cards.add(new TestMinion(players.get(1), this));
+		for(int i = 1; i < 31; i++){
+			deck1.cards.add(new TestMinion(players.get(0), this, (i*2) - 1));
+			deck2.cards.add(new TestMinion(players.get(1), this, i*2));
 		}
 		
 		players.get(0).draw(4);
 		players.get(1).draw(4);
 		
+	}
+	
+	public void nextTurn(){
+		turn = (turn+1)%players.size();
 	}
 }

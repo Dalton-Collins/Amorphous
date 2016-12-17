@@ -9,7 +9,7 @@ public class Minion {
 	String type;
 	Player owner;
 	
-	Effect effect;
+	Affect effect;
 	boolean summoningSickness;
 	int attacksThisTurn;
 	int maxAttacks;

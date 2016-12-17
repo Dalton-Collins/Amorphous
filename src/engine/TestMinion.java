@@ -1,9 +1,9 @@
 package engine;
 
 public class TestMinion extends Minion{
-	public TestMinion(Player ownerr, GameState gs){
+	public TestMinion(Player ownerr, GameState gs, int idd){
 		super(gs);
-		id = 1;
+		id = idd;
 		cost = 30;
 		health = 3;
 		atk = 2;
