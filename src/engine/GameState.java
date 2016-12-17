@@ -7,11 +7,13 @@ public class GameState {
 	ArrayList<Minion> minions;
 	ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
-	int turn;//whos turn is it to play
+	Player turnPlayer;//whos turn is it to play
 	
 	
 	public GameState(){
 		//initialize game
+		players = new ArrayList<Player>();
+		minions = new ArrayList<Minion>();
 		Deck deck1 = new Deck();
 		Deck deck2 = new Deck();
 		players.add(new Player(deck1, 0));
@@ -25,17 +27,24 @@ public class GameState {
 		players.get(0).draw(4);
 		players.get(1).draw(4);
 		
+		turnPlayer = players.get(0);
 	}
 	
 	public void nextTurn(){
+		int turn = turnPlayer.id;
 		turn = (turn+1)%players.size();
+		turnPlayer = players.get(turn);
+		System.out.println("Its now player " + turn + "'s turn");
 	}
 	
 	public void doCommand(Command c){
 		if(c.type == "Attack"){
+			AttackCommand ac = (AttackCommand)c;
+			ac.attacker.attack(ac.target);
 			
 		} else if(c.type == "Summon"){
-			
+			SummonCommand sc = (SummonCommand)c;
+			sc.toSummon.summon();
 		}
 	}
 }

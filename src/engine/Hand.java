@@ -6,4 +6,8 @@ import java.util.ArrayList;
 public class Hand {
 	int playerId;
 	ArrayList<Minion> cards;
+	
+	public Hand(){
+		cards = new ArrayList<Minion>();
+	}
 }

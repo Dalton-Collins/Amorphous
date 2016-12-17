@@ -19,15 +19,17 @@ public class Minion {
 		gs = gss;
 	}
 	//summons a minion to the field
-	public void summon(Player p){
-		p.hand.cards.remove(this);
+	public void summon(){
+		owner.hand.cards.remove(this);
 		gs.minions.add(this);
+		summoningSickness = true;
+		System.out.println("Minion " + id + " was summoned");
 		//trigger summoned event
 	}
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future
-	public boolean canSummon(Player p){
-		return (p.mana >= cost && p.totalMinions < 10);
+	public boolean canSummon(){
+		return (owner.mana >= cost && owner.totalMinions < 10);
 	}
 	
 	public boolean canAttack(Minion target){
@@ -38,12 +40,14 @@ public class Minion {
 	}
 	
 	public void attack(Minion target){
+		attacksThisTurn+=1;
 		target.health = target.health - atk;
 		health = health- target.atk;
-		
+		System.out.println("Minion " + id + " attacked minion " + target.id);
 	}
 	
 	public void destroy(){
 		gs.minions.remove(this);
+		System.out.println("Minion " + id + " was destroyed");
 	}
 }
