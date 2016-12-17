@@ -9,6 +9,7 @@ public class GameState {
 	public static int maxMinions = 10;//10 minions per player possible
 	int turn;//whos turn is it to play
 	
+	
 	public GameState(){
 		//initialize game
 		Deck deck1 = new Deck();
@@ -28,5 +29,13 @@ public class GameState {
 	
 	public void nextTurn(){
 		turn = (turn+1)%players.size();
+	}
+	
+	public void doCommand(Command c){
+		if(c.type == "Attack"){
+			
+		} else if(c.type == "Summon"){
+			
+		}
 	}
 }

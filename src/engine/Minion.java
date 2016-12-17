@@ -31,7 +31,7 @@ public class Minion {
 	}
 	
 	public boolean canAttack(Minion target){
-		if(atk < 1 || summoningSickness || (attacksThisTurn >= maxAttacks)){
+		if(atk < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target.owner == owner){
 			return false;
 		}
 		return true;
