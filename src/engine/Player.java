@@ -14,4 +14,17 @@ public class Player {
 		deck = deckk;
 		id = idd;
 	}
+	//draws cards from the deck to the hand
+	public void draw(int numberOfCards){
+		for(int i = 0; i < numberOfCards; i++){
+			Minion c = deck.cards.get(0);
+			hand.cards.add(c);
+			deck.cards.remove(0);
+		}
+	}
+	
+	//checks if the given number of cards can be drawn
+	public boolean canDraw(int numberOfCards){
+		return deck.cards.size() >= numberOfCards;
+	}
 }
