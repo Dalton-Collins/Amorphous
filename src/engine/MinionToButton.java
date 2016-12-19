@@ -2,13 +2,20 @@ package engine;
 import javafx.scene.control.Button;
 
 public class MinionToButton {
+	
+	fxDisplay fxd;
+	
+	public MinionToButton(fxDisplay fxdd){
+		fxd = fxdd;
+	}
 	public Button convert(Minion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + "\n \n \n \n " + 
+		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
-		Button b = new Button(cardText);
-		b.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
-		return b;
+		CardButton cb = new CardButton(cardText, m);
+		cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		cb.setOnAction(fxd.summonHandler);
+		return cb;
 	}
 }

@@ -1,9 +1,12 @@
 package engine;
 
+import java.util.ArrayList;
+
 public class Player {
 	int id;
 	Hand hand;
 	Deck deck;
+	ArrayList<Minion> minions;
 	int totalMinions;
 	int mana;
 	int maxMana = 100;
@@ -13,6 +16,7 @@ public class Player {
 		mana = 100;
 		deck = deckk;
 		id = idd;
+		minions = new ArrayList<Minion>();
 	}
 	//draws cards from the deck to the hand
 	public void draw(int numberOfCards){

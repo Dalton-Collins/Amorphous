@@ -21,7 +21,7 @@ public class Minion {
 	//summons a minion to the field
 	public void summon(){
 		owner.hand.cards.remove(this);
-		gs.minions.add(this);
+		owner.minions.add(this);
 		summoningSickness = true;
 		System.out.println("Minion " + id + " was summoned");
 		//trigger summoned event
@@ -47,7 +47,7 @@ public class Minion {
 	}
 	
 	public void destroy(){
-		gs.minions.remove(this);
+		owner.minions.remove(this);
 		System.out.println("Minion " + id + " was destroyed");
 	}
 	

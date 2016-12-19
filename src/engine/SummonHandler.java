@@ -3,18 +3,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 public class SummonHandler implements EventHandler<ActionEvent>{
 	
-	GameState gs;
+	fxDisplay fxd;
 	
-	public SummonHandler(GameState gss){
-		gs =gss;
+	public SummonHandler(fxDisplay fxdd){
+		fxd = fxdd;
 	}
 	
 	@Override
 	public void handle(ActionEvent event) {
-		SummonEvent se = (SummonEvent)event;
-		if(se.toSummon.canSummon()){
-			se.toSummon.summon();
+		CardButton sourceButton = (CardButton)event.getSource();
+		Minion toSummon = sourceButton.minion;
+		if(toSummon.canSummon()){
+			toSummon.summon();
 		}
+		
+		fxd.updateDisplay();
 	}
 
 }

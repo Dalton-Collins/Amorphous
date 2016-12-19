@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
 public class GameState {
-	ArrayList<Minion> minions;
 	ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
@@ -13,7 +12,6 @@ public class GameState {
 	public GameState(){
 		//initialize game
 		players = new ArrayList<Player>();
-		minions = new ArrayList<Minion>();
 		Deck deck1 = new Deck();
 		Deck deck2 = new Deck();
 		players.add(new Player(deck1, 0));
@@ -34,10 +32,8 @@ public class GameState {
 		int turn = turnPlayer.id;
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
-		for(Minion m : minions){
-			if(m.owner == turnPlayer){
-				m.removeSummoningSickness();
-			}
+		for(Minion m : turnPlayer.minions){
+			m.removeSummoningSickness();
 		}
 		System.out.println("Its now player " + turn + "'s turn");
 	}

@@ -8,28 +8,35 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 
  
 public class fxDisplay extends Application {
 	
 	GameState gs;
-	MinionToButton mtb;
+	MinionToButton minionToButton;
 	Stage primaryStage;
+	SummonHandler summonHandler;
     public static void main(String[] args) {
         launch(args);
     }
     
     @Override
     public void start(Stage primaryStagee) {
+    	
+    	//Set Handlers
+    	
+    	summonHandler = new SummonHandler(this);
+    	
+    	//initialize
+    	gs = new GameState();
+    	minionToButton = new MinionToButton(this);
+    	
     	primaryStage = primaryStagee;
     	primaryStage.setTitle("Amorphous");
+    	
     	//layouts
         StackPane titleLayout = new StackPane();
-        
-        StackPane boardLayout = new StackPane();
         
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
@@ -47,8 +54,6 @@ public class fxDisplay extends Application {
         	 
             @Override
             public void handle(ActionEvent event) {
-            	gs = new GameState();
-            	mtb = new MinionToButton();
             	primaryStage.setScene(boardScene);
             	updateDisplay();
             }
@@ -66,16 +71,41 @@ public class fxDisplay extends Application {
     	GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
         gridpane.setHgap(10);
-        gridpane.setVgap(10);
+        gridpane.setVgap(9);
     	Scene boardScene = new Scene(gridpane, 1000, 800);
     	
     	//update hands
+    	int i = 0;
     	for(Minion m : gs.players.get(0).hand.cards){
-    		Button card = mtb.convert(m);
-    		GridPane.setHalignment(card, HPos.CENTER);
-    		gridpane.add(card, 0, 15);
+    		Button card = minionToButton.convert(m);
+    		gridpane.add(card, i, 60);
+    		
+    		i++;
+    	}
+    	
+    	int i2 = 0;
+    	for(Minion m : gs.players.get(1).hand.cards){
+    		Button card = minionToButton.convert(m);
+    		gridpane.add(card, i2, 0);
+    		
+    		i2++;
     	}
     	//update field
+    	int j = 0;
+    	for(Minion m: gs.players.get(0).minions){
+    		Button card = minionToButton.convert(m);
+    		gridpane.add(card, j, 40);
+    		
+    		j++;
+    	}
+    	
+    	int j2 = 0;
+    	for(Minion m: gs.players.get(1).minions){
+    		Button card = minionToButton.convert(m);
+    		gridpane.add(card, j2, 20);
+    		
+    		j2++;
+    	}
     	
     	primaryStage.setScene(boardScene);
     }
