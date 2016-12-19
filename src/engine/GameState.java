@@ -34,17 +34,11 @@ public class GameState {
 		int turn = turnPlayer.id;
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
-		System.out.println("Its now player " + turn + "'s turn");
-	}
-	
-	public void doCommand(Command c){
-		if(c.type == "Attack"){
-			AttackCommand ac = (AttackCommand)c;
-			ac.attacker.attack(ac.target);
-			
-		} else if(c.type == "Summon"){
-			SummonCommand sc = (SummonCommand)c;
-			sc.toSummon.summon();
+		for(Minion m : minions){
+			if(m.owner == turnPlayer){
+				m.removeSummoningSickness();
+			}
 		}
+		System.out.println("Its now player " + turn + "'s turn");
 	}
 }

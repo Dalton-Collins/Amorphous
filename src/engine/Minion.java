@@ -50,4 +50,8 @@ public class Minion {
 		gs.minions.remove(this);
 		System.out.println("Minion " + id + " was destroyed");
 	}
+	
+	public void removeSummoningSickness(){
+		summoningSickness = false;
+	}
 }

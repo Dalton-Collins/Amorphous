@@ -3,11 +3,21 @@ package engine;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class Main extends Application{
 	public static void main(String args[]){
 		GameState GS = new GameState();
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
-		FindMoves fm = new FindMoves();
+		launch(args);
+		/*
 		while(true){
 			if(GS.turnPlayer.canDraw(1)){
 				GS.turnPlayer.draw(1);
@@ -26,5 +36,12 @@ public class Main {
 			
 			GS.nextTurn();
 		}
+		*/
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		fxDisplay fxd = new fxDisplay();
+		fxd.start(primaryStage);
 	}
 }
