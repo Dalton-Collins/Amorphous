@@ -71,13 +71,13 @@ public class fxDisplay extends Application {
     	GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
         gridpane.setHgap(10);
-        gridpane.setVgap(9);
+        gridpane.setVgap(1);
     	Scene boardScene = new Scene(gridpane, 1000, 800);
     	
     	//update hands
     	int i = 0;
     	for(Minion m : gs.players.get(0).hand.cards){
-    		Button card = minionToButton.convert(m);
+    		Button card = minionToButton.convertForHand(m);
     		gridpane.add(card, i, 60);
     		
     		i++;
@@ -85,7 +85,7 @@ public class fxDisplay extends Application {
     	
     	int i2 = 0;
     	for(Minion m : gs.players.get(1).hand.cards){
-    		Button card = minionToButton.convert(m);
+    		Button card = minionToButton.convertForHand(m);
     		gridpane.add(card, i2, 0);
     		
     		i2++;
@@ -93,7 +93,7 @@ public class fxDisplay extends Application {
     	//update field
     	int j = 0;
     	for(Minion m: gs.players.get(0).minions){
-    		Button card = minionToButton.convert(m);
+    		Button card = minionToButton.convertForField(m);
     		gridpane.add(card, j, 40);
     		
     		j++;
@@ -101,7 +101,7 @@ public class fxDisplay extends Application {
     	
     	int j2 = 0;
     	for(Minion m: gs.players.get(1).minions){
-    		Button card = minionToButton.convert(m);
+    		Button card = minionToButton.convertForField(m);
     		gridpane.add(card, j2, 20);
     		
     		j2++;
