@@ -21,13 +21,18 @@ public class AttackHandler implements EventHandler<ActionEvent>{
 				System.out.println("attacked");
 			}
 			//whether the attack was successful or not, reset the attacking minion
+			//then update display
 			fxd.selectingAttackTarget = false;
 			fxd.attackingMinion = null;
+			fxd.updateDisplay();
 			
 		//no minion has been selected to attack with, so this click selects the minion
 		} else{
 			CardButton sourceButton = (CardButton)event.getSource();
 			Minion toAttackWith = sourceButton.minion;
+			if(toAttackWith.owner != fxd.gs.turnPlayer){
+				return;
+			}
 			fxd.selectingAttackTarget = true;
 			fxd.attackingMinion = toAttackWith;
 			System.out.println("selected");

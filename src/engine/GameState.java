@@ -33,8 +33,10 @@ public class GameState {
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
 		for(Minion m : turnPlayer.minions){
-			m.removeSummoningSickness();
+			m.removeSummoningSickness();//change this
+			m.resetTurnAttacks();
 		}
 		System.out.println("Its now player " + turn + "'s turn");
+		turnPlayer.draw(1);
 	}
 }

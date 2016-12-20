@@ -44,6 +44,12 @@ public class Minion {
 		target.health = target.health - atk;
 		health = health- target.atk;
 		System.out.println("Minion " + id + " attacked minion " + target.id);
+		if(target.health < 1){
+			target.destroy();
+		}
+		if(health < 1){
+			destroy();
+		}
 	}
 	
 	public void destroy(){
@@ -53,5 +59,8 @@ public class Minion {
 	
 	public void removeSummoningSickness(){
 		summoningSickness = false;
+	}
+	public void resetTurnAttacks(){
+		attacksThisTurn = 0;
 	}
 }

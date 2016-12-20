@@ -14,7 +14,7 @@ public class SummonHandler implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		CardButton sourceButton = (CardButton)event.getSource();
 		Minion toSummon = sourceButton.minion;
-		if(toSummon.canSummon()){
+		if(toSummon.canSummon() && toSummon.owner == fxd.gs.turnPlayer){
 			toSummon.summon();
 		}
 		

@@ -12,7 +12,7 @@ public class EndTurnHandler implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent event) {
 		fxd.gs.nextTurn();
-		
+		fxd.updateDisplay();
 	}
 
 }

@@ -31,7 +31,7 @@ public class BoardLayoutMaker {
         HBox bottomFieldHBox = new HBox();
         bottomFieldHBox.setPadding(new Insets(15, 12, 15, 12));
         bottomFieldHBox.setSpacing(10);
-        bottomFieldHBox.setStyle("-fx-background-color: #5f8fe8;");
+        bottomFieldHBox.setStyle("-fx-background-color: #9ec4ff;");
         
         HBox topHBox = new HBox();
         topHBox.setPadding(new Insets(15, 12, 15, 12));
