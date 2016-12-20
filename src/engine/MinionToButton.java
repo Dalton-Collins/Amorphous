@@ -8,25 +8,37 @@ public class MinionToButton {
 	public MinionToButton(fxDisplay fxdd){
 		fxd = fxdd;
 	}
+	
+	//this button is in the hand and can summon cards
 	public Button convertForHand(Minion m){
 		
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText, m);
-		cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		if(m.owner.id == 0){
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		}else{
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+		}
 		cb.setOnAction(fxd.summonHandler);
 		return cb;
 	}
 	
-public Button convertForField(Minion m){
+	//this button is on the field and can attack
+	public Button convertForField(Minion m){
 		
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText, m);
-		cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
-		cb.setOnAction(fxd.summonHandler);
+		if(m.owner.id == 0){
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		}else{
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+		}
+		
+		cb.setOnAction(fxd.attackHandler);
 		return cb;
 	}
 }

@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import javafx.scene.layout.VBox;
 
  
 public class fxDisplay extends Application {
@@ -17,6 +20,14 @@ public class fxDisplay extends Application {
 	MinionToButton minionToButton;
 	Stage primaryStage;
 	SummonHandler summonHandler;
+	AttackHandler attackHandler;
+	EndTurnHandler endTurnHandler;
+	BoardLayoutMaker boardLayoutMaker;
+	
+	//display states
+	boolean selectingAttackTarget = false;
+	Minion attackingMinion;
+	
     public static void main(String[] args) {
         launch(args);
     }
@@ -27,6 +38,8 @@ public class fxDisplay extends Application {
     	//Set Handlers
     	
     	summonHandler = new SummonHandler(this);
+    	attackHandler = new AttackHandler(this);
+    	endTurnHandler = new EndTurnHandler(this);
     	
     	//initialize
     	gs = new GameState();
@@ -35,17 +48,16 @@ public class fxDisplay extends Application {
     	primaryStage = primaryStagee;
     	primaryStage.setTitle("Amorphous");
     	
+    	boardLayoutMaker = new BoardLayoutMaker();
+    	
+    	
     	//layouts
+        BorderPane boardLayout = boardLayoutMaker.getLayout();
+        
         StackPane titleLayout = new StackPane();
-        
-        GridPane gridpane = new GridPane();
-        gridpane.setPadding(new Insets(5));
-        gridpane.setHgap(10);
-        gridpane.setVgap(10);
-        
         //scenes
         Scene titleScreen = new Scene (titleLayout, 1000, 800);
-        Scene boardScene = new Scene (gridpane, 1000, 800);
+        Scene boardScene = new Scene (boardLayout, 1000, 800);
         
         //buttons
         Button strtbtn = new Button();
@@ -68,43 +80,42 @@ public class fxDisplay extends Application {
     }
     
     public void updateDisplay(){
-    	GridPane gridpane = new GridPane();
-        gridpane.setPadding(new Insets(5));
-        gridpane.setHgap(10);
-        gridpane.setVgap(1);
-    	Scene boardScene = new Scene(gridpane, 1000, 800);
     	
+    	BorderPane boardLayout = boardLayoutMaker.getLayout();
+    	Scene boardScene = new Scene(boardLayout, 1000, 800);
+    	
+    	Button endTurn = new Button();
+        endTurn.setText("End Turn");
+        endTurn.setOnAction(endTurnHandler);
+        ((VBox)boardLayout.getRight()).getChildren().add(endTurn);
     	//update hands
-    	int i = 0;
     	for(Minion m : gs.players.get(0).hand.cards){
     		Button card = minionToButton.convertForHand(m);
-    		gridpane.add(card, i, 60);
-    		
-    		i++;
+    		HBox bottomHBox = (HBox) boardLayout.getBottom();
+    		bottomHBox.getChildren().add(card);
     	}
     	
-    	int i2 = 0;
     	for(Minion m : gs.players.get(1).hand.cards){
     		Button card = minionToButton.convertForHand(m);
-    		gridpane.add(card, i2, 0);
+    		HBox topHBox = (HBox) boardLayout.getTop();
+    		topHBox.getChildren().add(card);
     		
-    		i2++;
     	}
     	//update field
-    	int j = 0;
     	for(Minion m: gs.players.get(0).minions){
     		Button card = minionToButton.convertForField(m);
-    		gridpane.add(card, j, 40);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
+    		bottomFieldHBox.getChildren().add(card);
     		
-    		j++;
     	}
     	
-    	int j2 = 0;
     	for(Minion m: gs.players.get(1).minions){
     		Button card = minionToButton.convertForField(m);
-    		gridpane.add(card, j2, 20);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
+    		topFieldHBox.getChildren().add(card);
     		
-    		j2++;
     	}
     	
     	primaryStage.setScene(boardScene);
