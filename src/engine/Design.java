@@ -9,7 +9,7 @@ Card game base
     minions have atk health and cost
     minions can have effects which alter the game
     minions can attack other minions or the player
-    the defending play can choose to block with their minions or not
+    players can choose to allow their minions to be attacked or not**
     players have life points that determine winner
     
 Effects

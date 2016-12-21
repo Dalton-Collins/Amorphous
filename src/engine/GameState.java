@@ -17,8 +17,11 @@ public class GameState {
 	public AffectStack affectStack;
 	public MinionFactory minionFactory;
 	
-	public void initGameState(){
+	public fxDisplay fxd;
+	
+	public void initGameState(fxDisplay fxdd){
 		//initialize game
+		fxd = fxdd;
 		players = new ArrayList<Player>();
 		Deck deck1 = new Deck();
 		Deck deck2 = new Deck();

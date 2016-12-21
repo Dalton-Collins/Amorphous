@@ -1,5 +1,6 @@
 package engine;
 
+//this class handles minions stats and interactions
 public class Minion {
 	int id;
 	String name;
@@ -9,10 +10,10 @@ public class Minion {
 	String type;
 	public Player owner;
 	Effect effect;
+	int attacksThisTurn = 0;
+	int maxAttacks = 1;
 	
 	boolean summoningSickness;
-	int attacksThisTurn;
-	int maxAttacks;
 	
 	public Minion(Player ownerr){
 		owner  = ownerr;
@@ -30,9 +31,8 @@ public class Minion {
 		
 		System.out.println("Minion " + id + " was summoned");
 		
-		//create and send out event
-		Event e = new Event();
-		e.eventType = "summon";
+		//create and send out summon event
+		Event e = new Event("summon");
 		e.m = this;
 		GameState.getGameState().affectStack.handleEvent(e);
 	}
@@ -50,21 +50,32 @@ public class Minion {
 	}
 	
 	public void attack(Minion target){
+		Event e = new Event("declaredAttack");
+		e.m = this;
+		e.m2 = target;
+		GameState.getGameState().affectStack.handleEvent(e);
+		
 		attacksThisTurn+=1;
 		target.health = target.health - atk;
 		health = health- target.atk;
 		System.out.println("Minion " + id + " attacked minion " + target.id);
 		if(target.health < 1){
-			target.destroy();
+			target.destroy(this);
 		}
 		if(health < 1){
-			destroy();
+			destroy(target);
 		}
 	}
 	
-	public void destroy(){
+	public void destroy(Minion destroyer){
 		owner.minions.remove(this);
 		System.out.println("Minion " + id + " was destroyed");
+		
+		//create destroyed event
+		Event e = new Event("minionDestroyed");
+		e.m = this;//this was destroyed destroyer/m2
+		e.m2 = destroyer;
+		GameState.getGameState().affectStack.handleEvent(e);
 	}
 	
 	public void removeSummoningSickness(){

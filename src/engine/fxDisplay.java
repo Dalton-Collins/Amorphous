@@ -44,7 +44,7 @@ public class fxDisplay extends Application {
     	endTurnHandler = new EndTurnHandler(this);
     	
     	//initialize
-    	GameState.getGameState().initGameState();
+    	GameState.getGameState().initGameState(this);
     	
     	minionToButton = new MinionToButton(this);
     	
