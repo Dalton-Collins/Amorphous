@@ -21,7 +21,7 @@ public class BoardLayoutMaker {
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
         gridpane.setHgap(10);
-        gridpane.setVgap(5);
+        gridpane.setVgap(20);
         
         HBox topFieldHBox = new HBox();
         topFieldHBox.setPadding(new Insets(15, 12, 15, 12));
@@ -48,11 +48,17 @@ public class BoardLayoutMaker {
         rightVBox.setSpacing(10);
         rightVBox.setStyle("-fx-background-color: #565656;");
         
+        VBox leftVBox = new VBox();
+        leftVBox.setPadding(new Insets(15, 12, 15, 12));
+        leftVBox.setSpacing(10);
+        leftVBox.setStyle("-fx-background-color: #565656;");
+        
         BorderPane border = new BorderPane();
         border.setTop(topHBox);
         border.setBottom(bottomHBox);
         border.setCenter(gridpane);
         border.setRight(rightVBox);
+        border.setLeft(leftVBox);
         
         gridpane.add(bottomFieldHBox, 0, 4);
         gridpane.add(topFieldHBox, 0, 0);

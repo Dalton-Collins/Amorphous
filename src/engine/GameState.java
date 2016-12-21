@@ -37,6 +37,7 @@ public class GameState {
 			m.resetTurnAttacks();
 		}
 		System.out.println("Its now player " + turn + "'s turn");
+		turnPlayer.mana = turnPlayer.maxMana;
 		turnPlayer.draw(1);
 	}
 }

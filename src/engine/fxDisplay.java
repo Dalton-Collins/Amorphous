@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -12,6 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
  
 public class fxDisplay extends Application {
@@ -56,8 +59,8 @@ public class fxDisplay extends Application {
         
         StackPane titleLayout = new StackPane();
         //scenes
-        Scene titleScreen = new Scene (titleLayout, 1000, 800);
-        Scene boardScene = new Scene (boardLayout, 1000, 800);
+        Scene titleScreen = new Scene (titleLayout, 1200, 1000);
+        Scene boardScene = new Scene (boardLayout, 1200, 1000);
         
         //buttons
         Button strtbtn = new Button();
@@ -80,14 +83,42 @@ public class fxDisplay extends Application {
     }
     
     public void updateDisplay(){
-    	
+    	//create new scene
     	BorderPane boardLayout = boardLayoutMaker.getLayout();
-    	Scene boardScene = new Scene(boardLayout, 1000, 800);
+    	Scene boardScene = new Scene(boardLayout, 1200, 1000);
     	
+    	//buttons 
     	Button endTurn = new Button();
         endTurn.setText("End Turn");
         endTurn.setOnAction(endTurnHandler);
         ((VBox)boardLayout.getRight()).getChildren().add(endTurn);
+        
+        //labels
+        //update mana/life
+        Label p2Mana = new Label();
+        p2Mana.setText("Mana: " + gs.players.get(1).mana);
+        p2Mana.setFont(new Font("Arial", 30));
+        p2Mana.setTextFill(Color.web("#ff38c3"));
+        ((VBox)boardLayout.getLeft()).getChildren().add(p2Mana);
+        
+        Label p2Life = new Label();
+        p2Life.setText("Life: " + gs.players.get(1).life);
+        p2Life.setFont(new Font("Arial", 30));
+        p2Life.setTextFill(Color.web("#ff5e5e"));
+        ((VBox)boardLayout.getLeft()).getChildren().add(p2Life);
+        
+        Label p1Life = new Label();
+        p1Life.setText("Life: " + gs.players.get(0).life);
+        p1Life.setFont(new Font("Arial", 30));
+        p1Life.setTextFill(Color.web("#3891ff"));
+        ((VBox)boardLayout.getLeft()).getChildren().add(p1Life);
+        
+        Label p1Mana = new Label();
+        p1Mana.setText("Mana: " + gs.players.get(0).mana);
+        p1Mana.setFont(new Font("Arial", 30));
+        p1Mana.setTextFill(Color.web("#38d0ff"));
+        ((VBox)boardLayout.getLeft()).getChildren().add(p1Mana);
+        
     	//update hands
     	for(Minion m : gs.players.get(0).hand.cards){
     		Button card = minionToButton.convertForHand(m);
@@ -117,7 +148,6 @@ public class fxDisplay extends Application {
     		topFieldHBox.getChildren().add(card);
     		
     	}
-    	
     	primaryStage.setScene(boardScene);
     }
 }

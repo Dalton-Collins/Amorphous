@@ -15,14 +15,16 @@ public class Minion {
 	int maxAttacks;
 	GameState gs;
 	
-	public Minion(GameState gss){
+	public Minion(GameState gss, Player ownerr){
 		gs = gss;
+		owner  = ownerr;
 	}
-	//summons a minion to the field
+	//summons this minion to the field
 	public void summon(){
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
 		summoningSickness = true;
+		owner.mana = owner.mana - cost;
 		System.out.println("Minion " + id + " was summoned");
 		//trigger summoned event
 	}

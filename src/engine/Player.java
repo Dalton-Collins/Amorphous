@@ -8,9 +8,9 @@ public class Player {
 	Deck deck;
 	ArrayList<Minion> minions;
 	int totalMinions;
-	int mana;
+	int mana; //can spend mana to add max mana
 	int maxMana = 100;
-	int life = 50;
+	int life = 100;
 	public Player(Deck deckk, int idd){
 		hand = new Hand();
 		mana = 100;
