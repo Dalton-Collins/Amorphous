@@ -4,10 +4,12 @@ package engine;
 //that change the game
 public class Effect {
 	int effectId;
+	Minion owner;
 	Trigger trigger;//this is the object we ask to check if the affect will be activated
 	Affect affect;//this will change the game when activated
 	
-	public Effect(Trigger trig, Affect aff){
+	public Effect(Minion ownerr, Trigger trig, Affect aff){
+		owner = ownerr;
 		trigger = trig;
 		affect = aff;
 	}

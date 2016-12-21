@@ -19,7 +19,7 @@ public class MinionFactory {
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
 		DamageEnemyLife del = new DamageEnemyLife();
-		Effect E = new Effect(onsummon, del);
+		Effect E = new Effect(m, onsummon, del);
 		m.effect = E;
 		return m;
 	}

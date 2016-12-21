@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
 public class GameState {
+	
 	public ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
-	
+	public ActiveEffects activeEffects;
 	
 	public GameState(){
 		//initialize game
@@ -16,6 +17,8 @@ public class GameState {
 		Deck deck2 = new Deck();
 		players.add(new Player(deck1, 0));
 		players.add(new Player(deck2, 1));
+		
+		activeEffects = new ActiveEffects();
 		
 		for(int i = 1; i < 31; i++){
 			deck1.cards.add(new TestMinion(players.get(0), this, (i*2) - 1));

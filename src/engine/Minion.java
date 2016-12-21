@@ -25,6 +25,10 @@ public class Minion {
 		owner.minions.add(this);
 		summoningSickness = true;
 		owner.mana = owner.mana - cost;
+		if(effect != null){
+			gs.activeEffects.addEffect(effect);
+		}
+		
 		System.out.println("Minion " + id + " was summoned");
 		//trigger summoned event
 	}
