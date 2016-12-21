@@ -14,7 +14,7 @@ public class SelectAndDestroyMinionAffect implements Affect{
 	public void applyAffect() {
 		GameState.getGameState().affectStack.pauseProcessing = true;
 		
-		GameState.getGameState().affectStack.afterSelectionAffect = new DestroyMinionAffect();
+		GameState.getGameState().affectStack.afterSelectionAffect = new DestroyMinionAffect(owner);
 		GameState.getGameState().fxd.affectSelection(this);
 	}
 

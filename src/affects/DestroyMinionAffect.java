@@ -6,12 +6,15 @@ import engine.Minion;
 public class DestroyMinionAffect implements Affect{
 	
 	Minion target = null;
-	Minion destroyer = null;
+	Minion owner;
+	
+	public DestroyMinionAffect(Minion ownerr){
+		owner = ownerr;
+	}
 	@Override
 	public void applyAffect() {
 		assert(target != null);
-		assert(destroyer != null);
-		target.destroy(destroyer);
+		target.destroy(owner);
 	}
 
 }
