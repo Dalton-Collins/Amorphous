@@ -3,14 +3,14 @@ package engine;
 import java.util.ArrayList;
 
 public class Player {
-	int id;
-	Hand hand;
-	Deck deck;
-	ArrayList<Minion> minions;
-	int totalMinions;
-	int mana; //can spend mana to add max mana
-	int maxMana = 100;
-	int life = 100;
+	public int id;
+	public Hand hand;
+	public Deck deck;
+	public ArrayList<Minion> minions;
+	public int totalMinions;
+	public int mana; //can spend mana to add max mana
+	public int maxMana = 100;
+	public int life = 100;
 	public Player(Deck deckk, int idd){
 		hand = new Hand();
 		mana = 100;

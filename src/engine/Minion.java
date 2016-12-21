@@ -8,8 +8,8 @@ public class Minion {
 	int health;
 	String type;
 	Player owner;
+	Effect effect;
 	
-	Affect effect;
 	boolean summoningSickness;
 	int attacksThisTurn;
 	int maxAttacks;

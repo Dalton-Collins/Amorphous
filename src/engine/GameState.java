@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
 public class GameState {
-	ArrayList<Player> players;
+	public ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
 	
@@ -39,5 +39,13 @@ public class GameState {
 		System.out.println("Its now player " + turn + "'s turn");
 		turnPlayer.mana = turnPlayer.maxMana;
 		turnPlayer.draw(1);
+	}
+	
+	public Player getEnemy(Player p){
+		if(players.get(0) == p){
+			return players.get(1);
+		}else{
+			return players.get(0);
+		}
 	}
 }
