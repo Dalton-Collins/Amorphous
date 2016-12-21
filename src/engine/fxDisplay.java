@@ -1,8 +1,13 @@
 package engine;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,12 +30,15 @@ public class fxDisplay extends Application {
 	AttackHandler attackHandler;
 	EndTurnHandler endTurnHandler;
 	BoardLayoutMaker boardLayoutMaker;
+	AffectSelectHandler affectSelectHandler;
 	
 	//display states
 	boolean selectingAttackTarget = false;
-	boolean selectingEffectTarget = false;
+	boolean selectingAffectTarget = false;
 	
 	Minion attackingMinion;
+	
+	
 	
     public static void main(String[] args) {
         launch(args);
@@ -44,6 +52,7 @@ public class fxDisplay extends Application {
     	summonHandler = new SummonHandler(this);
     	attackHandler = new AttackHandler(this);
     	endTurnHandler = new EndTurnHandler(this);
+    	affectSelectHandler = new AffectSelectHandler(this);
     	
     	//initialize
     	GameState.getGameState().initGameState(this);
@@ -90,14 +99,102 @@ public class fxDisplay extends Application {
     	Scene boardScene = new Scene(boardLayout, 1200, 1000);
     	
     	//buttons 
+    	setEndTurnButton(boardLayout);
+        
+        //labels
+        //update mana/life
+        setManaLife(boardLayout);
+        
+    	//update hands
+        setHandCards(boardLayout);
+    	
+    	//update field
+    	setFieldCards(boardLayout);
+
+    	primaryStage.setScene(boardScene);
+    }
+    
+    public void affectSelection(Affect a){
+    	selectingAffectTarget = true;
+    	
+    	BorderPane boardLayout = boardLayoutMaker.getLayout();
+    	Scene boardScene = new Scene(boardLayout, 1200, 1000);
+    	
+        setEndTurnButton(boardLayout);
+        
+        //labels
+        //update mana/life
+        setManaLife(boardLayout);
+        
+    	//update hands
+        setHandCards(boardLayout);
+    	
+    	//update field
+    	setEffectSelectionCards(boardLayout);
+
+    	primaryStage.setScene(boardScene);
+    }
+    
+    void setEndTurnButton(BorderPane boardLayout){
     	Button endTurn = new Button();
         endTurn.setText("End Turn");
         endTurn.setOnAction(endTurnHandler);
         ((VBox)boardLayout.getRight()).getChildren().add(endTurn);
-        
-        //labels
-        //update mana/life
-        Label p2Mana = new Label();
+    }
+    
+    void setFieldCards(BorderPane boardLayout){
+    	for(Minion m: GameState.getGameState().players.get(0).minions){
+    		Button card = minionToButton.convertForField(m);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
+    		bottomFieldHBox.getChildren().add(card);	
+    		
+    	}
+    	
+    	for(Minion m: GameState.getGameState().players.get(1).minions){
+    		Button card = minionToButton.convertForField(m);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
+    		topFieldHBox.getChildren().add(card);
+    		
+    	}
+    }
+    
+    void setEffectSelectionCards(BorderPane boardLayout){
+    	for(Minion m: GameState.getGameState().players.get(0).minions){
+    		Button card = minionToButton.convertForEffectSelection(m);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
+    		bottomFieldHBox.getChildren().add(card);	
+    		
+    	}
+    	
+    	for(Minion m: GameState.getGameState().players.get(1).minions){
+    		Button card = minionToButton.convertForEffectSelection(m);
+    		GridPane gridPane = (GridPane) boardLayout.getCenter();
+    		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
+    		topFieldHBox.getChildren().add(card);
+    		
+    	}
+    }
+    
+    void setHandCards(BorderPane boardLayout){
+    	for(Minion m : GameState.getGameState().players.get(0).hand.cards){
+    		Button card = minionToButton.convertForHand(m);
+    		HBox bottomHBox = (HBox) boardLayout.getBottom();
+    		bottomHBox.getChildren().add(card);
+    	}
+    	
+    	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
+    		Button card = minionToButton.convertForHand(m);
+    		HBox topHBox = (HBox) boardLayout.getTop();
+    		topHBox.getChildren().add(card);
+    		
+    	}
+    }
+    
+    void setManaLife(BorderPane boardLayout){
+    	Label p2Mana = new Label();
         p2Mana.setText("Mana: " + GameState.getGameState().players.get(1).mana);
         p2Mana.setFont(new Font("Arial", 30));
         p2Mana.setTextFill(Color.web("#ff38c3"));
@@ -120,36 +217,5 @@ public class fxDisplay extends Application {
         p1Mana.setFont(new Font("Arial", 30));
         p1Mana.setTextFill(Color.web("#38d0ff"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p1Mana);
-        
-    	//update hands
-    	for(Minion m : GameState.getGameState().players.get(0).hand.cards){
-    		Button card = minionToButton.convertForHand(m);
-    		HBox bottomHBox = (HBox) boardLayout.getBottom();
-    		bottomHBox.getChildren().add(card);
-    	}
-    	
-    	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
-    		Button card = minionToButton.convertForHand(m);
-    		HBox topHBox = (HBox) boardLayout.getTop();
-    		topHBox.getChildren().add(card);
-    		
-    	}
-    	//update field
-    	for(Minion m: GameState.getGameState().players.get(0).minions){
-    		Button card = minionToButton.convertForField(m);
-    		GridPane gridPane = (GridPane) boardLayout.getCenter();
-    		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
-    		bottomFieldHBox.getChildren().add(card);	
-    		
-    	}
-    	
-    	for(Minion m: GameState.getGameState().players.get(1).minions){
-    		Button card = minionToButton.convertForField(m);
-    		GridPane gridPane = (GridPane) boardLayout.getCenter();
-    		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);
-    		topFieldHBox.getChildren().add(card);
-    		
-    	}
-    	primaryStage.setScene(boardScene);
     }
 }

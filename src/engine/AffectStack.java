@@ -10,20 +10,30 @@ public class AffectStack {
 	
 	LinkedList<Affect> affectsToProcess;
 	boolean processing;
+	public boolean pauseProcessing;
+	public Affect afterSelectionAffect;
 	
 	public AffectStack(){
 		affectsToProcess = new LinkedList<Affect>();
 		processing = false;
+		pauseProcessing = false;
 	}
 	
 	public void handleEvent(Event event){
-		for(Effect effect : GameState.getGameState().activeEffects.activeEffects){
-			if(effect.trigger.isTriggered(event, effect.owner)){
-				affectsToProcess.add(effect.affect);
+		if(event.eventType == "resumeProcessing"){
+			pauseProcessing = false;
+			processing = false;
+			assert(afterSelectionAffect != null);
+			affectsToProcess.add(0, afterSelectionAffect);
+		} else{
+			for(Effect effect : GameState.getGameState().activeEffects.activeEffects){
+				if(effect.trigger.isTriggered(event, effect.owner)){
+					affectsToProcess.add(effect.affect);
+				}
 			}
 		}
 		if(!processing){
-			while(!affectsToProcess.isEmpty()){
+			while(!affectsToProcess.isEmpty() && !pauseProcessing){
 				processing = true;
 				//process the first affect
 				Affect a = affectsToProcess.poll();

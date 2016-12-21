@@ -41,4 +41,20 @@ public class MinionToButton {
 		cb.setOnAction(fxd.attackHandler);
 		return cb;
 	}
+	
+	public Button convertForEffectSelection(Minion m){
+		
+		String cardText = "";
+		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		"ATK " + m.atk + "   HP " + m.health;
+		CardButton cb = new CardButton(cardText, m);
+		if(m.owner.id == 0){
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+		}else{
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+		}
+		
+		cb.setOnAction(fxd.affectSelectHandler);
+		return cb;
+	}
 }
