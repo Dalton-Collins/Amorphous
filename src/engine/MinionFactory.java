@@ -7,8 +7,8 @@ import triggers.OnSummonTrigger;
 // each function will create a minion
 public class MinionFactory {
 	
-	public Minion makeRat(GameState gs, Player p){
-		Minion m = new Minion(gs, p);
+	public Minion makeRat(Player p){
+		Minion m = new Minion( p);
 		
 		m.id = 2;
 		m.name = "Rat";
@@ -18,7 +18,7 @@ public class MinionFactory {
 		m.type = "beast";
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
-		DamageEnemyLife del = new DamageEnemyLife();
+		DamageEnemyLife del = new DamageEnemyLife(m, 5);
 		Effect E = new Effect(m, onsummon, del);
 		m.effect = E;
 		return m;

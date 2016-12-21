@@ -3,14 +3,18 @@ package engine;
 import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
+//uses the singleton pattern to allow global access to the single instance of this class
 public class GameState {
+	
+	private static GameState self = new GameState();
+	
 	
 	public ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
 	public ActiveEffects activeEffects;
 	
-	public GameState(){
+	public void initGameState(){
 		//initialize game
 		players = new ArrayList<Player>();
 		Deck deck1 = new Deck();
@@ -29,6 +33,10 @@ public class GameState {
 		players.get(1).draw(4);
 		
 		turnPlayer = players.get(0);
+	}
+	
+	public static GameState getGameState() { 
+		return self; 
 	}
 	
 	public void nextTurn(){

@@ -11,7 +11,7 @@ public class EndTurnHandler implements EventHandler<ActionEvent>{
 	}
 	@Override
 	public void handle(ActionEvent event) {
-		fxd.gs.nextTurn();
+		GameState.getGameState().nextTurn();
 		fxd.updateDisplay();
 	}
 

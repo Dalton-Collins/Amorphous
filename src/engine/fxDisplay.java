@@ -19,7 +19,6 @@ import javafx.scene.text.Font;
  
 public class fxDisplay extends Application {
 	
-	GameState gs;
 	MinionToButton minionToButton;
 	Stage primaryStage;
 	SummonHandler summonHandler;
@@ -45,7 +44,8 @@ public class fxDisplay extends Application {
     	endTurnHandler = new EndTurnHandler(this);
     	
     	//initialize
-    	gs = new GameState();
+    	GameState.getGameState().initGameState();
+    	
     	minionToButton = new MinionToButton(this);
     	
     	primaryStage = primaryStagee;
@@ -96,52 +96,52 @@ public class fxDisplay extends Application {
         //labels
         //update mana/life
         Label p2Mana = new Label();
-        p2Mana.setText("Mana: " + gs.players.get(1).mana);
+        p2Mana.setText("Mana: " + GameState.getGameState().players.get(1).mana);
         p2Mana.setFont(new Font("Arial", 30));
         p2Mana.setTextFill(Color.web("#ff38c3"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p2Mana);
         
         Label p2Life = new Label();
-        p2Life.setText("Life: " + gs.players.get(1).life);
+        p2Life.setText("Life: " + GameState.getGameState().players.get(1).life);
         p2Life.setFont(new Font("Arial", 30));
         p2Life.setTextFill(Color.web("#ff5e5e"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p2Life);
         
         Label p1Life = new Label();
-        p1Life.setText("Life: " + gs.players.get(0).life);
+        p1Life.setText("Life: " + GameState.getGameState().players.get(0).life);
         p1Life.setFont(new Font("Arial", 30));
         p1Life.setTextFill(Color.web("#3891ff"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p1Life);
         
         Label p1Mana = new Label();
-        p1Mana.setText("Mana: " + gs.players.get(0).mana);
+        p1Mana.setText("Mana: " + GameState.getGameState().players.get(0).mana);
         p1Mana.setFont(new Font("Arial", 30));
         p1Mana.setTextFill(Color.web("#38d0ff"));
         ((VBox)boardLayout.getLeft()).getChildren().add(p1Mana);
         
     	//update hands
-    	for(Minion m : gs.players.get(0).hand.cards){
+    	for(Minion m : GameState.getGameState().players.get(0).hand.cards){
     		Button card = minionToButton.convertForHand(m);
     		HBox bottomHBox = (HBox) boardLayout.getBottom();
     		bottomHBox.getChildren().add(card);
     	}
     	
-    	for(Minion m : gs.players.get(1).hand.cards){
+    	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
     		Button card = minionToButton.convertForHand(m);
     		HBox topHBox = (HBox) boardLayout.getTop();
     		topHBox.getChildren().add(card);
     		
     	}
     	//update field
-    	for(Minion m: gs.players.get(0).minions){
+    	for(Minion m: GameState.getGameState().players.get(0).minions){
     		Button card = minionToButton.convertForField(m);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox bottomFieldHBox = (HBox) gridPane.getChildren().get(0);
-    		bottomFieldHBox.getChildren().add(card);
+    		bottomFieldHBox.getChildren().add(card);	
     		
     	}
     	
-    	for(Minion m: gs.players.get(1).minions){
+    	for(Minion m: GameState.getGameState().players.get(1).minions){
     		Button card = minionToButton.convertForField(m);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();
     		HBox topFieldHBox = (HBox) gridPane.getChildren().get(1);

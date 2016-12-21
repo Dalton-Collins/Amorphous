@@ -7,16 +7,14 @@ public class Minion {
 	int atk;
 	int health;
 	String type;
-	Player owner;
+	public Player owner;
 	Effect effect;
 	
 	boolean summoningSickness;
 	int attacksThisTurn;
 	int maxAttacks;
-	GameState gs;
 	
-	public Minion(GameState gss, Player ownerr){
-		gs = gss;
+	public Minion(Player ownerr){
 		owner  = ownerr;
 	}
 	//summons this minion to the field
@@ -25,12 +23,14 @@ public class Minion {
 		owner.minions.add(this);
 		summoningSickness = true;
 		owner.mana = owner.mana - cost;
+		
 		if(effect != null){
-			gs.activeEffects.addEffect(effect);
+			GameState.getGameState().activeEffects.addEffect(effect);
 		}
 		
 		System.out.println("Minion " + id + " was summoned");
-		//trigger summoned event
+		
+		
 	}
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future

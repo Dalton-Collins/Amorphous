@@ -30,7 +30,7 @@ public class AttackHandler implements EventHandler<ActionEvent>{
 		} else{
 			CardButton sourceButton = (CardButton)event.getSource();
 			Minion toAttackWith = sourceButton.minion;
-			if(toAttackWith.owner != fxd.gs.turnPlayer){
+			if(toAttackWith.owner != GameState.getGameState().turnPlayer){
 				return;
 			}
 			fxd.selectingAttackTarget = true;
