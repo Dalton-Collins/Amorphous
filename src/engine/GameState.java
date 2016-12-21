@@ -12,7 +12,10 @@ public class GameState {
 	public ArrayList<Player> players;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
+	
 	public ActiveEffects activeEffects;
+	public AffectStack affectStack;
+	public MinionFactory minionFactory;
 	
 	public void initGameState(){
 		//initialize game
@@ -23,10 +26,12 @@ public class GameState {
 		players.add(new Player(deck2, 1));
 		
 		activeEffects = new ActiveEffects();
+		affectStack = new AffectStack();
+		minionFactory = new MinionFactory();
 		
 		for(int i = 1; i < 31; i++){
-			deck1.cards.add(new TestMinion(players.get(0), this, (i*2) - 1));
-			deck2.cards.add(new TestMinion(players.get(1), this, i*2));
+			deck1.cards.add(minionFactory.makeRat(players.get(0), (i*2) - 1));
+			deck2.cards.add(minionFactory.makeRat(players.get(1), i*2));
 		}
 		
 		players.get(0).draw(4);

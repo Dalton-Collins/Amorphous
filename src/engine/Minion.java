@@ -30,7 +30,11 @@ public class Minion {
 		
 		System.out.println("Minion " + id + " was summoned");
 		
-		
+		//create and send out event
+		Event e = new Event();
+		e.eventType = "summon";
+		e.m = this;
+		GameState.getGameState().affectStack.handleEvent(e);
 	}
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future

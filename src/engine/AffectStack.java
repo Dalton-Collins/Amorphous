@@ -9,9 +9,11 @@ import java.util.LinkedList;
 public class AffectStack {
 	
 	LinkedList<Affect> affectsToProcess;
+	boolean processing;
 	
 	public AffectStack(){
 		affectsToProcess = new LinkedList<Affect>();
+		processing = false;
 	}
 	
 	public void handleEvent(Event event){
@@ -20,11 +22,16 @@ public class AffectStack {
 				affectsToProcess.add(effect.affect);
 			}
 		}
-		
-		while(!affectsToProcess.isEmpty()){
-			//process the first affect
-			Affect a = affectsToProcess.poll();
-			a.applyAffect();
+		if(!processing){
+			while(!affectsToProcess.isEmpty()){
+				processing = true;
+				//process the first affect
+				Affect a = affectsToProcess.poll();
+				a.applyAffect();
+			}
+		}
+		if(affectsToProcess.isEmpty()){
+			processing = false;
 		}
 	}
 	

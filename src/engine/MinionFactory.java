@@ -7,10 +7,10 @@ import triggers.OnSummonTrigger;
 // each function will create a minion
 public class MinionFactory {
 	
-	public Minion makeRat(Player p){
+	public Minion makeRat(Player p, int idd){
 		Minion m = new Minion( p);
 		
-		m.id = 2;
+		m.id = idd;
 		m.name = "Rat";
 		m.cost = 40;
 		m.atk = 2;
