@@ -28,6 +28,8 @@ public class fxDisplay extends Application {
 	
 	//display states
 	boolean selectingAttackTarget = false;
+	boolean selectingEffectTarget = false;
+	
 	Minion attackingMinion;
 	
     public static void main(String[] args) {
