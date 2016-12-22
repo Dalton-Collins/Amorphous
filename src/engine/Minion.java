@@ -7,7 +7,7 @@ public class Minion {
 	int cost;
 	int atk;
 	int health;
-	String type;
+	String type;// curent types: humanoid beast machine
 	public Player owner;
 	Effect effect;
 	int attacksThisTurn = 0;
