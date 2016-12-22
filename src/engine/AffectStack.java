@@ -1,6 +1,5 @@
 package engine;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 //this class holds a list of affects that are to be applied

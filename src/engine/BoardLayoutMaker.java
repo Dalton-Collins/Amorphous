@@ -1,16 +1,9 @@
 package engine;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
 public class BoardLayoutMaker {
@@ -52,6 +45,7 @@ public class BoardLayoutMaker {
         leftVBox.setPadding(new Insets(15, 12, 15, 12));
         leftVBox.setSpacing(10);
         leftVBox.setStyle("-fx-background-color: #565656;");
+        //leftVBox.setStyle("-fx-background-color: rgba(0, 100, 100, 0.5);");
         
         BorderPane border = new BorderPane();
         border.setTop(topHBox);

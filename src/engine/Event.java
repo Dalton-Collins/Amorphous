@@ -16,5 +16,6 @@ public class Event {
 	minionDestroyed(this minion was destroyed by m2)
 	spentMana
 	resumeProcessing - for affects that require user input for their target
+	tookDamage
 	*/
 }

@@ -58,15 +58,9 @@ public class Minion {
 		GameState.getGameState().affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
-		target.health = target.health - atk;
-		health = health- target.atk;
+		target.damageMinion(atk, this);
+		damageMinion(target.atk, target);
 		System.out.println("Minion " + id + " attacked minion " + target.id);
-		if(target.health < 1){
-			target.destroy(this);
-		}
-		if(health < 1){
-			destroy(target);
-		}
 	}
 	
 	public void destroy(Minion destroyer){
@@ -85,5 +79,17 @@ public class Minion {
 	}
 	public void resetTurnAttacks(){
 		attacksThisTurn = 0;
+	}
+	
+	void damageMinion(int damage, Minion damager){
+		health-=damage;
+		Event e = new Event("tookDamage");
+		e.m = this;
+		e.m2 = damager;
+		GameState.getGameState().affectStack.handleEvent(e);
+		
+		if(health <1){
+			destroy(damager);
+		}
 	}
 }
