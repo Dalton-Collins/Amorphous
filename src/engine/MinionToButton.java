@@ -49,9 +49,9 @@ public class MinionToButton {
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText, m);
 		if(m.owner.id == 0){
-			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #e4fc6c;");
 		}else{
-			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+			cb.setStyle("-fx-font: 20 arial; -fx-base: #e4fc6c;");
 		}
 		
 		cb.setOnAction(fxd.affectSelectHandler);

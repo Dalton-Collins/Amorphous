@@ -11,7 +11,7 @@ public class AffectStack {
 	LinkedList<Affect> affectsToProcess;
 	boolean processing;
 	public boolean pauseProcessing;
-	public Affect afterSelectionAffect;
+	public AfterSelectionAffect afterSelectionAffect;
 	
 	public AffectStack(){
 		affectsToProcess = new LinkedList<Affect>();
@@ -29,6 +29,7 @@ public class AffectStack {
 			for(Effect effect : GameState.getGameState().activeEffects.activeEffects){
 				if(effect.trigger.isTriggered(event, effect.owner)){
 					affectsToProcess.add(effect.affect);
+					System.out.println("added affect triggered by: " + event.eventType);
 				}
 			}
 		}
@@ -37,6 +38,7 @@ public class AffectStack {
 				processing = true;
 				//process the first affect
 				Affect a = affectsToProcess.poll();
+				System.out.println("applying effect");
 				a.applyAffect();
 			}
 		}

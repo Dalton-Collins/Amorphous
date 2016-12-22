@@ -27,6 +27,7 @@ public class Minion {
 		
 		if(effect != null){
 			GameState.getGameState().activeEffects.addEffect(effect);
+			System.out.println("added minion :" + name + "'s effect");
 		}
 		
 		System.out.println("Minion " + id + " was summoned");

@@ -115,6 +115,7 @@ public class fxDisplay extends Application {
     }
     
     public void affectSelection(Affect a){
+    	System.out.println("enter affect selection");
     	selectingAffectTarget = true;
     	
     	BorderPane boardLayout = boardLayoutMaker.getLayout();
