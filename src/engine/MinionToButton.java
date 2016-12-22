@@ -15,7 +15,8 @@ public class MinionToButton {
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
-		CardButton cb = new CardButton(cardText, m);
+		CardButton cb = new CardButton(cardText);
+		cb.minion = m;
 		if(m.owner.id == 0){
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
 		}else{
@@ -31,7 +32,8 @@ public class MinionToButton {
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
-		CardButton cb = new CardButton(cardText, m);
+		CardButton cb = new CardButton(cardText);
+		cb.minion = m;
 		if(m.owner.id == 0){
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
 		}else{
@@ -47,7 +49,8 @@ public class MinionToButton {
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
-		CardButton cb = new CardButton(cardText, m);
+		CardButton cb = new CardButton(cardText);
+		cb.minion = m;
 		if(m.owner.id == 0){
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #e4fc6c;");
 		}else{
@@ -62,7 +65,8 @@ public class MinionToButton {
 		String cardText = "";
 		cardText = cardText + m.name + m.id + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
-		CardButton cb = new CardButton(cardText, m);
+		CardButton cb = new CardButton(cardText);
+		cb.minion = m;
 		cb.setStyle("-fx-font: 20 arial; -fx-base: #777b82;");
 		return cb;
 	}

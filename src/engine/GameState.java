@@ -33,7 +33,7 @@ public class GameState {
 		minionFactory = new MinionFactory();
 		
 		for(int i = 1; i < 31; i++){
-			deck1.cards.add(minionFactory.makeBomber(players.get(0), (i*2) - 1));
+			deck1.cards.add(minionFactory.makeBerzerker(players.get(0), (i*2) - 1));
 			deck2.cards.add(minionFactory.makeRat(players.get(1), i*2));
 		}
 		
@@ -56,6 +56,7 @@ public class GameState {
 			m.resetTurnAttacks();
 		}
 		System.out.println("Its now player " + turn + "'s turn");
+		turnPlayer.maxMana+=10;
 		turnPlayer.mana = turnPlayer.maxMana;
 		turnPlayer.draw(1);
 	}

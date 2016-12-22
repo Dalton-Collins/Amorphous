@@ -9,11 +9,11 @@ public class Player {
 	public ArrayList<Minion> minions;
 	public int totalMinions;
 	public int mana; //can spend mana to add max mana
-	public int maxMana = 100;
-	public int life = 100;
+	public int maxMana = 20;
+	public int life = 300;
 	public Player(Deck deckk, int idd){
 		hand = new Hand();
-		mana = 100;
+		mana = 20;
 		deck = deckk;
 		id = idd;
 		minions = new ArrayList<Minion>();
@@ -30,5 +30,9 @@ public class Player {
 	//checks if the given number of cards can be drawn
 	public boolean canDraw(int numberOfCards){
 		return deck.cards.size() >= numberOfCards;
+	}
+	
+	public void damagePlayer(int damage, Minion damager){
+		life-=damage;
 	}
 }

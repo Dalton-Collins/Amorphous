@@ -4,8 +4,8 @@ import javafx.scene.control.Button;
 public class CardButton extends Button{
 	Minion minion;
 	Minion minion2;
-	public CardButton(String text, Minion mn){
+	Player p;
+	public CardButton(String text){
 		super(text);
-		minion = mn;
 	}
 }

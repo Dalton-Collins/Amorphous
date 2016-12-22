@@ -25,6 +25,7 @@ public class fxDisplay extends Application {
 	EndTurnHandler endTurnHandler;
 	BoardLayoutMaker boardLayoutMaker;
 	AffectSelectHandler affectSelectHandler;
+	DirectAttackHandler directAttackHandler;
 	
 	//display states
 	boolean selectingAttackTarget = false;
@@ -47,6 +48,7 @@ public class fxDisplay extends Application {
     	attackHandler = new AttackHandler(this);
     	endTurnHandler = new EndTurnHandler(this);
     	affectSelectHandler = new AffectSelectHandler(this);
+    	directAttackHandler = new DirectAttackHandler(this);
     	
     	//initialize
     	GameState.getGameState().initGameState(this);
@@ -152,7 +154,28 @@ public class fxDisplay extends Application {
         ((VBox)boardLayout.getRight()).getChildren().add(endTurn);
     }
     
+    void setPlayerDamageButton(BorderPane boardLayout, Player p){
+    	CardButton attackPlayer = new CardButton("      Direct Attack      ");
+    	attackPlayer.p = p;
+    	attackPlayer.setFont(new Font("Arial", 30));
+    	attackPlayer.setOnAction(directAttackHandler);
+    	GridPane grid = (GridPane)boardLayout.getCenter();
+    	if(p.id == 0){
+    		attackPlayer.setStyle("-fx-font: 20 arial; -fx-base: #2211ee;");
+    		grid.add(attackPlayer, 0, 4);
+    	} else{
+    		attackPlayer.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
+    		grid.add(attackPlayer, 0, 0);
+    	}
+    }
+    
     void setFieldCards(BorderPane boardLayout){
+    	if(GameState.getGameState().players.get(0).minions.isEmpty()){
+    		setPlayerDamageButton(boardLayout, GameState.getGameState().players.get(0));
+    	}
+    	if(GameState.getGameState().players.get(1).minions.isEmpty()){
+    		setPlayerDamageButton(boardLayout, GameState.getGameState().players.get(1));
+    	}
     	for(Minion m: GameState.getGameState().players.get(0).minions){
     		Button card = minionToButton.convertForField(m);
     		GridPane gridPane = (GridPane) boardLayout.getCenter();

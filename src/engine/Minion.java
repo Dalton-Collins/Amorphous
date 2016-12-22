@@ -2,16 +2,16 @@ package engine;
 
 //this class handles minions stats and interactions
 public class Minion {
-	int id;
-	String name;
-	int cost;
-	int atk;
-	int health;
-	String type;// curent types: humanoid beast machine
+	public int id;
+	public String name;
+	public int cost;
+	public int atk;
+	public int health;
+	public String type;// curent types: humanoid beast machine
 	public Player owner;
-	Effect effect;
-	int attacksThisTurn = 0;
-	int maxAttacks = 1;
+	public Effect effect;
+	public int attacksThisTurn = 0;
+	public int maxAttacks = 1;
 	
 	boolean summoningSickness;
 	
@@ -51,6 +51,13 @@ public class Minion {
 		return true;
 	}
 	
+	public boolean canAttack(Player target){
+		if(atk < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target == owner){
+			return false;
+		}
+		return true;
+	}
+	
 	public void attack(Minion target){
 		Event e = new Event("declaredAttack");
 		e.m = this;
@@ -61,6 +68,17 @@ public class Minion {
 		target.damageMinion(atk, this);
 		damageMinion(target.atk, target);
 		System.out.println("Minion " + id + " attacked minion " + target.id);
+	}
+	
+	public void attack(Player target){
+		Event e = new Event("declaredAttack");
+		e.m = this;
+		e.p2 = target;
+		GameState.getGameState().affectStack.handleEvent(e);
+		
+		attacksThisTurn+=1;
+		target.damagePlayer(atk, this);
+		System.out.println("Minion " + id + " attacked player " + target.id);
 	}
 	
 	public void destroy(Minion destroyer){
