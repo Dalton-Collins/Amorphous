@@ -31,6 +31,7 @@ public class Minion {
 		}
 		
 		System.out.println("Minion " + id + " was summoned");
+		GameState.getGameState().fxd.updateDisplay();
 		
 		//create and send out summon event
 		Event e = new Event("summon");

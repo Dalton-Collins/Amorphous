@@ -57,4 +57,13 @@ public class MinionToButton {
 		cb.setOnAction(fxd.affectSelectHandler);
 		return cb;
 	}
+	
+	public Button convertForInaction(Minion m){
+		String cardText = "";
+		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		"ATK " + m.atk + "   HP " + m.health;
+		CardButton cb = new CardButton(cardText, m);
+		cb.setStyle("-fx-font: 20 arial; -fx-base: #777b82;");
+		return cb;
+	}
 }

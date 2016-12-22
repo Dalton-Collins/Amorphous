@@ -123,12 +123,26 @@ public class fxDisplay extends Application {
     	
         setEndTurnButton(boardLayout);
         
+        Button cancelEffectSelection = new Button();
+        cancelEffectSelection.setText("Cancel Effect");
+        cancelEffectSelection.setOnAction(new EventHandler<ActionEvent>(){
+        	public void handle(ActionEvent event) {
+        		GameState gs = GameState.getGameState();
+        		selectingAffectTarget = false;
+        		gs.affectStack.processing = false;
+        		gs.affectStack.pauseProcessing = false;
+        		gs.affectStack.afterSelectionAffect = null;
+        		updateDisplay();
+        	}
+        });
+        ((VBox)boardLayout.getLeft()).getChildren().add(cancelEffectSelection);
+        
         //labels
         //update mana/life
         setManaLife(boardLayout);
         
     	//update hands
-        setHandCards(boardLayout);
+        setHandCardsInactive(boardLayout);
     	
     	//update field
     	setEffectSelectionCards(boardLayout);
@@ -188,6 +202,21 @@ public class fxDisplay extends Application {
     	
     	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
     		Button card = minionToButton.convertForHand(m);
+    		HBox topHBox = (HBox) boardLayout.getTop();
+    		topHBox.getChildren().add(card);
+    		
+    	}
+    }
+    
+    void setHandCardsInactive(BorderPane boardLayout){
+    	for(Minion m : GameState.getGameState().players.get(0).hand.cards){
+    		Button card = minionToButton.convertForInaction(m);
+    		HBox bottomHBox = (HBox) boardLayout.getBottom();
+    		bottomHBox.getChildren().add(card);
+    	}
+    	
+    	for(Minion m : GameState.getGameState().players.get(1).hand.cards){
+    		Button card = minionToButton.convertForInaction(m);
     		HBox topHBox = (HBox) boardLayout.getTop();
     		topHBox.getChildren().add(card);
     		
