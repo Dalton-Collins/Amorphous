@@ -163,7 +163,7 @@ public class fxDisplay extends Application {
     void displayDetailedCard(Minion m){
     	Text card = new Text();
     	String cardText = "";
-    	cardText+= m.name + "      " + m.cost + "\n\n"
+    	cardText+= m.name + "    " + m.cost + "\n\n"
     	+ m.effect.trigger.getDescription() + "\n"
     	+ m.effect.affect.getDescription() + "\n\nATK "
     	+ m.atk + "     HP " + m.health;

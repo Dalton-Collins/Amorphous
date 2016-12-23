@@ -39,6 +39,7 @@ public class MinionGenerator {
 		m.health = randomHealth();
 		m.maxHealth = m.health;
 		m.cost = calculateCost();
+		m.name = randomName(m);
 		return m;
 	}
 	
@@ -56,7 +57,7 @@ public class MinionGenerator {
 		Random rand = new Random();
 		int i = rand.nextInt(3);
 		if(i == 0){
-			int damage = rand.nextInt(31)+10;
+			int damage = (rand.nextInt(7)+2)*5;
 			weight+=damage*2;//average weight of 50
 			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(m, damage);
 			return dela;
@@ -65,8 +66,8 @@ public class MinionGenerator {
 			weight+=60;//set weight of 60
 			return dma;
 		}else if(i == 2){
-			int atk = rand.nextInt(36)+5;
-			weight+=atk*2;//average weight of 40
+			int atk = (rand.nextInt(8)+1)*5;//range 5 - 40
+			weight+=atk*2;//average weight of ~40
 			IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, atk);
 			return itaa;
 		}
@@ -148,6 +149,13 @@ public class MinionGenerator {
 	int calculateCost(){
 		int cost = weight/2;
 		return cost;
+	}
+	
+	String randomName(Minion m){
+		String name = "";
+		name+= m.cost + m.atk + m.health + m.effect.trigger.getDescription().substring(0, 3)
+				+ m.effect.affect.getDescription().substring(0, 3);
+		return name;
 	}
 }
 

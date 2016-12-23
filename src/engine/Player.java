@@ -11,10 +11,9 @@ public class Player {
 	public int mana; //can spend mana to add max mana
 	public int maxMana = 20;
 	public int life = 300;
-	public Player(Deck deckk, int idd){
+	public Player(int idd){
 		hand = new Hand();
 		mana = 20;
-		deck = deckk;
 		id = idd;
 		minions = new ArrayList<Minion>();
 	}
