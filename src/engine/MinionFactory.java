@@ -1,6 +1,6 @@
 package engine;
 
-import affects.DamageEnemyLife;
+import affects.DamageEnemyLifeAffect;
 import affects.IncreaseThisAttackAffect;
 import affects.SelectAndDestroyMinionAffect;
 import triggers.OnSummonTrigger;
@@ -15,14 +15,14 @@ public class MinionFactory {
 		
 		m.id = idd;
 		m.name = "Rat";
-		m.cost = 40;
-		m.atk = 2;
-		m.health = 2;
+		m.cost = 20;
+		m.atk = 20;
+		m.health = 30;
 		m.type = "Beast";
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
-		DamageEnemyLife del = new DamageEnemyLife(m, 5);
-		Effect E = new Effect(m, onsummon, del);
+		DamageEnemyLifeAffect del = new DamageEnemyLifeAffect(m, 15);
+		Effect E = new Effect(m, onsummon, del, 1);
 		m.effect = E;
 		return m;
 	}
@@ -32,14 +32,14 @@ public class MinionFactory {
 		
 		m.id = idd;
 		m.name = "Bomber";
-		m.cost = 70;
-		m.atk = 1;
-		m.health = 1;
+		m.cost = 30;
+		m.atk = 10;
+		m.health = 10;
 		m.type = "Machine";
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
 		SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(m);
-		Effect E = new Effect(m, onsummon, sadma);
+		Effect E = new Effect(m, onsummon, sadma, 1);
 		m.effect = E;
 		return m;
 	}
@@ -51,12 +51,12 @@ public class MinionFactory {
 		m.name = "Berzerker";
 		m.cost = 40;
 		m.atk = 20;
-		m.health = 60;
+		m.health = 50;
 		m.type = "Humanoid";
 		
 		WhenDamagedTrigger wdt = new WhenDamagedTrigger();
 		IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, 20);
-		Effect E = new Effect(m, wdt, itaa);
+		Effect E = new Effect(m, wdt, itaa, 2);
 		m.effect = E;
 		return m;
 	}

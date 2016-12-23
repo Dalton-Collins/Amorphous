@@ -6,7 +6,9 @@ public class Minion {
 	public String name;
 	public int cost;
 	public int atk;
+	public int baseAtk;
 	public int health;
+	public int maxHealth;
 	public String type;// curent types: humanoid beast machine
 	public Player owner;
 	public Effect effect;
@@ -104,10 +106,24 @@ public class Minion {
 		Event e = new Event("tookDamage");
 		e.m = this;
 		e.m2 = damager;
+		e.amount = damage;
 		GameState.getGameState().affectStack.handleEvent(e);
 		
 		if(health <1){
 			destroy(damager);
 		}
+	}
+	
+	void healMinion(int healing, Minion healer){
+		health+=healing;
+		if(health > maxHealth){
+			health = maxHealth;
+		}
+		
+		Event e = new Event("wasHealed");
+		e.m = this;
+		e.m2 = healer;
+		e.amount = healing;
+		GameState.getGameState().affectStack.handleEvent(e);
 	}
 }

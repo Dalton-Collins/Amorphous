@@ -25,6 +25,11 @@ public class Player {
 			hand.cards.add(c);
 			deck.cards.remove(0);
 		}
+		
+		Event e = new Event("playerDrewCard");
+		e.p = this;
+		e.amount = numberOfCards;
+		GameState.getGameState().affectStack.handleEvent(e);
 	}
 	
 	//checks if the given number of cards can be drawn
@@ -34,5 +39,10 @@ public class Player {
 	
 	public void damagePlayer(int damage, Minion damager){
 		life-=damage;
+		
+		Event e = new Event("playerDamaged");
+		e.m = damager;
+		e.amount = damage;
+		GameState.getGameState().affectStack.handleEvent(e);
 	}
 }
