@@ -1,6 +1,5 @@
 package affects;
 
-import engine.Affect;
 import engine.GameState;
 import engine.Minion;
 
@@ -17,6 +16,11 @@ public class SelectAndDestroyMinionAffect implements Affect{
 		System.out.println("select and destroy here");
 		GameState.getGameState().affectStack.afterSelectionAffect = new DestroyMinionAffect(owner);
 		GameState.getGameState().fxd.affectSelection(this);
+	}
+	@Override
+	public String getDescription() {
+		
+		return "You can select a minion to destroy";
 	}
 
 }

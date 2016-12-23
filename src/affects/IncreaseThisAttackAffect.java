@@ -17,7 +17,7 @@ public class IncreaseThisAttackAffect implements Affect{
 	@Override
 	public String getDescription() {
 		
-		return "Increase this minions Atk by " + atkIncrease;
+		return "Increase this minion's Atk by " + atkIncrease;
 	}
 
 }

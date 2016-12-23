@@ -13,7 +13,7 @@ public class MinionToButton {
 	public Button convertForHand(Minion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -23,6 +23,8 @@ public class MinionToButton {
 			cb.setStyle("-fx-font: 20 arial; -fx-base: #ee1122;");
 		}
 		cb.setOnAction(fxd.summonHandler);
+		cb.setOnMouseEntered(fxd.cardViewHandler);
+		cb.setOnMouseExited(fxd.cardViewHandler);
 		return cb;
 	}
 	
@@ -30,7 +32,7 @@ public class MinionToButton {
 	public Button convertForField(Minion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -41,13 +43,15 @@ public class MinionToButton {
 		}
 		
 		cb.setOnAction(fxd.attackHandler);
+		cb.setOnMouseEntered(fxd.cardViewHandler);
+		cb.setOnMouseExited(fxd.cardViewHandler);
 		return cb;
 	}
 	
 	public Button convertForEffectSelection(Minion m){
 		
 		String cardText = "";
-		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;
@@ -58,12 +62,14 @@ public class MinionToButton {
 		}
 		
 		cb.setOnAction(fxd.affectSelectHandler);
+		cb.setOnMouseEntered(fxd.cardViewHandler);
+		cb.setOnMouseExited(fxd.cardViewHandler);
 		return cb;
 	}
 	
 	public Button convertForInaction(Minion m){
 		String cardText = "";
-		cardText = cardText + m.name + m.id + "\n \n \n " + 
+		cardText = cardText + m.name + " Cost " + m.cost + "\n \n \n " + 
 		"ATK " + m.atk + "   HP " + m.health;
 		CardButton cb = new CardButton(cardText);
 		cb.minion = m;

@@ -16,6 +16,7 @@ public class GameState {
 	public ActiveEffects activeEffects;
 	public AffectStack affectStack;
 	public MinionFactory minionFactory;
+	public MinionGenerator minionGenerator;
 	
 	public fxDisplay fxd;
 	

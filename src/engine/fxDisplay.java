@@ -14,7 +14,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
  
@@ -36,7 +38,9 @@ public class fxDisplay extends Application {
 	//display states
 	boolean selectingAttackTarget = false;
 	boolean selectingAffectTarget = false;
+	boolean displayingDetailedCard = false;
 	
+	Text detailedCard;
 	Minion attackingMinion;
 	
 	
@@ -101,7 +105,7 @@ public class fxDisplay extends Application {
     	StackPane boardStack = boardLayoutMaker.getLayout();
     	mainStack = boardStack;
     	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);
-    	Scene boardScene = new Scene(boardLayout, 1200, 1000);
+    	Scene boardScene = new Scene(boardStack, 1200, 1000);
     	
     	//buttons 
     	setEndTurnButton(boardLayout);
@@ -125,7 +129,7 @@ public class fxDisplay extends Application {
     	StackPane boardStack = boardLayoutMaker.getLayout();
     	mainStack = boardStack;
     	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);
-    	Scene boardScene = new Scene(boardLayout, 1200, 1000);
+    	Scene boardScene = new Scene(boardStack, 1200, 1000);
     	
         setEndTurnButton(boardLayout);
         
@@ -156,16 +160,27 @@ public class fxDisplay extends Application {
     	primaryStage.setScene(boardScene);
     }
     
-    void displayDetailedCard(StackPane boardStack, Minion m){
-    	Label card = new Label();
+    void displayDetailedCard(Minion m){
+    	Text card = new Text();
     	String cardText = "";
-    	cardText+= m.name + "   " + m.id + "\n"
+    	cardText+= m.name + "      " + m.cost + "\n\n"
     	+ m.effect.trigger.getDescription() + "\n"
-    	+ m.effect.affect.getDescription() + "\n"
-    	+ m.atk + "     " + m.health;
-    	card.setWrapText(true);
-    	card.setTextAlignment(TextAlignment.JUSTIFY);
+    	+ m.effect.affect.getDescription() + "\n\nATK "
+    	+ m.atk + "     HP " + m.health;
+    	
+    	card.setWrappingWidth(200);
     	card.setText(cardText);
+    	card.setStyle("-fx-font: 25 arial;");
+        
+    	detailedCard = card;
+    	displayingDetailedCard = true;
+    	mainStack.getChildren().add(card);
+    }
+    
+    void removeDetailedCard(){
+    	mainStack.getChildren().remove(detailedCard);
+    	detailedCard = null;
+    	displayingDetailedCard = false;
     }
     
     void setEndTurnButton(BorderPane boardLayout){

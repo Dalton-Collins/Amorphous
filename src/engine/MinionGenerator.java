@@ -35,11 +35,22 @@ public class MinionGenerator {
 		m.effect = e;
 		m.type = randomType();
 		m.atk = randomAttack();
+		m.baseAtk = m.atk;
 		m.health = randomHealth();
+		m.maxHealth = m.health;
+		m.cost = calculateCost();
 		return m;
 	}
 	
-	
+	public Deck makeRandomDeck(Player p){
+		Deck deck = new Deck();
+		for(int i = 0; i < 30; i++){
+			Minion m = makeRandomMinion(p);
+			deck.cards.add(m);
+		}
+		
+		return deck;
+	}
 	
 	Affect randomAffect(Minion m){
 		Random rand = new Random();
@@ -134,7 +145,7 @@ public class MinionGenerator {
 		return attack;
 	}
 	
-	int calculateCost(int targetWeight){
+	int calculateCost(){
 		int cost = weight/2;
 		return cost;
 	}
