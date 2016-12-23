@@ -26,10 +26,14 @@ public class MinionGenerator {
 		weight = 0;
 		Minion m = new Minion(p);
 		
+		int targetWeight = randomWeight();
 		Affect af = randomAffect(m);
 		Trigger tr = randomTrigger();
 		Effect e = new Effect(m, tr, af, 1);
 		m.effect = e;
+		m.type = randomType();
+		m.atk = randomAttack();
+		m.health = randomHealth();
 		return m;
 	}
 	
@@ -90,13 +94,11 @@ public class MinionGenerator {
 		if(roll < 40){
 			return 80;
 		}else if(roll < 70){
-			return 110;
+			return 100;
 		}else if(roll < 90){
+			return 120;
+		}else if(roll < 100){
 			return 140;
-		}else if(roll < 99){
-			return 170;
-		}else if(roll >=99){
-			return 200;
 		}
 		return -1;
 	}
@@ -104,7 +106,35 @@ public class MinionGenerator {
 	String randomType(){
 		Random rand = new Random();
 		int i = rand.nextInt(3);
+		if(i == 0){
+			return "Humanoid";
+		}else if(i == 1){
+			return "Beast";
+		}else if(i == 2){
+			return "Machine";
+		}
 		return null;
+	}
+	
+	int randomHealth(){
+		Random rand = new Random();
+		int i = rand.nextInt(20);
+		int health = (i+1)*5;
+		weight+=health/2;//average weight of 25
+		return health;
+	}
+	
+	int randomAttack(){
+		Random rand = new Random();
+		int i = rand.nextInt(20);
+		int attack = (i+1)*5;
+		weight+=attack/2;//average weight of 25
+		return attack;
+	}
+	
+	int calculateCost(int targetWeight){
+		int cost = weight/2;
+		return cost;
 	}
 }
 
@@ -114,16 +144,14 @@ public class MinionGenerator {
  IE atk then effect then health or effect then cost then atk etc
  minions will have rarity decided first
  where common cards can have a weight of 80
- rare cards a weight of 110
- epic cards a weight of 140
- legendary cards a weight of 170
- god cards a weight of 200
+ rare cards a weight of 100
+ epic cards a weight of 120
+ legendary cards a weight of 140
  
- 45% common
+ 40% common
  30% rare
  20% epic
- 4% legenday
- 1% god
+ 10% legenday
  
  
 */
