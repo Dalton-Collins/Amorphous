@@ -1,6 +1,5 @@
 package affects;
 
-import engine.Affect;
 import engine.Minion;
 
 public class IncreaseThisAttackAffect implements Affect{
@@ -14,6 +13,11 @@ public class IncreaseThisAttackAffect implements Affect{
 	@Override
 	public void applyAffect() {
 		owner.atk+=atkIncrease;
+	}
+	@Override
+	public String getDescription() {
+		
+		return "Increase this minions Atk by " + atkIncrease;
 	}
 
 }

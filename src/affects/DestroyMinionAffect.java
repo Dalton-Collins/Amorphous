@@ -29,5 +29,10 @@ public class DestroyMinionAffect implements AfterSelectionAffect{
 	public void setTarget(Minion targett) {
 		target = targett;
 	}
+	@Override
+	public String getDescription() {
+		
+		return "Not to be directly used, use Select and Destroy instead";
+	}
 
 }

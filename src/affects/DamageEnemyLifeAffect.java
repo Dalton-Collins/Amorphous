@@ -1,6 +1,5 @@
 package affects;
 
-import engine.Affect;
 import engine.GameState;
 import engine.Minion;
 import engine.Player;
@@ -17,6 +16,11 @@ public class DamageEnemyLifeAffect implements Affect{
 	public void applyAffect() {
 		Player enemy = GameState.getGameState().getEnemy(owner.owner);
 		enemy.damagePlayer(damage, owner);
+	}
+	@Override
+	public String getDescription() {
+		
+		return "Deal " + damage + " damage to the enemy Player";
 	}
 
 }

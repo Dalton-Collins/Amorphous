@@ -1,5 +1,6 @@
 package engine;
 
+import affects.Affect;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,18 +15,23 @@ import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
  
 public class fxDisplay extends Application {
 	
-	MinionToButton minionToButton;
 	Stage primaryStage;
+	StackPane mainStack;
+	
+	BoardLayoutMaker boardLayoutMaker;
+	MinionToButton minionToButton;
+	
 	SummonHandler summonHandler;
 	AttackHandler attackHandler;
 	EndTurnHandler endTurnHandler;
-	BoardLayoutMaker boardLayoutMaker;
 	AffectSelectHandler affectSelectHandler;
 	DirectAttackHandler directAttackHandler;
+	CardViewHandler cardViewHandler;
 	
 	//display states
 	boolean selectingAttackTarget = false;
@@ -49,6 +55,7 @@ public class fxDisplay extends Application {
     	endTurnHandler = new EndTurnHandler(this);
     	affectSelectHandler = new AffectSelectHandler(this);
     	directAttackHandler = new DirectAttackHandler(this);
+    	cardViewHandler = new CardViewHandler();
     	
     	//initialize
     	GameState.getGameState().initGameState(this);
@@ -62,7 +69,7 @@ public class fxDisplay extends Application {
     	
     	
     	//layouts
-        BorderPane boardLayout = boardLayoutMaker.getLayout();
+        StackPane boardLayout = boardLayoutMaker.getLayout();
         
         StackPane titleLayout = new StackPane();
         //scenes
@@ -91,7 +98,9 @@ public class fxDisplay extends Application {
     
     public void updateDisplay(){
     	//create new scene
-    	BorderPane boardLayout = boardLayoutMaker.getLayout();
+    	StackPane boardStack = boardLayoutMaker.getLayout();
+    	mainStack = boardStack;
+    	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);
     	Scene boardScene = new Scene(boardLayout, 1200, 1000);
     	
     	//buttons 
@@ -106,7 +115,6 @@ public class fxDisplay extends Application {
     	
     	//update field
     	setFieldCards(boardLayout);
-
     	primaryStage.setScene(boardScene);
     }
     
@@ -114,7 +122,9 @@ public class fxDisplay extends Application {
     	System.out.println("enter affect selection");
     	selectingAffectTarget = true;
     	
-    	BorderPane boardLayout = boardLayoutMaker.getLayout();
+    	StackPane boardStack = boardLayoutMaker.getLayout();
+    	mainStack = boardStack;
+    	BorderPane boardLayout = (BorderPane) boardStack.getChildren().get(0);
     	Scene boardScene = new Scene(boardLayout, 1200, 1000);
     	
         setEndTurnButton(boardLayout);
@@ -144,6 +154,18 @@ public class fxDisplay extends Application {
     	setEffectSelectionCards(boardLayout);
 
     	primaryStage.setScene(boardScene);
+    }
+    
+    void displayDetailedCard(StackPane boardStack, Minion m){
+    	Label card = new Label();
+    	String cardText = "";
+    	cardText+= m.name + "   " + m.id + "\n"
+    	+ m.effect.trigger.getDescription() + "\n"
+    	+ m.effect.affect.getDescription() + "\n"
+    	+ m.atk + "     " + m.health;
+    	card.setWrapText(true);
+    	card.setTextAlignment(TextAlignment.JUSTIFY);
+    	card.setText(cardText);
     }
     
     void setEndTurnButton(BorderPane boardLayout){

@@ -1,5 +1,8 @@
 package engine;
 
+import triggers.Trigger;
+import affects.Affect;
+
 //minions can have effects which have trigger conditions and affects
 //that change the game
 public class Effect {

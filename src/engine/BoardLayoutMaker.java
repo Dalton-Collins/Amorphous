@@ -3,13 +3,16 @@ package engine;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 
 public class BoardLayoutMaker {
 	
-	public BorderPane getLayout(){
+	public StackPane getLayout(){
 		//layouts
+		
+		StackPane stackPane = new StackPane();
         
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
@@ -56,6 +59,8 @@ public class BoardLayoutMaker {
         
         gridpane.add(bottomFieldHBox, 0, 4);
         gridpane.add(topFieldHBox, 0, 0);
-        return border;
+        
+        stackPane.getChildren().add(border);
+        return stackPane;
 	}
 }

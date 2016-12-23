@@ -5,9 +5,11 @@ import java.util.Random;
 
 import triggers.DeclareAttackTrigger;
 import triggers.OnSummonTrigger;
+import triggers.Trigger;
 import triggers.WhenAttackedTrigger;
 import triggers.WhenDamagedTrigger;
 import triggers.WhenDestroyedTrigger;
+import affects.Affect;
 import affects.DamageEnemyLifeAffect;
 import affects.IncreaseThisAttackAffect;
 import affects.SelectAndDestroyMinionAffect;
