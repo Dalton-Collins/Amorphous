@@ -11,6 +11,7 @@ import triggers.WhenDamagedTrigger;
 import triggers.WhenDestroyedTrigger;
 import affects.Affect;
 import affects.DamageEnemyLifeAffect;
+import affects.DrawCardAffect;
 import affects.IncreaseThisAttackAffect;
 import affects.SelectAndDestroyMinionAffect;
 
@@ -62,9 +63,9 @@ public class MinionGenerator {
 			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(m, damage);
 			return dela;
 		}else if(i == 1){
-			SelectAndDestroyMinionAffect dma = new SelectAndDestroyMinionAffect(m);
-			weight+=60;//set weight of 60
-			return dma;
+			DrawCardAffect dca = new DrawCardAffect(m);
+			weight+=40;
+			return dca;
 		}else if(i == 2){
 			int atk = (rand.nextInt(8)+1)*5;//range 5 - 40
 			weight+=atk*2;//average weight of ~40

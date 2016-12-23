@@ -25,7 +25,7 @@ public class Player {
 			deck.cards.remove(0);
 		}
 		
-		Event e = new Event("playerDrewCard");
+		Event e = new Event("playerDrewCards");
 		e.p = this;
 		e.amount = numberOfCards;
 		GameState.getGameState().affectStack.handleEvent(e);

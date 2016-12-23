@@ -21,6 +21,6 @@ public class Event {
 	tookDamage
 	wasHealed
 	playerDamaged
-	playerDrewCard
+	playerDrewCards
 	*/
 }
