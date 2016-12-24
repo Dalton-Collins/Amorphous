@@ -1,5 +1,7 @@
 package affects;
 
+import java.util.Iterator;
+
 import engine.GameState;
 import engine.Minion;
 import engine.Player;
@@ -15,7 +17,8 @@ public class DamageAllEnemyMinionsAffect implements Affect{
 	public void applyAffect() {
 		Player enemy = GameState.getGameState().getEnemy(owner.owner);
 		for(Minion m : enemy.minions){
-			m.damageMinion(damage, owner);
+			DamageMinionActionAffect dmaa = new DamageMinionActionAffect(m, owner, damage);
+			GameState.getGameState().affectStack.addAction(dmaa);
 		}
 		GameState.getGameState().affectStack.processStack();
 	}
