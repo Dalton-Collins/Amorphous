@@ -17,6 +17,7 @@ public class DamageAllEnemyMinionsAffect implements Affect{
 		for(Minion m : enemy.minions){
 			m.damageMinion(damage, owner);
 		}
+		GameState.getGameState().affectStack.processStack();
 	}
 	@Override
 	public String getDescription() {

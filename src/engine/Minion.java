@@ -71,6 +71,7 @@ public class Minion {
 		attacksThisTurn+=1;
 		target.damageMinion(atk, this);
 		damageMinion(target.atk, target);
+		GameState.getGameState().affectStack.processStack();
 		System.out.println("Minion " + id + " attacked minion " + target.id);
 	}
 	
@@ -120,6 +121,7 @@ public class Minion {
 		
 		if(health <1){
 			DestroyMinionActionAffect dmaa = new DestroyMinionActionAffect(this, damager);
+			GameState.getGameState().affectStack.addAction(dmaa);
 		}
 	}
 	
