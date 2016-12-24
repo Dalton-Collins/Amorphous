@@ -9,6 +9,7 @@ import triggers.Trigger;
 import triggers.WhenAttackedTrigger;
 import triggers.WhenDamagedTrigger;
 import triggers.WhenDestroyedTrigger;
+import triggers.WhenEnemyDrawsCards;
 import affects.Affect;
 import affects.DamageAllEnemyMinionsAffect;
 import affects.DamageEnemyLifeAffect;
@@ -103,7 +104,7 @@ public class MinionGenerator {
 	
 	Trigger randomTrigger(){
 		Random rand = new Random();
-		int i = rand.nextInt(5);
+		int i = rand.nextInt(6);
 		if(i == 0){
 			DeclareAttackTrigger dat = new DeclareAttackTrigger();
 			weight *=1;
@@ -124,6 +125,15 @@ public class MinionGenerator {
 			WhenDestroyedTrigger wdt = new WhenDestroyedTrigger();
 			weight*=1;
 			return wdt;
+		}else if(i == 5){
+			int requiredCards = rand.nextInt(2) + 1;
+			if(requiredCards == 1){
+				weight*=1.3;
+			}else{
+				weight*=0.8;
+			}
+			WhenEnemyDrawsCards wedc = new WhenEnemyDrawsCards(requiredCards);
+			return wedc;
 		}
 		return null;
 	}

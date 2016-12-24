@@ -2,6 +2,14 @@ package engine;
 
 public class Design {
 /*
+Philosophy
+    We don't want any complex rulings or counterintuitive ideas
+    to complicate the game.
+    The game needs to be VERY easy to learn this means tutorials
+    and early card restriction.
+    The complexity of the cards should create a very large pool of
+    semi balanced decks.
+    Forced deck variety may be introduced with classes and types.
 Card game base
     only minions, no spells/other
     board limited to 10 minions
@@ -49,6 +57,10 @@ finding new cards
 Aesthetics
 	players who find cards can decide on the picture and name of the card
 	within some limits, maybe
+	
+	crowd source art! make the game look cool and tell people they can
+	have their art in the game, make it feel rewarding if they do.
+	music probably not this approach
 	
 Realms
 	Legacy realm - contains all cards found that have been buffed/nerfed many times
