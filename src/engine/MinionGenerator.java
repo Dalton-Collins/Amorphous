@@ -10,6 +10,7 @@ import triggers.WhenAttackedTrigger;
 import triggers.WhenDamagedTrigger;
 import triggers.WhenDestroyedTrigger;
 import affects.Affect;
+import affects.DamageAllEnemyMinionsAffect;
 import affects.DamageEnemyLifeAffect;
 import affects.DrawCardAffect;
 import affects.IncreaseThisAttackAffect;
@@ -26,21 +27,40 @@ public class MinionGenerator {
 	}
 	
 	public Minion makeRandomMinion(Player p){
+		//first try to make the minion randomly
+		int targetWeight = randomWeight();
+		
 		weight = 0;
 		Minion m = new Minion(p);
-		
-		int targetWeight = randomWeight();
+
 		Affect af = randomAffect(m);
 		Trigger tr = randomTrigger();
 		Effect e = new Effect(m, tr, af, 1);
 		m.effect = e;
 		m.type = randomType();
-		m.atk = randomAttack();
+		m.atk = randomAttack(targetWeight);
 		m.baseAtk = m.atk;
-		m.health = randomHealth();
+		m.health = randomHealth(targetWeight);
 		m.maxHealth = m.health;
 		m.cost = calculateCost();
 		m.name = randomName(m);
+		
+		while(weight > targetWeight){
+			//if the weight is too high, try randomly again
+			weight = 0;
+			af = randomAffect(m);
+			tr = randomTrigger();
+			e = new Effect(m, tr, af, 1);
+			m.effect = e;
+			m.type = randomType();
+			m.health = randomHealth(targetWeight);
+			m.maxHealth = m.health;
+			m.atk = randomAttack(targetWeight);
+			m.baseAtk = m.atk;
+			m.cost = calculateCost();
+			m.name = randomName(m);
+		}
+		
 		return m;
 	}
 	
@@ -56,17 +76,22 @@ public class MinionGenerator {
 	
 	Affect randomAffect(Minion m){
 		Random rand = new Random();
-		int i = rand.nextInt(3);
+		int i = rand.nextInt(4);
 		if(i == 0){
+			int damage = (rand.nextInt(7)+2)*5;
+			weight+=damage*2;//average weight of 50
+			DamageAllEnemyMinionsAffect daema = new DamageAllEnemyMinionsAffect(m, damage);
+			return daema;
+		}else if(i == 1){
 			int damage = (rand.nextInt(7)+2)*5;
 			weight+=damage*2;//average weight of 50
 			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(m, damage);
 			return dela;
-		}else if(i == 1){
+		}else if(i == 2){
 			DrawCardAffect dca = new DrawCardAffect(m);
 			weight+=40;
 			return dca;
-		}else if(i == 2){
+		}else if(i == 3){
 			int atk = (rand.nextInt(8)+1)*5;//range 5 - 40
 			weight+=atk*2;//average weight of ~40
 			IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, atk);
@@ -81,11 +106,11 @@ public class MinionGenerator {
 		int i = rand.nextInt(5);
 		if(i == 0){
 			DeclareAttackTrigger dat = new DeclareAttackTrigger();
-			weight *=.8;
+			weight *=1;
 			return dat;
 		}else if(i == 1){
 			OnSummonTrigger ost = new OnSummonTrigger();
-			weight*=1.6;
+			weight*=1.3;
 			return ost;
 		}else if(i == 2){
 			WhenAttackedTrigger wat = new WhenAttackedTrigger();
@@ -93,11 +118,11 @@ public class MinionGenerator {
 			return wat;
 		}else if(i == 3){
 			WhenDamagedTrigger wdt = new WhenDamagedTrigger();
-			weight*=1.4;
+			weight*=1.3;
 			return wdt;
 		}else if(i == 4){
 			WhenDestroyedTrigger wdt = new WhenDestroyedTrigger();
-			weight*=1.2;
+			weight*=1;
 			return wdt;
 		}
 		return null;
@@ -131,24 +156,34 @@ public class MinionGenerator {
 		return null;
 	}
 	
-	int randomHealth(){
+	int randomHealth(int targetWeight){
+		int max = (targetWeight - weight)/5;
+		if(max < 2){
+			weight = 1000;
+			return -1;
+		}
 		Random rand = new Random();
-		int i = rand.nextInt(20);
-		int health = (i+1)*5;
-		weight+=health/2;//average weight of 25
+		int i = rand.nextInt(max)+1;
+		int health = (i)*5;
+		weight+=health;
 		return health;
 	}
 	
-	int randomAttack(){
+	int randomAttack(int targetWeight){
+		int max = (targetWeight - weight)/5;
+		if(max < 1){
+			int attack = max*4;
+			return attack;
+		}
 		Random rand = new Random();
-		int i = rand.nextInt(20);
-		int attack = (i+1)*5;
-		weight+=attack/2;//average weight of 25
+		int i = rand.nextInt(max + 1);
+		int attack = (i)*5;
+		weight+=attack;
 		return attack;
 	}
 	
 	int calculateCost(){
-		int cost = weight/2;
+		int cost = (int) (weight/2.5);
 		return cost;
 	}
 	

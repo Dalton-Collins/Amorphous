@@ -17,7 +17,7 @@ public class BoardLayoutMaker {
         GridPane gridpane = new GridPane();
         gridpane.setPadding(new Insets(5));
         gridpane.setHgap(10);
-        gridpane.setVgap(20);
+        gridpane.setVgap(109);
         
         HBox topFieldHBox = new HBox();
         topFieldHBox.setPadding(new Insets(15, 12, 15, 12));

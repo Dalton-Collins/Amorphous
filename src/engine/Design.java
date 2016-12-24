@@ -36,7 +36,20 @@ finding new cards
 	the game will generate new cards by combining conditions with effects
 	the cost, trigger type, effects and trigger conditions will be weighted
 	the weights will be used to keep the cards lightly balanced from creation
-	though all card combinations regardless of weight will be possible
+	
+	It will be possible to buy cards other players have found
+	when bought they keep their card and you get a copy
+	the rarity of the card will determine its cost
+	the player who found the card gets a small % of the cost
+	
+	because most cards are bad, players will want to find good cards to sell
+	the more a card is bought and used, the more likely it is to be kept in the game
+	cards that are not bought or used will be deleted eventually, probably
+
+Aesthetics
+	players who find cards can decide on the picture and name of the card
+	within some limits, maybe
+	
 Realms
 	Legacy realm - contains all cards found that have been buffed/nerfed many times
 	stays constant except for card additions once a month or so

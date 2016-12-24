@@ -1,5 +1,7 @@
 package engine;
 
+import affects.DestroyMinionActionAffect;
+
 //this class handles minions stats and interactions
 public class Minion {
 	public int id;
@@ -101,7 +103,14 @@ public class Minion {
 		attacksThisTurn = 0;
 	}
 	
-	void damageMinion(int damage, Minion damager){
+	public void damageMinion(int damage, Minion damager){
+		if(damage == 0){
+			return;
+		}
+		if(damage < 0){
+			healMinion(damage*-1, damager);
+			return;
+		}
 		health-=damage;
 		Event e = new Event("tookDamage");
 		e.m = this;
@@ -110,11 +119,11 @@ public class Minion {
 		GameState.getGameState().affectStack.handleEvent(e);
 		
 		if(health <1){
-			destroy(damager);
+			DestroyMinionActionAffect dmaa = new DestroyMinionActionAffect(this, damager);
 		}
 	}
 	
-	void healMinion(int healing, Minion healer){
+	public void healMinion(int healing, Minion healer){
 		health+=healing;
 		if(health > maxHealth){
 			health = maxHealth;

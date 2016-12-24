@@ -48,4 +48,20 @@ public class AffectStack {
 		}
 	}
 	
+	public void handleAction(Affect affect){
+		affectsToProcess.add(affect);
+		if(!processing){
+			while(!affectsToProcess.isEmpty() && !pauseProcessing){
+				processing = true;
+				//process the first affect
+				Affect a = affectsToProcess.poll();
+				System.out.println("applying effect");
+				a.applyAffect();
+			}
+		}
+		if(affectsToProcess.isEmpty()){
+			processing = false;
+		}
+	}
+	
 }
