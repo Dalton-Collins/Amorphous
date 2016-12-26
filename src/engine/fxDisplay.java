@@ -96,6 +96,9 @@ public class fxDisplay extends Application {
     }
     
     public void updateDisplay(){
+    	if(GameState.getGameState().selectingAffectTarget == true){
+    		return;
+    	}
     	//create new scene
     	StackPane boardStack = boardLayoutMaker.getLayout();
     	mainStack = boardStack;

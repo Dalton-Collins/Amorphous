@@ -12,11 +12,12 @@ public class SelectAndDestroyMinionAffect implements Affect{
 	@Override
 	public void applyAffect() {
 		owner.effect.activationsThisTurn+=1;
-		GameState.getGameState().affectStack.pauseProcessing = true;
+		GameState gs = GameState.getGameState();
+		gs.affectStack.pauseProcessing = true;
 		
-		System.out.println("select and destroy here");
-		GameState.getGameState().affectStack.afterSelectionAffect = new DestroyMinionAffect(owner);
-		GameState.getGameState().fxd.affectSelection(this);
+		System.out.println("select and destroy called here");
+		gs.affectStack.afterSelectionAffect = new DestroyMinionAffect(owner);
+		gs.fxd.affectSelection(this);
 	}
 	@Override
 	public String getDescription() {
