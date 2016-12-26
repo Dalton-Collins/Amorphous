@@ -14,6 +14,7 @@ public class DamageEnemyLifeAffect implements Affect{
 		owner = ownerr;
 	}
 	public void applyAffect() {
+		owner.effect.activationsThisTurn+=1;
 		Player enemy = GameState.getGameState().getEnemy(owner.owner);
 		enemy.damagePlayer(damage, owner);
 	}

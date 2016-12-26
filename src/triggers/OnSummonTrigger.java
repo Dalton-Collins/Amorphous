@@ -10,7 +10,8 @@ public class OnSummonTrigger implements Trigger{
 	//not yet implemented
 	@Override
 	public boolean isTriggered(Event e, Minion owner) {
-		return (e.m == owner && e.eventType == "summon");
+		return (e.m == owner && e.eventType == "summon" 
+				&& owner.effect.activationsThisTurn < owner.effect.maxActivationsPerTurn);
 	}
 
 	@Override

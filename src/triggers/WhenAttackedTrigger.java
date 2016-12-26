@@ -8,7 +8,8 @@ public class WhenAttackedTrigger implements Trigger{
 	@Override
 	public boolean isTriggered(Event e, Minion owner) {
 		
-		return (e.eventType == "declaredAttack" && e.m2 == owner);
+		return (e.eventType == "declaredAttack" && e.m2 == owner 
+				&& owner.effect.activationsThisTurn < owner.effect.maxActivationsPerTurn);
 	}
 
 	@Override

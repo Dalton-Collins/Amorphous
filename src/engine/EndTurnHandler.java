@@ -13,7 +13,7 @@ public class EndTurnHandler implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		GameState gs = GameState.getGameState();
 		gs.nextTurn();
-		fxd.selectingAffectTarget = false;
+		gs.selectingAffectTarget = false;
 		gs.affectStack.processing = false;
 		gs.affectStack.pauseProcessing = false;
 		gs.affectStack.afterSelectionAffect = null;

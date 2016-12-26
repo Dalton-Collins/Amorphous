@@ -14,10 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
  
 public class fxDisplay extends Application {
@@ -36,12 +34,9 @@ public class fxDisplay extends Application {
 	CardViewHandler cardViewHandler;
 	
 	//display states
-	boolean selectingAttackTarget = false;
-	boolean selectingAffectTarget = false;
 	boolean displayingDetailedCard = false;
 	
 	Text detailedCard;
-	Minion attackingMinion;
 	
 	
 	
@@ -124,7 +119,7 @@ public class fxDisplay extends Application {
     
     public void affectSelection(Affect a){
     	System.out.println("enter affect selection");
-    	selectingAffectTarget = true;
+    	GameState.getGameState().selectingAffectTarget = true;
     	
     	StackPane boardStack = boardLayoutMaker.getLayout();
     	mainStack = boardStack;
@@ -138,7 +133,7 @@ public class fxDisplay extends Application {
         cancelEffectSelection.setOnAction(new EventHandler<ActionEvent>(){
         	public void handle(ActionEvent event) {
         		GameState gs = GameState.getGameState();
-        		selectingAffectTarget = false;
+        		gs.selectingAffectTarget = false;
         		gs.affectStack.processing = false;
         		gs.affectStack.pauseProcessing = false;
         		gs.affectStack.afterSelectionAffect = null;

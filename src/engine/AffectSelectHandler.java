@@ -18,7 +18,7 @@ public class AffectSelectHandler implements EventHandler<ActionEvent>{
 		e.m = target.minion;
 		GameState.getGameState().affectStack.afterSelectionAffect.setTarget(target.minion);
 		System.out.println("target is: " + target.minion.name);
-		fxd.selectingAffectTarget = false;
+		GameState.getGameState().selectingAffectTarget = false;
 		GameState.getGameState().affectStack.handleEvent(e);
 	}
 	

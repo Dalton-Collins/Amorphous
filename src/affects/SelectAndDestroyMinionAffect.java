@@ -11,6 +11,7 @@ public class SelectAndDestroyMinionAffect implements Affect{
 	}
 	@Override
 	public void applyAffect() {
+		owner.effect.activationsThisTurn+=1;
 		GameState.getGameState().affectStack.pauseProcessing = true;
 		
 		System.out.println("select and destroy here");

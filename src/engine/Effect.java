@@ -10,12 +10,13 @@ public class Effect {
 	Minion owner;
 	Trigger trigger;//this is the object we ask to check if the affect will be activated
 	Affect affect;//this will change the game when activated
-	int activationsPerTurn;
+	public int maxActivationsPerTurn = 1;
+	public int activationsThisTurn = 0;
 	
 	public Effect(Minion ownerr, Trigger trig, Affect aff, int actsperturn){
 		owner = ownerr;
 		trigger = trig;
 		affect = aff;
-		activationsPerTurn = actsperturn;
+		maxActivationsPerTurn = actsperturn;
 	}
 }

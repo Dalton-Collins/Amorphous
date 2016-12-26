@@ -15,15 +15,16 @@ public class WhenEnemyDrawsCards implements Trigger{
 	@Override
 	public boolean isTriggered(Event e, Minion owner) {
 
-		return (e.amount >= cardsRequired && e.p != owner.owner);
+		return (e.amount >= cardsRequired && e.p != owner.owner 
+				&& owner.effect.activationsThisTurn < owner.effect.maxActivationsPerTurn);
 	}
 
 	@Override
 	public String getDescription() {
 		if(cardsRequired == 1){
-			return "When an enemy draws " + cardsRequired + " card";
+			return "When an enemy draws " + cardsRequired + " card:";
 		}
-		return "When an enemy draws " + cardsRequired + " card(s)";
+		return "When an enemy draws " + cardsRequired + " cards:";
 	}
 
 }

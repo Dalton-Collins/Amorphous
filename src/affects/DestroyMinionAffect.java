@@ -14,7 +14,7 @@ public class DestroyMinionAffect implements AfterSelectionAffect{
 	}
 	@Override
 	public void applyAffect() {
-		System.out.println("destroy called here");
+		owner.effect.activationsThisTurn+=1;
 		assert(target != null);
 		target.destroy(owner);
 		//set gamestate to the proper state

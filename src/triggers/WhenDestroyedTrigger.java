@@ -9,7 +9,8 @@ public class WhenDestroyedTrigger implements Trigger{
 	@Override
 	public boolean isTriggered(Event e, Minion owner) {
 
-		return (e.eventType == "minionDestroyed" && e.m == owner);
+		return (e.eventType == "minionDestroyed" && e.m == owner 
+				&& owner.effect.activationsThisTurn < owner.effect.maxActivationsPerTurn);
 	}
 
 	@Override

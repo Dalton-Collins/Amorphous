@@ -10,6 +10,7 @@ public class DrawCardAffect implements Affect{
 	}
 	@Override
 	public void applyAffect(){
+		owner.effect.activationsThisTurn+=1;
 		owner.owner.draw(1);
 	}
 

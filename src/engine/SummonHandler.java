@@ -17,7 +17,7 @@ public class SummonHandler implements EventHandler<ActionEvent>{
 		if(toSummon.canSummon() && toSummon.owner == GameState.getGameState().turnPlayer){
 			toSummon.summon();
 		}
-		if(!fxd.selectingAffectTarget){
+		if(!GameState.getGameState().selectingAffectTarget){
 			fxd.updateDisplay();
 		}
 	}

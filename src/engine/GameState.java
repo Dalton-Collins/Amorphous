@@ -18,6 +18,11 @@ public class GameState {
 	public MinionFactory minionFactory;
 	public MinionGenerator minionGenerator;
 	
+	boolean selectingAttackTarget = false;
+	boolean selectingAffectTarget = false;
+	
+	Minion attackingMinion;
+	
 	public fxDisplay fxd;
 	
 	public void initGameState(fxDisplay fxdd){
@@ -47,10 +52,17 @@ public class GameState {
 		int turn = turnPlayer.id;
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
+		
+		//reset attacks this turn to 0
 		for(Minion m : turnPlayer.minions){
 			m.removeSummoningSickness();//change this
 			m.resetTurnAttacks();
 		}
+		//reset effect activations this turn to 0;
+		for(Effect e : activeEffects.activeEffects){
+			e.activationsThisTurn = 0;
+		}
+		
 		System.out.println("Its now player " + turn + "'s turn");
 		turnPlayer.maxMana+=10;
 		turnPlayer.mana = turnPlayer.maxMana;

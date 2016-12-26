@@ -88,6 +88,7 @@ public class Minion {
 	
 	public void destroy(Minion destroyer){
 		owner.minions.remove(this);
+		GameState.getGameState().activeEffects.removeEffect(effect);
 		System.out.println("Minion " + id + " was destroyed");
 		
 		//create destroyed event

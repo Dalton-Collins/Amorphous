@@ -15,6 +15,7 @@ public class DamageAllEnemyMinionsAffect implements Affect{
 		owner = ownerr;
 	}
 	public void applyAffect() {
+		owner.effect.activationsThisTurn+=1;
 		Player enemy = GameState.getGameState().getEnemy(owner.owner);
 		for(Minion m : enemy.minions){
 			DamageMinionActionAffect dmaa = new DamageMinionActionAffect(m, owner, damage);
