@@ -10,6 +10,9 @@ Philosophy
     The complexity of the cards should create a very large pool of
     semi balanced decks.
     Forced deck variety may be introduced with classes and types.
+    make sure there is planning that needs to be done each turn
+    what creates the need to solve for the best move this turn?
+    
 Card game base
     only minions, no spells/other
     board limited to 10 minions
