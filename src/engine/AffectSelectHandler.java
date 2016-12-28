@@ -1,9 +1,6 @@
 package engine;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
-public class AffectSelectHandler implements EventHandler<ActionEvent>{
+public class AffectSelectHandler{
 	
 	GameState gs;
 	
@@ -15,7 +12,6 @@ public class AffectSelectHandler implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 
 		Event e = new Event("resumeProcessing");
-		CardButton target = (CardButton)event.getSource();
 		e.m = target.minion;
 		gs.affectStack.afterSelectionAffect.setTarget(target.minion);
 		System.out.println("target is: " + target.minion.name);

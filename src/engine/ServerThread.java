@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ServerThread extends Thread{
 	Socket socket;
-	TestGame tg;
+	GameState tgs;
 	int id;
 	
 	ServerThread(Socket sockett){

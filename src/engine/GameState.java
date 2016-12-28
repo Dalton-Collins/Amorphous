@@ -2,9 +2,6 @@ package engine;
 
 import java.util.ArrayList;
 
-import ClientSide.CardViewHandler;
-import ClientSide.fxDisplay;
-
 //This class contains all the information relevant to the current game
 //uses the singleton pattern to allow global access to the single instance of this class
 public class GameState {
@@ -28,16 +25,14 @@ public class GameState {
 	
 	Minion attackingMinion;
 	
-	public fxDisplay fxd;
 	
 	SummonHandler summonHandler;
 	AttackHandler attackHandler;
 	EndTurnHandler endTurnHandler;
 	AffectSelectHandler affectSelectHandler;
 	DirectAttackHandler directAttackHandler;
-	CardViewHandler cardViewHandler;
 	
-	public void initGameState(fxDisplay fxdd){
+	public void initGameState(){
 		
 		//Set Handlers
     	
@@ -48,7 +43,6 @@ public class GameState {
     	directAttackHandler = new DirectAttackHandler(this);
     	
 		//initialize game
-		fxd = fxdd;
 		minionGenerator = new MinionGenerator(this);
 		players = new ArrayList<Player>();
 		players.add(new Player(this, 0));
@@ -92,5 +86,9 @@ public class GameState {
 		}else{
 			return players.get(0);
 		}
+	}
+	
+	void sendGameState(){
+		
 	}
 }
