@@ -1,6 +1,8 @@
 package engine;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable{
 	public Player p;//who triggered the event or who's minion
 	public Player p2;//for targeting players for attacks or effects
 	public Minion m;//minion that triggered event(such as summoned or activated effect)

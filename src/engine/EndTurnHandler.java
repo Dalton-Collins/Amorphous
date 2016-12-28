@@ -5,13 +5,13 @@ import javafx.event.EventHandler;
 
 public class EndTurnHandler implements EventHandler<ActionEvent>{
 	
-	fxDisplay fxd;
-	public EndTurnHandler(fxDisplay fxdd){
-		fxd = fxdd;
+	GameState gs;
+	
+	public EndTurnHandler(GameState gss){
+		gs = gss;
 	}
 	@Override
 	public void handle(ActionEvent event) {
-		GameState gs = GameState.getGameState();
 		gs.nextTurn();
 		gs.selectingAffectTarget = false;
 		gs.affectStack.processing = false;

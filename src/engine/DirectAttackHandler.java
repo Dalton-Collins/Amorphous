@@ -4,16 +4,15 @@ import javafx.event.EventHandler;
 
 public class DirectAttackHandler implements EventHandler<ActionEvent>{
 	
-	fxDisplay fxd;
+	GameState gs;
 	
-	public DirectAttackHandler(fxDisplay fxdd){
-		fxd = fxdd;
+	public DirectAttackHandler(GameState gss){
+		gs = gss;
 	}
 	
 	@Override
 	public void handle(ActionEvent event) {
 		//if a minion to attack has been selected, this allows you to choose the target
-		GameState gs = GameState.getGameState();
 		if(gs.selectingAttackTarget){
 			CardButton sourceButton = (CardButton)event.getSource();
 			Player attackTarget = sourceButton.p;
@@ -31,7 +30,7 @@ public class DirectAttackHandler implements EventHandler<ActionEvent>{
 		} else{
 			CardButton sourceButton = (CardButton)event.getSource();
 			Minion toAttackWith = sourceButton.minion;
-			if(toAttackWith.owner != GameState.getGameState().turnPlayer){
+			if(toAttackWith.owner != gs.turnPlayer){
 				return;
 			}
 			gs.selectingAttackTarget = true;

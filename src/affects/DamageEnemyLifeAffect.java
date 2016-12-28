@@ -6,16 +6,18 @@ import engine.Player;
 
 public class DamageEnemyLifeAffect implements Affect{
 	
+	GameState gs;
 	int damage;
 	Minion owner;
 	
-	public DamageEnemyLifeAffect(Minion ownerr, int damagee){
+	public DamageEnemyLifeAffect(GameState gss, Minion ownerr, int damagee){
+		gs = gss;
 		damage = damagee;
 		owner = ownerr;
 	}
 	public void applyAffect() {
 		owner.effect.activationsThisTurn+=1;
-		Player enemy = GameState.getGameState().getEnemy(owner.owner);
+		Player enemy = gs.getEnemy(owner.owner);
 		enemy.damagePlayer(damage, owner);
 	}
 	@Override

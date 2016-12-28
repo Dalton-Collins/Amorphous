@@ -23,8 +23,10 @@ public class MinionGenerator {
 	int weight;
 	ArrayList<Affect> affectList;
 	ArrayList<Trigger> triggerList;
+	GameState gs;
 	
-	MinionGenerator(){
+	MinionGenerator(GameState gss){
+		gs = gss;
 	}
 	
 	public Minion makeRandomMinion(Player p){
@@ -32,7 +34,7 @@ public class MinionGenerator {
 		int targetWeight = randomWeight();
 		
 		weight = 0;
-		Minion m = new Minion(p);
+		Minion m = new Minion(gs, p);
 
 		Affect af = randomAffect(m);
 		Trigger tr = randomTrigger();
@@ -81,12 +83,12 @@ public class MinionGenerator {
 		if(i == 0){
 			int damage = (rand.nextInt(7)+2)*5;
 			weight+=damage*2;//average weight of 50
-			DamageAllEnemyMinionsAffect daema = new DamageAllEnemyMinionsAffect(m, damage);
+			DamageAllEnemyMinionsAffect daema = new DamageAllEnemyMinionsAffect(gs, m, damage);
 			return daema;
 		}else if(i == 1){
 			int damage = (rand.nextInt(7)+2)*5;
 			weight+=damage*2;//average weight of 50
-			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(m, damage);
+			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(gs, m, damage);
 			return dela;
 		}else if(i == 2){
 			DrawCardAffect dca = new DrawCardAffect(m);
@@ -98,7 +100,7 @@ public class MinionGenerator {
 			IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, atk);
 			return itaa;
 		}else if(i == 4){
-			SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(m);
+			SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(gs, m);
 			weight+=50;
 			return sadma;
 		}

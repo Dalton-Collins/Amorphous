@@ -69,5 +69,20 @@ Realms
 	Legacy realm - contains all cards found that have been buffed/nerfed many times
 	stays constant except for card additions once a month or so
 	standard realm - allows finding new cards and playing them, old cards 
+	
+	
+Server design
+	server will keep a database of accounts, containing their card bank and decks
+	server will maintain a list of active games in threads
+	a player can create a game and wait for a connection from another player
+	the server will do the connecting when the game Id and password is given(if it exists)
+	
+Client Design
+	when opening the client, a connection is made to the server
+	and the login page is opened
+	UI prompts user for account info which is sent to the server
+	if server accepts the account info the player is taken to 
+	the main page allowing them to create a game, browse a list
+	of available games, or view their card bank
 */
 }

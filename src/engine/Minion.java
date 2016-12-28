@@ -19,7 +19,10 @@ public class Minion {
 	
 	boolean summoningSickness;
 	
-	public Minion(Player ownerr){
+	GameState gs;
+	
+	public Minion(GameState gss, Player ownerr){
+		gs = gss;
 		owner  = ownerr;
 	}
 	//summons this minion to the field
@@ -30,17 +33,17 @@ public class Minion {
 		owner.mana = owner.mana - cost;
 		
 		if(effect != null){
-			GameState.getGameState().activeEffects.addEffect(effect);
+			gs.activeEffects.addEffect(effect);
 			System.out.println("added minion :" + name + "'s effect");
 		}
 		
 		System.out.println("Minion " + id + " was summoned");
-		GameState.getGameState().fxd.updateDisplay();
+		gs.fxd.updateDisplay();
 		
 		//create and send out summon event
 		Event e = new Event("summon");
 		e.m = this;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 	}
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future
@@ -66,12 +69,12 @@ public class Minion {
 		Event e = new Event("declaredAttack");
 		e.m = this;
 		e.m2 = target;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
 		target.damageMinion(atk, this);
 		damageMinion(target.atk, target);
-		GameState.getGameState().affectStack.processStack();
+		gs.affectStack.processStack();
 		System.out.println("Minion " + id + " attacked minion " + target.id);
 	}
 	
@@ -79,7 +82,7 @@ public class Minion {
 		Event e = new Event("declaredAttack");
 		e.m = this;
 		e.p2 = target;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
 		target.damagePlayer(atk, this);
@@ -88,14 +91,14 @@ public class Minion {
 	
 	public void destroy(Minion destroyer){
 		owner.minions.remove(this);
-		GameState.getGameState().activeEffects.removeEffect(effect);
+		gs.activeEffects.removeEffect(effect);
 		System.out.println("Minion " + id + " was destroyed");
 		
 		//create destroyed event
 		Event e = new Event("minionDestroyed");
 		e.m = this;//this was destroyed destroyer/m2
 		e.m2 = destroyer;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 	}
 	
 	public void removeSummoningSickness(){
@@ -118,11 +121,11 @@ public class Minion {
 		e.m = this;
 		e.m2 = damager;
 		e.amount = damage;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 		
 		if(health <1){
 			DestroyMinionActionAffect dmaa = new DestroyMinionActionAffect(this, damager);
-			GameState.getGameState().affectStack.addAction(dmaa);
+			gs.affectStack.addAction(dmaa);
 		}
 	}
 	
@@ -136,6 +139,6 @@ public class Minion {
 		e.m = this;
 		e.m2 = healer;
 		e.amount = healing;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 	}
 }

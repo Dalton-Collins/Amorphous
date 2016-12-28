@@ -11,7 +11,11 @@ public class Player {
 	public int mana; //can spend mana to add max mana
 	public int maxMana = 20;
 	public int life = 300;
-	public Player(int idd){
+	
+	GameState gs;
+	
+	public Player(GameState gss, int idd){
+		gs = gss;
 		hand = new Hand();
 		mana = 20;
 		id = idd;
@@ -28,7 +32,7 @@ public class Player {
 		Event e = new Event("playerDrewCards");
 		e.p = this;
 		e.amount = numberOfCards;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 	}
 	
 	//checks if the given number of cards can be drawn
@@ -42,6 +46,6 @@ public class Player {
 		Event e = new Event("playerDamaged");
 		e.m = damager;
 		e.amount = damage;
-		GameState.getGameState().affectStack.handleEvent(e);
+		gs.affectStack.handleEvent(e);
 	}
 }

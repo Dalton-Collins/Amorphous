@@ -6,10 +6,12 @@ import engine.Minion;
 
 public class DestroyMinionAffect implements AfterSelectionAffect{
 	
+	GameState gs;
 	Minion target = null;
 	Minion owner;
 	
-	public DestroyMinionAffect(Minion ownerr){
+	public DestroyMinionAffect(GameState gss, Minion ownerr){
+		gs = gss;
 		owner = ownerr;
 	}
 	@Override
@@ -18,7 +20,7 @@ public class DestroyMinionAffect implements AfterSelectionAffect{
 		assert(target != null);
 		target.destroy(owner);
 		//set gamestate to the proper state
-		GameState.getGameState().fxd.updateDisplay();
+		gs.fxd.updateDisplay();
 	}
 	@Override
 	public Minion getTarget() {

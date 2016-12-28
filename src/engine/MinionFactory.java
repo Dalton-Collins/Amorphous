@@ -10,8 +10,15 @@ import triggers.WhenDamagedTrigger;
 // each function will create a minion
 public class MinionFactory {
 	
+	GameState gs;
+	
+	public MinionFactory(GameState gss){
+		gs = gss;
+		
+	}
+	
 	public Minion makeRat(Player p, int idd){
-		Minion m = new Minion( p);
+		Minion m = new Minion(gs, p);
 		
 		m.id = idd;
 		m.name = "Rat";
@@ -21,14 +28,14 @@ public class MinionFactory {
 		m.type = "Beast";
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
-		DamageEnemyLifeAffect del = new DamageEnemyLifeAffect(m, 15);
+		DamageEnemyLifeAffect del = new DamageEnemyLifeAffect(gs, m, 15);
 		Effect E = new Effect(m, onsummon, del, 1);
 		m.effect = E;
 		return m;
 	}
 	
 	public Minion makeBomber(Player p, int idd){
-		Minion m = new Minion(p);
+		Minion m = new Minion(gs, p);
 		
 		m.id = idd;
 		m.name = "Bomber";
@@ -38,14 +45,14 @@ public class MinionFactory {
 		m.type = "Machine";
 		
 		OnSummonTrigger onsummon = new OnSummonTrigger();
-		SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(m);
+		SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(gs, m);
 		Effect E = new Effect(m, onsummon, sadma, 1);
 		m.effect = E;
 		return m;
 	}
 	
 	public Minion makeBerzerker(Player p, int idd){
-		Minion m = new Minion(p);
+		Minion m = new Minion(gs, p);
 		
 		m.id = idd;
 		m.name = "Berzerker";

@@ -13,8 +13,10 @@ public class AffectStack {
 	boolean processing;
 	public boolean pauseProcessing;
 	public AfterSelectionAffect afterSelectionAffect;
+	GameState gs;
 	
-	public AffectStack(){
+	public AffectStack(GameState gss){
+		gs = gss;
 		affectsToProcess = new LinkedList<Affect>();
 		processing = false;
 		pauseProcessing = false;
@@ -27,7 +29,7 @@ public class AffectStack {
 			assert(afterSelectionAffect != null);
 			affectsToProcess.add(0, afterSelectionAffect);
 		} else{
-			for(Effect effect : GameState.getGameState().activeEffects.activeEffects){
+			for(Effect effect : gs.activeEffects.activeEffects){
 				if(effect.trigger.isTriggered(event, effect.owner)){
 					affectsToProcess.add(effect.affect);
 					System.out.println("added affect triggered by: " + event.eventType);

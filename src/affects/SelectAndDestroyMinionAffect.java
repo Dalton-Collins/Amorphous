@@ -5,18 +5,19 @@ import engine.Minion;
 
 public class SelectAndDestroyMinionAffect implements Affect{
 	
+	GameState gs;
 	Minion owner;
-	public SelectAndDestroyMinionAffect(Minion ownerr){
+	public SelectAndDestroyMinionAffect(GameState gss, Minion ownerr){
+		gs = gss;
 		owner = ownerr;
 	}
 	@Override
 	public void applyAffect() {
 		owner.effect.activationsThisTurn+=1;
-		GameState gs = GameState.getGameState();
 		gs.affectStack.pauseProcessing = true;
 		
 		System.out.println("select and destroy called here");
-		gs.affectStack.afterSelectionAffect = new DestroyMinionAffect(owner);
+		gs.affectStack.afterSelectionAffect = new DestroyMinionAffect(gs, owner);
 		gs.fxd.affectSelection(this);
 	}
 	@Override
