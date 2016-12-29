@@ -1,40 +1,41 @@
 package engine;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 public class ServerThread extends Thread{
+	
+	Server server;
 	Socket socket;
-	GameState tgs;
+	GameState gs;
 	int id;
 	
-	ServerThread(Socket sockett){
+	ServerThread(Socket sockett, Server serverr){
 		socket = sockett;
+		server = serverr;
 	}
 	
 	public void run(){
 		try{
-			String message = null;
-			InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-			BufferedReader br = new BufferedReader(isr);
+			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+			GameCommand gc;
 			
-			while((message = br.readLine()) != null){
-				System.out.println("recieved this message: " + message);
-				if(message.contains("game")){
-					tg = TestServer.getTestServer().makeTestGame(this);
-					tg.start(this);
-				}else if(message.contains("join")){
-					tg = TestServer.getTestServer().games.get(0);
-					tg.connect(this);
-					
-				}else if(message.contains("mess")){
-					tg.change(id);
+			while((gc = (GameCommand)ois.readObject()) != null){
+				System.out.println("recieved this command: " + gc.commandType);
+				if(gc.commandType.equals("update")){
+					System.out.println("server updating clients");
+					gs.updateDisplays();
+				}else if(gc.commandType.equals("makeGame")){
+					System.out.println("making new game");
+					gs = server.makeNewGame(this);
+				}else if(gc.commandType.equals("joinGame")){
+					System.out.println("connecting player to game");
+					server.connectToGame(gc.n, this);
 				}
 			}
 			socket.close();
-		} catch(IOException e){
+		} catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}

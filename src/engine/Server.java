@@ -37,7 +37,7 @@ public class Server {
 		//this creates new threads for each client to use
 		while(acceptConnections){
 			Socket socket = serverSocket.accept();
-			ServerThread serverThread = new ServerThread(socket);
+			ServerThread serverThread = new ServerThread(socket, this);
 			serverThread.id = threadId;
 			threads.put(threadId, serverThread);
 			serverThread.start();
@@ -52,7 +52,7 @@ public class Server {
 	}
 	
 	GameState makeNewGame(ServerThread st){
-		GameState gs = new GameState();
+		GameState gs = new GameState(st);
 		gs.id = gameId;
 		games.put(gameId, gs);
 		gameId+=1;
@@ -61,5 +61,6 @@ public class Server {
 	
 	void connectToGame(Integer id, ServerThread st){
 		GameState gs = games.get(id);
+		gs.initGameState(st);
 	}
 }

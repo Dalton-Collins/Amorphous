@@ -1,6 +1,9 @@
 package engine;
 
-public class AffectSelectHandler{
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+public class AffectSelectHandler implements EventHandler<ActionEvent>{
 	
 	GameState gs;
 	
@@ -8,7 +11,6 @@ public class AffectSelectHandler{
 		gs = gss;
 	}
 	
-	@Override
 	public void handle(ActionEvent event) {
 
 		Event e = new Event("resumeProcessing");

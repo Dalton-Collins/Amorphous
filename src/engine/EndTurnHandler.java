@@ -1,7 +1,5 @@
 package engine;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -20,11 +18,7 @@ public class EndTurnHandler implements EventHandler<ActionEvent>{
 		gs.affectStack.pauseProcessing = false;
 		gs.affectStack.afterSelectionAffect = null;
 		
-		try {
-			gs.updateDisplays();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		gs.updateDisplays();
 	}
 
 }

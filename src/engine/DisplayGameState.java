@@ -1,10 +1,13 @@
 package engine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 //this class holds all the information sent by the server
 //that needs to be displayed to the client
-public class DisplayGameState {
+public class DisplayGameState implements Serializable{
+	
+	private static final long serialVersionUID = 8046300629055914900L;
 	
 	ArrayList<DisplayMinion> handMinions;
 	ArrayList<DisplayMinion> friendlyFieldMinions;
@@ -21,5 +24,11 @@ public class DisplayGameState {
 	int enemyMana;
 	int enemyMaxMana;
 	int enemyLife;
+	
+	public DisplayGameState(){
+		handMinions = new ArrayList<DisplayMinion>();
+		friendlyFieldMinions = new ArrayList<DisplayMinion>();
+		enemyFieldMinions = new ArrayList<DisplayMinion>();
+	}
 	
 }

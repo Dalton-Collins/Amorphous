@@ -3,7 +3,7 @@ package engine;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class SummonHandler implements EventHandler<ActionEvent>{
+public class SummonHandler{
 	
 	GameState gs;
 	
@@ -12,7 +12,7 @@ public class SummonHandler implements EventHandler<ActionEvent>{
 	}
 	
 	@Override
-	public void handle(ActionEvent event) {
+	public void handle(GameCommand gc) {
 		CardButton sourceButton = (CardButton)event.getSource();
 		Minion toSummon = sourceButton.minion;
 		if(toSummon.canSummon() && toSummon.owner == gs.turnPlayer){

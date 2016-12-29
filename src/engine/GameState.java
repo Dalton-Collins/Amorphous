@@ -25,18 +25,18 @@ public class GameState {
 	boolean selectingAttackTarget = false;
 	boolean selectingAffectTarget = false;
 	
-	Minion attackingMinion;
-	
-	
 	SummonHandler summonHandler;
 	AttackHandler attackHandler;
 	EndTurnHandler endTurnHandler;
 	AffectSelectHandler affectSelectHandler;
 	DirectAttackHandler directAttackHandler;
 	
-	public void initGameState(ServerThread s1, ServerThread s2){
+	public GameState(ServerThread st){
+		st1 = st;
+	}
+	
+	public void initGameState(ServerThread s2){
 		
-		st1 = s1;
 		st2 = s2;
 		
 		//Set Handlers
@@ -62,6 +62,8 @@ public class GameState {
 		players.get(1).draw(4);
 		
 		turnPlayer = players.get(0);
+		
+		updateDisplays();
 	}
 	
 	public void nextTurn(){
@@ -83,6 +85,8 @@ public class GameState {
 		turnPlayer.maxMana+=10;
 		turnPlayer.mana = turnPlayer.maxMana;
 		turnPlayer.draw(1);
+		
+		updateDisplays();
 	}
 	
 	public Player getEnemy(Player p){
@@ -93,19 +97,32 @@ public class GameState {
 		}
 	}
 	
-	void updateDisplays() throws IOException{
+	public void updateDisplays(){
 		//update for player 1
 		DisplayGameState dgs1 = getUpdatedDisplayGameState(players.get(0), players.get(1));
 		
-		ObjectOutputStream oos = new ObjectOutputStream(st1.socket.getOutputStream());
-		oos.writeObject(dgs1);
+		ObjectOutputStream oos;
+		try {
+			System.out.println("writing displaygamestate to client 1");
+			oos = new ObjectOutputStream(st1.socket.getOutputStream());
+			oos.writeObject(dgs1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		//update for player 2
 		
 		DisplayGameState dgs2 = getUpdatedDisplayGameState(players.get(1), players.get(0));
 		
-		ObjectOutputStream oos2 = new ObjectOutputStream(st2.socket.getOutputStream());
-		oos2.writeObject(dgs2);
+		ObjectOutputStream oos2;
+		try {
+			System.out.println("writing displaygamestate to client 2");
+			oos2 = new ObjectOutputStream(st2.socket.getOutputStream());
+			oos2.writeObject(dgs2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	DisplayGameState getUpdatedDisplayGameState(Player p1, Player p2){

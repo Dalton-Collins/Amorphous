@@ -1,6 +1,11 @@
 package engine;
 
-public class DisplayMinion {
+import java.io.Serializable;
+
+public class DisplayMinion implements Serializable{
+
+	private static final long serialVersionUID = -740483854398002466L;
+	
 	public String name;
 	public int cost;
 	public int atk;
