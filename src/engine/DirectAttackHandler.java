@@ -40,6 +40,6 @@ public class DirectAttackHandler implements EventHandler<ActionEvent>{
 		}
 		
 		
-		fxd.updateDisplay();
+		gs.updateDisplays();
 	}
 }

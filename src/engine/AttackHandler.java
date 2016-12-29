@@ -40,6 +40,6 @@ public class AttackHandler implements EventHandler<ActionEvent>{
 		}
 		
 		
-		fxd.updateDisplay();
+		gs.updateDisplays();
 	}
 }

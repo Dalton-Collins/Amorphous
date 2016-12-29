@@ -1,5 +1,7 @@
 package engine;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
@@ -9,8 +11,8 @@ public class GameState {
 	Integer id;
 	
 	public ArrayList<Player> players;
-	ServerThread p1;
-	ServerThread p2;
+	ServerThread st1;
+	ServerThread st2;
 	
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
@@ -32,7 +34,10 @@ public class GameState {
 	AffectSelectHandler affectSelectHandler;
 	DirectAttackHandler directAttackHandler;
 	
-	public void initGameState(){
+	public void initGameState(ServerThread s1, ServerThread s2){
+		
+		st1 = s1;
+		st2 = s2;
 		
 		//Set Handlers
     	
@@ -88,7 +93,51 @@ public class GameState {
 		}
 	}
 	
-	void sendGameState(){
+	void updateDisplays() throws IOException{
+		//update for player 1
+		DisplayGameState dgs1 = getUpdatedDisplayGameState(players.get(0), players.get(1));
 		
+		ObjectOutputStream oos = new ObjectOutputStream(st1.socket.getOutputStream());
+		oos.writeObject(dgs1);
+		
+		//update for player 2
+		
+		DisplayGameState dgs2 = getUpdatedDisplayGameState(players.get(1), players.get(0));
+		
+		ObjectOutputStream oos2 = new ObjectOutputStream(st2.socket.getOutputStream());
+		oos2.writeObject(dgs2);
+	}
+	
+	DisplayGameState getUpdatedDisplayGameState(Player p1, Player p2){
+		DisplayGameState dgs = new DisplayGameState();
+		//update hand
+		for(Minion m : p1.hand.cards){
+			DisplayMinion dm = new DisplayMinion(m);
+			dgs.handMinions.add(dm);
+		}
+		//update friendly minions
+		for(Minion m : p1.minions){
+			DisplayMinion dm = new DisplayMinion(m);
+			dgs.friendlyFieldMinions.add(dm);
+		}
+		//update enemy minions
+		for(Minion m : p2.minions){
+			DisplayMinion dm = new DisplayMinion(m);
+			dgs.enemyFieldMinions.add(dm);
+		}
+		//update other stuff
+		dgs.enemyHandSize = p2.hand.cards.size();
+		dgs.selectingAttackTarget = selectingAttackTarget;
+		dgs.selectingAffectTarget = selectingAffectTarget;
+		
+		dgs.mana = p1.mana;
+		dgs.maxMana = p1.maxMana;
+		dgs.life = p1.life;
+		
+		dgs.enemyMana = p2.mana;
+		dgs.enemyMaxMana = p2.maxMana;
+		dgs.enemyLife = p2.life;
+		
+		return dgs;
 	}
 }

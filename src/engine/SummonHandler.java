@@ -1,5 +1,5 @@
 package engine;
-import ClientSide.CardButton;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -19,7 +19,7 @@ public class SummonHandler implements EventHandler<ActionEvent>{
 			toSummon.summon();
 		}
 		if(!gs.selectingAffectTarget){
-			fxd.updateDisplay();
+			gs.updateDisplays();
 		}
 	}
 

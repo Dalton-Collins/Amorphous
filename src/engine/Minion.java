@@ -1,5 +1,7 @@
 package engine;
 
+import java.io.IOException;
+
 import affects.DestroyMinionActionAffect;
 
 //this class handles minions stats and interactions
@@ -26,7 +28,7 @@ public class Minion {
 		owner  = ownerr;
 	}
 	//summons this minion to the field
-	public void summon(){
+	public void summon() throws IOException{
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
 		summoningSickness = true;
@@ -38,7 +40,7 @@ public class Minion {
 		}
 		
 		System.out.println("Minion " + id + " was summoned");
-		gs.fxd.updateDisplay();
+		gs.updateDisplays();
 		
 		//create and send out summon event
 		Event e = new Event("summon");
