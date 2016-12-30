@@ -13,8 +13,8 @@ public class GameState {
 	Server server;
 	
 	public ArrayList<Player> players;
-	ServerThread st1;
-	ServerThread st2;
+	ServerThread serverThread1;
+	ServerThread serverThread2;
 	
 	Socket outputSocket1;
 	Socket outputSocket2;
@@ -41,13 +41,13 @@ public class GameState {
 	
 	public GameState(ServerThread st, Server serverr){
 		server = serverr;
-		st1 = st;
+		serverThread1 = st;
 		outputSocket1 = server.outputSockets.get(st.id);
 	}
 	
 	public void initGameState(ServerThread s2){
 		
-		st2 = s2;
+		serverThread2 = s2;
 		outputSocket2 = server.outputSockets.get(s2.id);
 		try {
 			oos1 = new ObjectOutputStream(outputSocket1.getOutputStream());
@@ -79,7 +79,7 @@ public class GameState {
 		players.get(1).draw(4);
 		
 		turnPlayer = players.get(0);
-		turnPlayerId = st1.id;
+		turnPlayerId = serverThread1.id;
 		
 		updateDisplays();
 	}
@@ -89,10 +89,10 @@ public class GameState {
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
 		
-		if(turnPlayerId == st1.id){
-			turnPlayerId = st2.id;
+		if(turnPlayerId == serverThread1.id){
+			turnPlayerId = serverThread2.id;
 		}else{
-			turnPlayerId = st1.id;
+			turnPlayerId = serverThread1.id;
 		}
 		
 		//reset attacks this turn to 0
