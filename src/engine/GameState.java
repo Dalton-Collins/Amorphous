@@ -18,8 +18,8 @@ public class GameState {
 	
 	Socket outputSocket1;
 	Socket outputSocket2;
-	ObjectOutputStream oos1;
-	ObjectOutputStream oos2;
+	public ObjectOutputStream oos1;
+	public ObjectOutputStream oos2;
 	
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
@@ -145,7 +145,7 @@ public class GameState {
 		
 	}
 	
-	DisplayGameState getUpdatedDisplayGameState(Player p1, Player p2){
+	public DisplayGameState getUpdatedDisplayGameState(Player p1, Player p2){
 		DisplayGameState dgs = new DisplayGameState();
 		//update hand
 		for(Minion m : p1.hand.cards){

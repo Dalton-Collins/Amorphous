@@ -21,6 +21,7 @@ public class DisplayMinion implements Serializable{
 	boolean summoningSickness;
 	
 	public int cardPosition;
+	public int fieldLocation;//0 for my field, 1 for enemys field
 	
 	public DisplayMinion(Minion m){
 		name = m.name;

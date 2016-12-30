@@ -38,6 +38,8 @@ public class ServerThread extends Thread{
 					gs.endTurnHandler.handle(gc, this);
 				}else if(gc.commandType.equals("attack")){
 					gs.attackHandler.handle(gc, this);
+				}else if(gc.commandType.equals("directAttack")){
+					gs.directAttackHandler.handle(gc, this);
 				}
 			}
 			socket.close();
