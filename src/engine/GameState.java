@@ -2,6 +2,7 @@ package engine;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 //This class contains all the information relevant to the current game
@@ -9,13 +10,20 @@ import java.util.ArrayList;
 public class GameState {
 	
 	Integer id;
+	Server server;
 	
 	public ArrayList<Player> players;
 	ServerThread st1;
 	ServerThread st2;
 	
+	Socket outputSocket1;
+	Socket outputSocket2;
+	ObjectOutputStream oos1;
+	ObjectOutputStream oos2;
+	
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
+	int turnPlayerId;//equal to the thread id of the current turn player
 	
 	public ActiveEffects activeEffects;
 	public AffectStack affectStack;
@@ -31,13 +39,22 @@ public class GameState {
 	AffectSelectHandler affectSelectHandler;
 	DirectAttackHandler directAttackHandler;
 	
-	public GameState(ServerThread st){
+	public GameState(ServerThread st, Server serverr){
+		server = serverr;
 		st1 = st;
+		outputSocket1 = server.outputSockets.get(st.id);
 	}
 	
 	public void initGameState(ServerThread s2){
 		
 		st2 = s2;
+		outputSocket2 = server.outputSockets.get(s2.id);
+		try {
+			oos1 = new ObjectOutputStream(outputSocket1.getOutputStream());
+			oos2 = new ObjectOutputStream(outputSocket2.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		//Set Handlers
     	
@@ -62,6 +79,7 @@ public class GameState {
 		players.get(1).draw(4);
 		
 		turnPlayer = players.get(0);
+		turnPlayerId = st1.id;
 		
 		updateDisplays();
 	}
@@ -70,6 +88,12 @@ public class GameState {
 		int turn = turnPlayer.id;
 		turn = (turn+1)%players.size();
 		turnPlayer = players.get(turn);
+		
+		if(turnPlayerId == st1.id){
+			turnPlayerId = st2.id;
+		}else{
+			turnPlayerId = st1.id;
+		}
 		
 		//reset attacks this turn to 0
 		for(Minion m : turnPlayer.minions){
@@ -101,11 +125,9 @@ public class GameState {
 		//update for player 1
 		DisplayGameState dgs1 = getUpdatedDisplayGameState(players.get(0), players.get(1));
 		
-		ObjectOutputStream oos;
 		try {
 			System.out.println("writing displaygamestate to client 1");
-			oos = new ObjectOutputStream(st1.socket.getOutputStream());
-			oos.writeObject(dgs1);
+			oos1.writeObject(dgs1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -114,10 +136,8 @@ public class GameState {
 		
 		DisplayGameState dgs2 = getUpdatedDisplayGameState(players.get(1), players.get(0));
 		
-		ObjectOutputStream oos2;
 		try {
 			System.out.println("writing displaygamestate to client 2");
-			oos2 = new ObjectOutputStream(st2.socket.getOutputStream());
 			oos2.writeObject(dgs2);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -154,6 +174,12 @@ public class GameState {
 		dgs.enemyMana = p2.mana;
 		dgs.enemyMaxMana = p2.maxMana;
 		dgs.enemyLife = p2.life;
+		
+		if(turnPlayer == p1){
+			dgs.yourTurn = true;
+		}else{
+			dgs.yourTurn = false;
+		}
 		
 		return dgs;
 	}

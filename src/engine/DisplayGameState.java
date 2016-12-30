@@ -17,6 +17,8 @@ public class DisplayGameState implements Serializable{
 	boolean selectingAttackTarget;
 	boolean selectingAffectTarget;
 	
+	boolean yourTurn;//true if the player given this object is the turn player
+	
 	int mana;
 	int maxMana;
 	int life;

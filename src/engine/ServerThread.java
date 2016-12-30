@@ -32,6 +32,10 @@ public class ServerThread extends Thread{
 				}else if(gc.commandType.equals("joinGame")){
 					System.out.println("connecting player to game");
 					server.connectToGame(gc.n, this);
+				}else if(gc.commandType.equals("summon")){
+					
+				}else if(gc.commandType.equals("endTurn")){
+					gs.endTurnHandler.handle(gc, this);
 				}
 			}
 			socket.close();

@@ -28,7 +28,7 @@ public class Minion {
 		owner  = ownerr;
 	}
 	//summons this minion to the field
-	public void summon() throws IOException{
+	public void summon(){
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
 		summoningSickness = true;
