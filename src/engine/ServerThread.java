@@ -41,7 +41,7 @@ public class ServerThread extends Thread{
 				}else if(gc.commandType.equals("directAttack")){
 					gs.directAttackHandler.handle(gc, this);
 				}else if(gc.commandType.equals("affectTarget")){
-					
+					gs.affectSelectHandler.handle(gc,  this);
 				}
 			}
 			socket.close();

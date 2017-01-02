@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import affects.SelectAndDestroyMinionAffect;
+
 //This class contains all the information relevant to the current game
 //uses the singleton pattern to allow global access to the single instance of this class
 public class GameState {
@@ -30,7 +32,6 @@ public class GameState {
 	public MinionFactory minionFactory;
 	public MinionGenerator minionGenerator;
 	
-	boolean selectingAttackTarget = false;
 	boolean selectingAffectTarget = false;
 	
 	SummonHandler summonHandler;
@@ -122,6 +123,9 @@ public class GameState {
 	}
 	
 	public void updateDisplays(){
+		if(selectingAffectTarget){
+			return;
+		}
 		//update for player 1
 		DisplayGameState dgs1 = getUpdatedDisplayGameState(players.get(0), players.get(1));
 		
@@ -145,6 +149,26 @@ public class GameState {
 		
 	}
 	
+	public void updateDisplays(SelectAndDestroyMinionAffect sadma){
+		if(sadma.owner.owner == players.get(0)){//if the affect activating belongs to player 1
+			DisplayGameState dgs = getUpdatedDisplayGameState(players.get(0), players.get(1));
+			dgs.selectingAffectTarget = true;
+			try {
+				oos1.writeObject(dgs);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			DisplayGameState dgs = getUpdatedDisplayGameState(players.get(1), players.get(0));
+			dgs.selectingAffectTarget = true;
+			try {
+				oos2.writeObject(dgs);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public DisplayGameState getUpdatedDisplayGameState(Player p1, Player p2){
 		DisplayGameState dgs = new DisplayGameState();
 		//update hand
@@ -164,7 +188,6 @@ public class GameState {
 		}
 		//update other stuff
 		dgs.enemyHandSize = p2.hand.cards.size();
-		dgs.selectingAttackTarget = selectingAttackTarget;
 		dgs.selectingAffectTarget = selectingAffectTarget;
 		
 		dgs.mana = p1.mana;

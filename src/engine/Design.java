@@ -84,5 +84,8 @@ Client Design
 	if server accepts the account info the player is taken to 
 	the main page allowing them to create a game, browse a list
 	of available games, or view their card bank
+	
+Commanders
+	A commander will be selectable 
 */
 }

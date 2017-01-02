@@ -23,6 +23,7 @@ public class AffectSelectHandler{
 			gs.affectStack.afterSelectionAffect.setTarget(target);
 			System.out.println("target is: " + target.name);
 			gs.selectingAffectTarget = false;
+			System.out.println("affect select handler completed here");
 			gs.affectStack.handleEvent(e);
 		}else if(st.id == gs.serverThread2.id){//if player 2
 			Event e = new Event("resumeProcessing");
