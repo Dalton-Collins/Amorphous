@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 import affects.SelectAndDestroyMinionAffect;
 
@@ -72,6 +73,8 @@ public class GameState {
 		players.add(new Player(this, 1));
 		players.get(0).deck = minionGenerator.makeRandomDeck(players.get(0));
 		players.get(1).deck = minionGenerator.makeRandomDeck(players.get(1));
+		setMinionUniqueIds(players.get(0).deck);
+		setMinionUniqueIds(players.get(1).deck);
 		
 		activeEffects = new ActiveEffects();
 		affectStack = new AffectStack(this);
@@ -205,5 +208,12 @@ public class GameState {
 		}
 		
 		return dgs;
+	}
+	
+	void setMinionUniqueIds(Deck deck){
+		Random rand = new Random();
+		for(Minion m : deck.cards){
+			m.uniqueId = rand.nextLong();
+		}
 	}
 }

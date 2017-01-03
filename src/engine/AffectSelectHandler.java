@@ -12,30 +12,34 @@ public class AffectSelectHandler{
 	
 	public void handle(GameCommand gc, ServerThread st) {
 		
+		Minion target = null;
+		for(Minion m : gs.players.get(0).minions){
+			if(m.uniqueId.equals(gc.displayMinion1.uniqueId)){
+				target = m;
+			}
+		}
+		for(Minion m : gs.players.get(1).minions){
+			if(m.uniqueId.equals(gc.displayMinion1.uniqueId)){
+				target = m;
+			}
+		}
+		assert(target != null);
 		if(st.id == gs.serverThread1.id){//if player 1 sent this command
 			Event e = new Event("resumeProcessing");
-			int field = 0;
-			if(gc.displayMinion1.fieldLocation == 1){
-				field = 1;
-			}
-			Minion target = gs.players.get(field).minions.get(gc.displayMinion1.cardPosition);
 			e.m = target;
 			gs.affectStack.afterSelectionAffect.setTarget(target);
 			System.out.println("target is: " + target.name);
 			gs.selectingAffectTarget = false;
 			System.out.println("affect select handler completed here");
 			gs.affectStack.handleEvent(e);
+			
 		}else if(st.id == gs.serverThread2.id){//if player 2
 			Event e = new Event("resumeProcessing");
-			int field = 1;
-			if(gc.displayMinion1.fieldLocation == 1){
-				field = 0;
-			}
-			Minion target = gs.players.get(field).minions.get(gc.displayMinion1.cardPosition);
 			e.m = target;
 			gs.affectStack.afterSelectionAffect.setTarget(target);
 			System.out.println("target is: " + target.name);
 			gs.selectingAffectTarget = false;
+			System.out.println("affect select handler completed here");
 			gs.affectStack.handleEvent(e);
 		}
 	}

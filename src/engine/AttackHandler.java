@@ -10,16 +10,37 @@ public class AttackHandler{
 
 	public void handle(GameCommand gc, ServerThread st) {
 		
+		Minion attackingMinion = null;
+		Minion target = null;
+		for(Minion m : gs.players.get(0).minions){
+			if(m.uniqueId.equals(gc.displayMinion1.uniqueId)){
+				attackingMinion = m;
+			}
+		}
+		for(Minion m : gs.players.get(1).minions){
+			if(m.uniqueId.equals(gc.displayMinion1.uniqueId)){
+				attackingMinion = m;
+			}
+		}
+		for(Minion m : gs.players.get(0).minions){
+			if(m.uniqueId.equals(gc.displayMinion2.uniqueId)){
+				target = m;
+			}
+		}
+		for(Minion m : gs.players.get(1).minions){
+			if(m.uniqueId.equals(gc.displayMinion2.uniqueId)){
+				target = m;
+			}
+		}
+		assert(attackingMinion != null);
+		assert(target != null);
+		
 		if(st.id == gs.serverThread1.id){//if player 1 sent this command
-			Minion attackingMinion = gs.players.get(0).minions.get(gc.displayMinion1.cardPosition);
-			Minion target = gs.players.get(1).minions.get(gc.displayMinion2.cardPosition);
 			if(attackingMinion.canAttack(target)){
 				attackingMinion.attack(target);
 				gs.updateDisplays();
 			}
 		}else if(st.id == gs.serverThread2.id){//if player 2
-			Minion attackingMinion = gs.players.get(1).minions.get(gc.displayMinion1.cardPosition);
-			Minion target = gs.players.get(0).minions.get(gc.displayMinion2.cardPosition);
 			if(attackingMinion.canAttack(target)){
 				attackingMinion.attack(target);
 				gs.updateDisplays();

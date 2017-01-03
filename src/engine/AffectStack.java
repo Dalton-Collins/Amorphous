@@ -23,12 +23,15 @@ public class AffectStack {
 	}
 	
 	public void handleEvent(Event event){
+		//resume processing after an affect that requires targeting was activated
 		if(event.eventType == "resumeProcessing"){
 			pauseProcessing = false;
 			processing = false;
 			assert(afterSelectionAffect != null);
 			affectsToProcess.add(0, afterSelectionAffect);
-		} else{
+			afterSelectionAffect = null;
+			gs.selectingAffectTarget = false;
+		} else{//check what affects are triggered and need to be added to the stack
 			for(Effect effect : gs.activeEffects.activeEffects){
 				if(effect.trigger.isTriggered(event, effect.owner)){
 					affectsToProcess.add(effect.affect);
@@ -36,6 +39,7 @@ public class AffectStack {
 				}
 			}
 		}
+		//begin processing affects
 		if(!processing){
 			while(!affectsToProcess.isEmpty() && !pauseProcessing){
 				processing = true;

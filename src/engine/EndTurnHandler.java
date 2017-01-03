@@ -15,7 +15,7 @@ public class EndTurnHandler{
 			gs.selectingAffectTarget = false;
 			gs.affectStack.processing = false;
 			gs.affectStack.pauseProcessing = false;
-			gs.affectStack.afterSelectionAffect = null;
+			//gs.affectStack.afterSelectionAffect = null;
 			
 			gs.updateDisplays();
 		}

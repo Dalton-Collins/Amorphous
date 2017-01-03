@@ -7,6 +7,7 @@ import affects.DestroyMinionActionAffect;
 //this class handles minions stats and interactions
 public class Minion {
 	public int id;
+	public Long uniqueId;
 	public String name;
 	public int cost;
 	public int atk;
