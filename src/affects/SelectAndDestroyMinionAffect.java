@@ -15,6 +15,7 @@ public class SelectAndDestroyMinionAffect implements Affect{
 	public void applyAffect() {
 		owner.effect.activationsThisTurn+=1;
 		gs.affectStack.pauseProcessing = true;
+		gs.selectingAffectTarget = true;
 		
 		System.out.println("select and destroy called here");
 		gs.affectStack.afterSelectionAffect = new DestroyMinionAffect(gs, owner);

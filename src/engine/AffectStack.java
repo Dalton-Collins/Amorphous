@@ -47,6 +47,7 @@ public class AffectStack {
 				Affect a = affectsToProcess.poll();
 				System.out.println("applying effect");
 				a.applyAffect();
+				gs.updateDisplays();
 			}
 		}
 		if(affectsToProcess.isEmpty()){

@@ -20,7 +20,6 @@ public class DestroyMinionAffect implements AfterSelectionAffect{
 		assert(target != null);
 		target.destroy(owner);
 		//set gamestate to the proper state
-		gs.updateDisplays();
 	}
 	@Override
 	public Minion getTarget() {

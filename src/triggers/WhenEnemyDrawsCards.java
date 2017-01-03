@@ -15,7 +15,7 @@ public class WhenEnemyDrawsCards implements Trigger{
 	@Override
 	public boolean isTriggered(Event e, Minion owner) {
 
-		return (e.amount >= cardsRequired && e.p != owner.owner 
+		return (e.eventType == "playerDrewCards" && e.amount >= cardsRequired && e.p != owner.owner 
 				&& owner.effect.activationsThisTurn < owner.effect.maxActivationsPerTurn);
 	}
 

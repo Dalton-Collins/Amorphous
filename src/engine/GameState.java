@@ -33,7 +33,7 @@ public class GameState {
 	public MinionFactory minionFactory;
 	public MinionGenerator minionGenerator;
 	
-	boolean selectingAffectTarget = false;
+	public boolean selectingAffectTarget = false;
 	
 	SummonHandler summonHandler;
 	AttackHandler attackHandler;
@@ -51,12 +51,8 @@ public class GameState {
 		
 		serverThread2 = s2;
 		outputSocket2 = server.outputSockets.get(s2.id);
-		try {
-			oos1 = new ObjectOutputStream(outputSocket1.getOutputStream());
-			oos2 = new ObjectOutputStream(outputSocket2.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		oos1 = serverThread1.oos;
+		oos2 = serverThread2.oos;
 		
 		//Set Handlers
     	

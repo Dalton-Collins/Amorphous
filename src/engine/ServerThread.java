@@ -2,6 +2,7 @@ package engine;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ServerThread extends Thread{
@@ -10,6 +11,7 @@ public class ServerThread extends Thread{
 	Socket socket;
 	GameState gs;
 	int id;
+	ObjectOutputStream oos;
 	
 	ServerThread(Socket sockett, Server serverr){
 		socket = sockett;
@@ -26,22 +28,33 @@ public class ServerThread extends Thread{
 				if(gc.commandType.equals("update")){
 					System.out.println("server updating clients");
 					gs.updateDisplays();
+					
 				}else if(gc.commandType.equals("makeGame")){
 					System.out.println("making new game");
 					gs = server.makeNewGame(this);
+					
 				}else if(gc.commandType.equals("joinGame")){
 					System.out.println("connecting player to game");
 					server.connectToGame(gc.n, this);
+					
+				}else if(gc.commandType.equals("refreshGames")){
+					server.sendGamesList(this);
+					
 				}else if(gc.commandType.equals("summon")){
 					gs.summonHandler.handle(gc, this);
+					
 				}else if(gc.commandType.equals("endTurn")){
 					gs.endTurnHandler.handle(gc, this);
+					
 				}else if(gc.commandType.equals("attack")){
 					gs.attackHandler.handle(gc, this);
+					
 				}else if(gc.commandType.equals("directAttack")){
 					gs.directAttackHandler.handle(gc, this);
+					
 				}else if(gc.commandType.equals("affectTarget")){
 					gs.affectSelectHandler.handle(gc,  this);
+					
 				}
 			}
 			socket.close();
