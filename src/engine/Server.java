@@ -92,4 +92,11 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
+	
+	void concede(ServerThread st, GameState gs){
+		//play winner message to other play
+		//play loser message to conceder, maybe
+		//tell clients to return to title screen
+		games.remove(gs);
+	}
 }

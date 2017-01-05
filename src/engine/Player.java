@@ -47,5 +47,10 @@ public class Player {
 		e.m = damager;
 		e.amount = damage;
 		gs.affectStack.handleEvent(e);
+		
+		if(life <=0){
+			gs.winner = gs.getOtherPlayer(this).id;
+			gs.updateDisplays();
+		}
 	}
 }

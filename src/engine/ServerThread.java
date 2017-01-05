@@ -40,6 +40,9 @@ public class ServerThread extends Thread{
 				}else if(gc.commandType.equals("refreshGames")){
 					server.sendGamesList(this);
 					
+				}else if(gc.commandType.equals("concede")){
+					server.concede(this, gs);
+					
 				}else if(gc.commandType.equals("summon")){
 					gs.summonHandler.handle(gc, this);
 					

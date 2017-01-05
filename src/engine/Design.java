@@ -22,7 +22,10 @@ Card game base
     minions can attack other minions or the player
     players can choose to allow their minions to be attacked or not**
     players have life points that determine winner
-    
+  
+Commanders
+	A commander will be selectable d
+	
 Effects
 	effects have an activation condition
 	a number of maximum activations per turn
@@ -85,7 +88,7 @@ Client Design
 	the main page allowing them to create a game, browse a list
 	of available games, or view their card bank
 	
-Commanders
-	A commander will be selectable 
+	
+Cosmetics and personalization - goldmine
 */
 }

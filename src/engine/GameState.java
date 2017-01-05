@@ -24,6 +24,7 @@ public class GameState {
 	public ObjectOutputStream oos1;
 	public ObjectOutputStream oos2;
 	
+	public int winner = 0;
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
 	int turnPlayerId;//equal to the thread id of the current turn player
@@ -77,6 +78,9 @@ public class GameState {
 		
 		players.get(0).draw(4);
 		players.get(1).draw(4);
+		
+		players.get(0).id = 1;
+		players.get(1).id = 2;
 		
 		turnPlayer = players.get(0);
 		turnPlayerId = serverThread1.id;
@@ -186,6 +190,19 @@ public class GameState {
 			dgs.enemyFieldMinions.add(dm);
 		}
 		//update other stuff
+		if(winner == 1){
+			if(p1 == players.get(0)){
+				dgs.winner = 1;
+			}else if(p1 == players.get(1)){
+				dgs.winner = 2;
+			}
+		}else if(winner == 2){
+			if(p1 == players.get(0)){
+				dgs.winner = 2;
+			}else if(p1 == players.get(1)){
+				dgs.winner = 1;
+			}
+		}
 		dgs.enemyHandSize = p2.hand.cards.size();
 		dgs.selectingAffectTarget = selectingAffectTarget;
 		
@@ -210,6 +227,14 @@ public class GameState {
 		Random rand = new Random();
 		for(Minion m : deck.cards){
 			m.uniqueId = rand.nextLong();
+		}
+	}
+	
+	Player getOtherPlayer(Player p){
+		if(players.get(0) == p){
+			return players.get(1);
+		}else{
+			return players.get(0);
 		}
 	}
 }
