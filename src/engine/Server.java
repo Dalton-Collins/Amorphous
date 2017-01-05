@@ -94,9 +94,12 @@ public class Server {
 	}
 	
 	void concede(ServerThread st, GameState gs){
-		//play winner message to other play
-		//play loser message to conceder, maybe
-		//tell clients to return to title screen
+		if(st == gs.serverThread1){
+			gs.winner = 1;
+		}else{
+			gs.winner = 2;
+		}
+		gs.updateDisplays();
 		games.remove(gs);
 	}
 }

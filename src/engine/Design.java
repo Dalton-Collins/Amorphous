@@ -24,7 +24,8 @@ Card game base
     players have life points that determine winner
   
 Commanders
-	A commander will be selectable d
+	Each deck will require a commander, commanders will be sommonable units with unique effects
+	each commander will be handmade, and will give you deck its mana typing.
 	
 Effects
 	effects have an activation condition

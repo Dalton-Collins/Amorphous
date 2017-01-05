@@ -24,7 +24,7 @@ public class GameState {
 	public ObjectOutputStream oos1;
 	public ObjectOutputStream oos2;
 	
-	public int winner = 0;
+	public int winner = 0;//1 for p1 wins, 2 for p2 wins
 	public static int maxMinions = 10;//10 minions per player possible
 	Player turnPlayer;//whos turn is it to play
 	int turnPlayerId;//equal to the thread id of the current turn player
