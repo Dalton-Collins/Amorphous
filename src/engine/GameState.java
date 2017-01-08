@@ -79,8 +79,8 @@ public class GameState {
 		players.get(0).draw(4);
 		players.get(1).draw(4);
 		
-		players.get(0).id = 1;
-		players.get(1).id = 2;
+		players.get(0).id = 0;
+		players.get(1).id = 1;
 		
 		turnPlayer = players.get(0);
 		turnPlayerId = serverThread1.id;

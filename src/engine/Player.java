@@ -3,7 +3,7 @@ package engine;
 import java.util.ArrayList;
 
 public class Player {
-	public int id;
+	public int id;//0 or 1 for the players id
 	public Hand hand;
 	public Deck deck;
 	public ArrayList<Minion> minions;
