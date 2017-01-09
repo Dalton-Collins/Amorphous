@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Database{
 	public Connection getConnection(){
@@ -37,14 +36,15 @@ public class Database{
 	    		//Statement stmnt = c.createStatement();
 	    		//String sqll ="DROP TABLE IF EXISTS ITEMS";
 	    		//stmnt.executeUpdate(sqll);
-	    		System.out.println("Item table aready exists");
+	    		System.out.println("Accounts table aready exists");
 	    		return;
 	    	}
 	    	stmt = c.createStatement();
 	    	String sql = "CREATE TABLE ACCOUNTS " +
 	    			"(ID    BLOB PRIMARY KEY NOT NULL," +
 	    			" ACCOUNTNAME   BLOB     NOT NULL, " +
-	    			" CARDBANKID    BLOB     NOT NULL, " +
+	    			" PASSWORD      BLOB     NOT NULL, " +
+	    			" CARDBANK      BLOB     NOT NULL, " +
 	    			" GOLD          BLOB     NOT NULL, " +
 	    			" FRIENDSLISTID   BLOB) ";
 	    	stmt.executeUpdate(sql);
@@ -56,7 +56,7 @@ public class Database{
 	    }
 	}
 	
-	public void InsertAccount(Connection c,  String ID, String ACCOUNTNAME, String CARDBANKID,
+	public void InsertAccount(Connection c,  String ID, String ACCOUNTNAME, String PASSWORD, String CARDBANK,
 			String GOLD, String FRIENDSLISTID){
 	    Statement stmt = null;
 	    try {
@@ -66,8 +66,8 @@ public class Database{
 	      
 	      stmt = c.createStatement();
 	      //create sql string and insert it
-	      String sql = "INSERT INTO ACCOUNTS (ID, ACCOUNTNAME, CARDBANKID, GOLD, FRIENDSLISTID)"
-                     + "VALUES ('" + ID + "', '" + ACCOUNTNAME  + "', '" + CARDBANKID  + "', '" + GOLD
+	      String sql = "INSERT INTO ACCOUNTS (ID, ACCOUNTNAME, PASSWORD, CARDBANK, GOLD, FRIENDSLISTID)"
+                     + "VALUES ('" + ID + "', '" + ACCOUNTNAME + "', '" + PASSWORD  + "', '" + CARDBANK  + "', '" + GOLD
                      + "', '" + FRIENDSLISTID  + "');";
 	      
 	      stmt.executeUpdate(sql);
@@ -80,32 +80,37 @@ public class Database{
 	      System.exit(0);
 	    }
 	  }
+	/*
+	 * Cardbank notes, the card bank is a very long string of 1's and 0's
+	 * each card has an internal cardbank id, which corresponds to its index
+	 * on this long string, if the string has a 1 at that index, then the player
+	 * owns that card.
+	 */
 	
-	
-	public ArrayList<Object> selectAttribute(String attr, String value, String getattr){
-	    Connection c = null;
+	public ArrayList<Object> selectAttribute(Connection c, String table, String attr, String value, String getattr){
 	    Statement stmt = null;
 	    ArrayList<Object> results = new ArrayList<Object>();
 	    try{
 	    	Class.forName("org.sqlite.JDBC");
-	    	c = DriverManager.getConnection("jdbc:sqlite:POE.db");
-	    	//System.out.println("Trying to select");
+	    	System.out.println("Trying to select");
 	    	
 	    	stmt = c.createStatement();
-	        ResultSet rs = stmt.executeQuery( "SELECT * FROM ITEMS WHERE " + attr + "='" + value + "';" );
+	        ResultSet rs = stmt.executeQuery( "SELECT * FROM " + table + " WHERE " + attr + "='" + value + "';" );
 	        while ( rs.next() ) {
 	           //System.out.println("got select results ");
 	           Object ob = rs.getObject(getattr);
 	           results.add(ob);
 	        }
-	    	
+	        //System.out.println("Select Successful");
+	        
 	    	stmt.close();
+	    	return results;
 	    } catch ( Exception e ) {
 	    	System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	    	System.exit(0);
 	    }
-	    //System.out.println("Select Successful");
-	    return results;
+	    System.out.println("Select unsuccessful");
+	    return null;
 	}
 	
 	public ArrayList<Object> getAllItems(){

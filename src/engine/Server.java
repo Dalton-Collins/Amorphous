@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,6 +15,8 @@ public class Server {
 	
 	Integer threadId;
 	Integer gameId;
+	
+	Database database;
 	
 	HashMap<Integer, ServerThread> threads;
 	HashMap<Integer, Socket> outputSockets;
@@ -30,6 +33,10 @@ public class Server {
 	
 	public void runServer() throws IOException, ClassNotFoundException{
 		
+		database = new Database();
+		Connection c = database.getConnection();
+		database.createAccountsTable(c);
+		//database.InsertAccount(c, "0000000000", "Master", "password", "1", "100000", "0");
 		threads = new HashMap<Integer, ServerThread>();
 		outputSockets = new HashMap<Integer, Socket>();
 		games = new HashMap<Integer, GameState>();
