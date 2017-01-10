@@ -87,7 +87,7 @@ public class Database{
 	 * owns that card.
 	 */
 	
-	public ArrayList<Object> selectAttribute(Connection c, String table, String attr, String value, String getattr){
+	public ArrayList<Object> selectByAttribute(Connection c, String table, String attr, String value, String getattr){
 	    Statement stmt = null;
 	    ArrayList<Object> results = new ArrayList<Object>();
 	    try{

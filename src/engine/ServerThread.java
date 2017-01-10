@@ -28,7 +28,8 @@ public class ServerThread extends Thread{
 				if(gc.commandType.equals("update")){
 					System.out.println("server updating clients");
 					gs.updateDisplays();
-					
+				}else if(gc.commandType.equals("accountInfo")){
+					server.tryLogin(gc);
 				}else if(gc.commandType.equals("makeGame")){
 					System.out.println("making new game");
 					gs = server.makeNewGame(this);

@@ -17,6 +17,7 @@ public class Server {
 	Integer gameId;
 	
 	Database database;
+	Connection c;
 	
 	HashMap<Integer, ServerThread> threads;
 	HashMap<Integer, Socket> outputSockets;
@@ -34,7 +35,7 @@ public class Server {
 	public void runServer() throws IOException, ClassNotFoundException{
 		
 		database = new Database();
-		Connection c = database.getConnection();
+		c = database.getConnection();
 		database.createAccountsTable(c);
 		//database.InsertAccount(c, "0000000000", "Master", "password", "1", "100000", "0");
 		threads = new HashMap<Integer, ServerThread>();
@@ -108,5 +109,22 @@ public class Server {
 		}
 		gs.updateDisplays();
 		games.remove(gs);
+	}
+	
+	void tryLogin(GameCommand gc){
+		//try to log the player in here
+		ArrayList<Object> results = database.selectByAttribute(c, "Accounts", "ACCOUNTNAME", gc.s1, "PASSWORD");
+		String password = null;
+		if(results.size() > 0){
+			password = (String) results.get(0);
+		}else{
+			System.out.println("account not found");
+		}
+		if(password == gc.s2){
+			//log player in
+			System.out.println("login successful");
+		}else{
+			System.out.println("incorrect Password");
+		}
 	}
 }
