@@ -9,9 +9,11 @@ public class ServerThread extends Thread{
 	
 	Server server;
 	Socket socket;
-	GameState gs;
+	GameState gs = null;
 	int id;
 	ObjectOutputStream oos;
+	boolean loggedIn = false;
+	String accountName = null;
 	
 	ServerThread(Socket sockett, Server serverr){
 		socket = sockett;
@@ -24,42 +26,53 @@ public class ServerThread extends Thread{
 			GameCommand gc;
 			
 			while((gc = (GameCommand)ois.readObject()) != null){
-				System.out.println("recieved this command: " + gc.commandType);
-				if(gc.commandType.equals("update")){
-					System.out.println("server updating clients");
-					gs.updateDisplays();
-				}else if(gc.commandType.equals("accountInfo")){
-					server.tryLogin(gc);
-				}else if(gc.commandType.equals("makeGame")){
-					System.out.println("making new game");
-					gs = server.makeNewGame(this);
+				//System.out.println("received this command: " + gc.commandType);
+				
+				//login command
+				if(gc.commandType.equals("accountInfo")){
+					server.tryLogin(gc, this);
 					
-				}else if(gc.commandType.equals("joinGame")){
-					System.out.println("connecting player to game");
-					server.connectToGame(gc.n, this);
-					
-				}else if(gc.commandType.equals("refreshGames")){
-					server.sendGamesList(this);
-					
-				}else if(gc.commandType.equals("concede")){
-					server.concede(this, gs);
-					
-				}else if(gc.commandType.equals("summon")){
-					gs.summonHandler.handle(gc, this);
-					
-				}else if(gc.commandType.equals("endTurn")){
-					gs.endTurnHandler.handle(gc, this);
-					
-				}else if(gc.commandType.equals("attack")){
-					gs.attackHandler.handle(gc, this);
-					
-				}else if(gc.commandType.equals("directAttack")){
-					gs.directAttackHandler.handle(gc, this);
-					
-				}else if(gc.commandType.equals("affectTarget")){
-					gs.affectSelectHandler.handle(gc,  this);
-					
+				//menu commands
+				if(loggedIn){
+					if(gc.commandType.equals("makeGame")){
+						System.out.println("making new game");
+						gs = server.makeNewGame(this);
+						
+					}else if(gc.commandType.equals("joinGame")){
+						System.out.println("connecting player to game");
+						server.connectToGame(gc.n, this);
+						
+					}else if(gc.commandType.equals("refreshGames")){
+						server.sendGamesList(this);
+					}
 				}
+					
+				//gameplay commands
+				if(gs != null){
+					}else if(gc.commandType.equals("update")){
+						System.out.println("server updating clients");
+						gs.updateDisplays();
+					}else if(gc.commandType.equals("concede")){
+						server.concede(this, gs);
+				
+					}else if(gc.commandType.equals("summon")){
+						gs.summonHandler.handle(gc, this);
+				
+					}else if(gc.commandType.equals("endTurn")){
+						gs.endTurnHandler.handle(gc, this);
+				
+					}else if(gc.commandType.equals("attack")){
+						gs.attackHandler.handle(gc, this);
+				
+					}else if(gc.commandType.equals("directAttack")){
+						gs.directAttackHandler.handle(gc, this);
+				
+					}else if(gc.commandType.equals("affectTarget")){
+						gs.affectSelectHandler.handle(gc,  this);
+				
+					}
+				}
+				
 			}
 			socket.close();
 		} catch(IOException | ClassNotFoundException e){

@@ -111,7 +111,7 @@ public class Server {
 		games.remove(gs);
 	}
 	
-	void tryLogin(GameCommand gc){
+	void tryLogin(GameCommand gc, ServerThread st){
 		//try to log the player in here
 		ArrayList<Object> results = database.selectByAttribute(c, "Accounts", "ACCOUNTNAME", gc.s1, "PASSWORD");
 		String password = null;
@@ -119,12 +119,28 @@ public class Server {
 			password = (String) results.get(0);
 		}else{
 			System.out.println("account not found");
+			try {
+				st.oos.writeObject("loginFailed");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		if(password == gc.s2){
-			//log player in
+		if(password.equals(gc.s2)){
+			st.accountName = gc.s1;
+			st.loggedIn = true;
 			System.out.println("login successful");
+			try {
+				st.oos.writeObject("loginSuccessful");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}else{
 			System.out.println("incorrect Password");
+			try {
+				st.oos.writeObject("loginFailed");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
