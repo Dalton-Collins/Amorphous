@@ -26,7 +26,7 @@ public class ServerThread extends Thread{
 			GameCommand gc;
 			
 			while((gc = (GameCommand)ois.readObject()) != null){
-				//System.out.println("received this command: " + gc.commandType);
+				System.out.println("received this command: " + gc.commandType);
 				
 				//login command
 				if(gc.commandType.equals("accountInfo")){

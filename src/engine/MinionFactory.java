@@ -22,7 +22,6 @@ public class MinionFactory {
 		
 		m.id = idd;
 		m.name = "Rat";
-		m.cost = 20;
 		m.atk = 20;
 		m.health = 30;
 		m.type = "Beast";
@@ -39,7 +38,6 @@ public class MinionFactory {
 		
 		m.id = idd;
 		m.name = "Bomber";
-		m.cost = 30;
 		m.atk = 10;
 		m.health = 10;
 		m.type = "Machine";
@@ -56,7 +54,6 @@ public class MinionFactory {
 		
 		m.id = idd;
 		m.name = "Berzerker";
-		m.cost = 40;
 		m.atk = 20;
 		m.health = 50;
 		m.type = "Humanoid";

@@ -9,8 +9,14 @@ public class Player {
 	public ArrayList<Minion> minions;
 	public int totalMinions;
 	public int mana; //can spend mana to add max mana
-	public int maxMana = 20;
-	public int life = 300;
+	public int redMana;
+	public int orangeMana;
+	public int yellowMana;
+	public int greenMana;
+	public int blueMana;
+	public int purpleMana;
+	public int maxMana = 1;
+	public int life = 30;
 	
 	GameState gs;
 	

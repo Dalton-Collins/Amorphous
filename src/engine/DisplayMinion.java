@@ -8,7 +8,12 @@ public class DisplayMinion implements Serializable{
 	
 	public Long uniqueId;
 	public String name;
-	public int cost;
+	public int redCost;
+	public int orangeCost;
+	public int yellowCost;
+	public int greenCost;
+	public int blueCost;
+	public int purpleCost;
 	public int atk;
 	public int baseAtk;
 	public int health;
@@ -27,7 +32,12 @@ public class DisplayMinion implements Serializable{
 		
 		uniqueId = m.uniqueId;
 		name = m.name;
-		cost = m.cost;
+		redCost = m.redCost;
+		orangeCost = m.orangeCost;
+		yellowCost = m.yellowCost;
+		greenCost = m.greenCost;
+		blueCost = m.blueCost;
+		purpleCost = m.purpleCost;
 		atk = m.atk;
 		baseAtk = m.baseAtk;
 		health = m.health;

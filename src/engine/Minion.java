@@ -9,7 +9,13 @@ public class Minion {
 	public int id;
 	public Long uniqueId;
 	public String name;
-	public int cost;
+	public int redCost;
+	public int orangeCost;
+	public int yellowCost;
+	public int greenCost;
+	public int blueCost;
+	public int purpleCost;
+	public int greyCost;
 	public int atk;
 	public int baseAtk;
 	public int health;
@@ -33,7 +39,7 @@ public class Minion {
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
 		summoningSickness = true;
-		owner.mana = owner.mana - cost;
+		payMana();
 		
 		if(effect != null){
 			gs.activeEffects.addEffect(effect);
@@ -51,7 +57,13 @@ public class Minion {
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future
 	public boolean canSummon(){
-		return (owner.mana >= cost && owner.totalMinions < 10);
+		boolean enough = false;
+		if(        owner.redMana >= redCost       && owner.orangeMana >= orangeCost
+				&& owner.yellowMana >= yellowCost && owner.greenMana >= greenCost
+				&& owner.blueMana >= blueCost     && owner.purpleMana >= purpleCost){
+			enough = true;
+		}
+		return (enough && owner.totalMinions < 8);
 	}
 	
 	public boolean canAttack(Minion target){
@@ -143,5 +155,24 @@ public class Minion {
 		e.m2 = healer;
 		e.amount = healing;
 		gs.affectStack.handleEvent(e);
+	}
+	
+	public void payMana(){
+		owner.redMana -= redCost;
+		owner.orangeMana -= orangeCost;
+		owner.yellowMana -= yellowCost;
+		owner.greenMana -= greenCost;
+		owner.blueMana -= blueCost;
+		owner.purpleMana -= purpleCost;
+	}
+	
+	public void setCosts(int red, int orange, int yellow, int green, int blue, int purple){
+		redCost = red;
+		orangeCost = orange;
+		yellowCost = yellow;
+		greenCost = green;
+		blueCost = blue;
+		purpleCost = purple;
+		
 	}
 }

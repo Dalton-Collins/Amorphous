@@ -80,6 +80,7 @@ public class Server {
 		joinableGames.add(gi);
 		
 		gameId+=1;
+		System.out.println("made new game");
 		return gs;
 	}
 	
@@ -99,6 +100,7 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("sent games list with: " + joinableGames.size() + " size");
 	}
 	
 	void concede(ServerThread st, GameState gs){

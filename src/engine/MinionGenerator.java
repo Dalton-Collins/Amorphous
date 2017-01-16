@@ -1,4 +1,4 @@
-package engine;
+	package engine;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,10 +20,16 @@ import affects.SelectAndDestroyMinionAffect;
 //this class handles the creation of new cards
 public class MinionGenerator {
 	
-	int weight;
 	ArrayList<Affect> affectList;
 	ArrayList<Trigger> triggerList;
 	GameState gs;
+	
+	int redCost;
+	int orangeCost;
+	int yellowCost;
+	int greenCost;
+	int blueCost;
+	int purpleCost;
 	
 	MinionGenerator(GameState gss){
 		gs = gss;
@@ -31,9 +37,13 @@ public class MinionGenerator {
 	
 	public Minion makeRandomMinion(Player p){
 		//first try to make the minion randomly
-		int targetWeight = randomWeight();
+		redCost = 0;
+		orangeCost = 0;
+		yellowCost = 0;
+		greenCost = 0;
+		blueCost = 0;
+		purpleCost = 0;
 		
-		weight = 0;
 		Minion m = new Minion(gs, p);
 
 		Affect af = randomAffect(m);
@@ -41,28 +51,12 @@ public class MinionGenerator {
 		Effect e = new Effect(m, tr, af, 1);
 		m.effect = e;
 		m.type = randomType();
-		m.atk = randomAttack(targetWeight);
+		m.atk = randomAttack();
 		m.baseAtk = m.atk;
-		m.health = randomHealth(targetWeight);
+		m.health = randomHealth(m);
 		m.maxHealth = m.health;
-		m.cost = calculateCost();
 		m.name = randomName(m);
 		
-		while(weight > targetWeight){
-			//if the weight is too high, try randomly again
-			weight = 0;
-			af = randomAffect(m);
-			tr = randomTrigger();
-			e = new Effect(m, tr, af, 1);
-			m.effect = e;
-			m.type = randomType();
-			m.health = randomHealth(targetWeight);
-			m.maxHealth = m.health;
-			m.atk = randomAttack(targetWeight);
-			m.baseAtk = m.atk;
-			m.cost = calculateCost();
-			m.name = randomName(m);
-		}
 		
 		return m;
 	}
@@ -81,27 +75,27 @@ public class MinionGenerator {
 		Random rand = new Random();
 		int i = rand.nextInt(5);
 		if(i == 0){
-			int damage = (rand.nextInt(7)+2)*5;
-			weight+=damage*2;//average weight of 50
+			int damage = (rand.nextInt(6)+1);
+			yellowCost += 2 + damage;
 			DamageAllEnemyMinionsAffect daema = new DamageAllEnemyMinionsAffect(gs, m, damage);
 			return daema;
 		}else if(i == 1){
-			int damage = (rand.nextInt(7)+2)*5;
-			weight+=damage*2;//average weight of 50
+			int damage = (rand.nextInt(5)+1)*2;
+			redCost += damage/2;
 			DamageEnemyLifeAffect dela = new DamageEnemyLifeAffect(gs, m, damage);
 			return dela;
 		}else if(i == 2){
+			blueCost += 2;
 			DrawCardAffect dca = new DrawCardAffect(m);
-			weight+=40;
 			return dca;
 		}else if(i == 3){
-			int atk = (rand.nextInt(8)+1)*5;//range 5 - 40
-			weight+=atk*2;//average weight of ~40
+			int atk = (rand.nextInt(4)+1)*2;//range 1 - 8
+			orangeCost += 1+ atk/2;
 			IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, atk);
 			return itaa;
 		}else if(i == 4){
+			purpleCost += 3;
 			SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(gs, m);
-			weight+=50;
 			return sadma;
 		}
 		System.out.println("failed to get random affect");
@@ -113,32 +107,22 @@ public class MinionGenerator {
 		int i = rand.nextInt(6);
 		if(i == 0){
 			DeclareAttackTrigger dat = new DeclareAttackTrigger();
-			weight *=1;
 			return dat;
 		}else if(i == 1){
 			OnSummonTrigger ost = new OnSummonTrigger();
-			weight*=1.3;
 			return ost;
 		}else if(i == 2){
 			WhenAttackedTrigger wat = new WhenAttackedTrigger();
-			weight *=1.2;
 			return wat;
 		}else if(i == 3){
 			WhenDamagedTrigger wdt = new WhenDamagedTrigger();
-			weight*=1.3;
 			return wdt;
 		}else if(i == 4){
 			WhenDestroyedTrigger wdt = new WhenDestroyedTrigger();
-			weight*=1;
 			return wdt;
 		}else if(i == 5){
-			int requiredCards = rand.nextInt(2) + 1;
-			if(requiredCards == 1){
-				weight*=1.3;
-			}else{
-				weight*=0.8;
-			}
-			WhenEnemyDrawsCards wedc = new WhenEnemyDrawsCards(requiredCards);
+			WhenEnemyDrawsCards wedc = new WhenEnemyDrawsCards(1);
+			yellowCost+=1;
 			return wedc;
 		}
 		return null;
@@ -172,42 +156,99 @@ public class MinionGenerator {
 		return null;
 	}
 	
-	int randomHealth(int targetWeight){
-		int max = (targetWeight - weight)/5;
-		if(max < 2){
-			weight = 1000;
-			return -1;
-		}
-		Random rand = new Random();
-		int i = rand.nextInt(max)+1;
-		int health = (i)*5;
-		weight+=health;
+	int randomHealth(Minion m){
+		int health = m.atk;
 		return health;
 	}
 	
-	int randomAttack(int targetWeight){
-		int max = (targetWeight - weight)/5;
-		if(max < 1){
-			int attack = max*4;
-			return attack;
-		}
+	int randomAttack(){
 		Random rand = new Random();
-		int i = rand.nextInt(max + 1);
-		int attack = (i)*5;
-		weight+=attack;
-		return attack;
-	}
-	
-	int calculateCost(){
-		int cost = (int) (weight/2.5);
-		return cost;
+		int atk = rand.nextInt(8);
+		
+		return atk;
 	}
 	
 	String randomName(Minion m){
 		String name = "";
-		name+= m.cost + m.atk + m.health + m.effect.trigger.getDescription().substring(0, 3)
+		name+= m.atk + m.health + m.effect.trigger.getDescription().substring(0, 3)
 				+ m.effect.affect.getDescription().substring(0, 3);
 		return name;
+	}
+	
+	void addDistributedCost(int cost){
+		int topCost = 0;
+		int topColor = -1;//0 red 1 orange 2 yellow etc
+		int tieColor = -1;
+		if(redCost > topCost){
+			topColor = 0;
+			topCost = redCost;
+		}
+		if(orangeCost > topCost){
+			topColor = 1;
+			topCost = orangeCost;
+		}
+		if(yellowCost > topCost){
+			topColor = 2;
+			topCost = yellowCost;
+		}
+		if(greenCost > topCost){
+			topColor = 3;
+			topCost = greenCost;
+		}
+		if(blueCost > topCost){
+			topColor = 4;
+			topCost = blueCost;
+		}
+		if(purpleCost > topCost){
+			topColor = 5;
+			topCost = purpleCost;
+		}
+		
+		
+		if(redCost == topCost){
+			tieColor = 0;
+			topCost = redCost;
+		}
+		if(orangeCost == topCost){
+			tieColor = 1;
+			topCost = orangeCost;
+		}
+		if(yellowCost == topCost){
+			tieColor = 2;
+			topCost = yellowCost;
+		}
+		if(greenCost == topCost){
+			tieColor = 3;
+			topCost = greenCost;
+		}
+		if(blueCost == topCost){
+			tieColor = 4;
+			topCost = blueCost;
+		}
+		if(purpleCost == topCost){
+			tieColor = 5;
+			topCost = purpleCost;
+		}
+		
+		
+		if(tieColor != topColor){
+			//do stuff for multicolor minions
+		}
+		
+		
+		if(topColor == 0){
+			redCost += cost;
+		}else if(topColor == 1){
+			orangeCost += cost;
+		}else if(topColor == 2){
+			yellowCost += cost;
+		}else if(topColor == 3){
+			greenCost += cost;
+		}else if(topColor == 4){
+			blueCost += cost;
+		}else if(topColor == 5){
+			purpleCost += cost;
+		}
 	}
 }
 

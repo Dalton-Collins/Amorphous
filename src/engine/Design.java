@@ -27,6 +27,48 @@ Commanders
 	Each deck will require a commander, commanders will be sommonable units with unique effects
 	each commander will be handmade, and will give you deck its mana typing.
 	
+	1 mana per turn, where multi color mana commanders give mana patterns
+	such as red - yellow - red
+
+	Red - Speed - Direct Damage
+
+	Ozai - Generates 1 red mana, Costs 3 red mana
+	3/2 Rush, When this unit dies, your active minions gain Rush.
+
+
+	Orange - Fighting strength - Buffing
+
+	Torn - Generates 1 orange mana, Costs 4 orange mana.
+	4/5 When this unit attacks it gains 1 attack, when this unit is attacked it gains 1 health.
+
+
+	Yellow - Utility - Healing - Commander power
+
+	Artosh - Generates 1 yellow Mana, Costs 5 yellow mana
+	4/4 Your opponent cannot select this card as an attack target. When your opponent
+	attacks, you can select any minion you own as the target.
+
+
+	Green - Ramp - Replication
+
+	Zeras - Generates 1 green mana, costs 2 green mana.
+	2/2 when this unit is destroyed, gain 1 max mana orb. This unit costs 2 more mana to summon
+	each time, and gains +2/+2 each time.
+
+
+	Blue - Power - Control
+
+	Cryos - Generates 1 blue mana, costs 6 blue mana
+	6/6 When summoned, freeze all enemy minions for 1 turn.(Frozen minions cannot attack
+	or trigger their effects, passives still work).
+
+
+	Purple - Recursion - death
+
+	Mordread - Generates 1 purple mana , costs 3 purple mana
+	2/2 When this unit is destroyed, it is revived at the end of the owners turn.
+	When this unit is revived, it gains +1 attack.
+	
 Effects
 	effects have an activation condition
 	a number of maximum activations per turn
