@@ -8,14 +8,18 @@ public class Player {
 	public Deck deck;
 	public ArrayList<Minion> minions;
 	public int totalMinions;
-	public int mana; //can spend mana to add max mana
 	public int redMana;
 	public int orangeMana;
 	public int yellowMana;
 	public int greenMana;
 	public int blueMana;
 	public int purpleMana;
-	public int maxMana = 1;
+	public int maxRedMana = 1;
+	public int maxOrangeMana = 1;
+	public int maxYellowMana = 1;
+	public int maxGreenMana = 1;
+	public int maxBlueMana = 1;
+	public int maxPurpleMana = 1;
 	public int life = 30;
 	
 	GameState gs;
@@ -23,7 +27,6 @@ public class Player {
 	public Player(GameState gss, int idd){
 		gs = gss;
 		hand = new Hand();
-		mana = 20;
 		id = idd;
 		minions = new ArrayList<Minion>();
 	}

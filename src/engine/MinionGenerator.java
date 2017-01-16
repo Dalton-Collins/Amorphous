@@ -57,6 +57,13 @@ public class MinionGenerator {
 		m.maxHealth = m.health;
 		m.name = randomName(m);
 		
+		m.redCost = redCost;
+		m.orangeCost = orangeCost;
+		m.yellowCost = yellowCost;
+		m.greenCost = greenCost;
+		m.blueCost = blueCost;
+		m.purpleCost = purpleCost;
+		
 		
 		return m;
 	}

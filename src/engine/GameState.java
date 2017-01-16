@@ -110,8 +110,19 @@ public class GameState {
 		}
 		
 		System.out.println("Its now player " + turn + "'s turn");
-		turnPlayer.maxMana+=10;
-		turnPlayer.mana = turnPlayer.maxMana;
+		turnPlayer.maxRedMana+=1;
+		turnPlayer.maxOrangeMana+=1;
+		turnPlayer.maxYellowMana+=1;
+		turnPlayer.maxGreenMana+=1;
+		turnPlayer.maxBlueMana+=1;
+		turnPlayer.maxPurpleMana+=1;
+		
+		turnPlayer.redMana = turnPlayer.maxRedMana;
+		turnPlayer.orangeMana = turnPlayer.maxOrangeMana;
+		turnPlayer.yellowMana = turnPlayer.maxYellowMana;
+		turnPlayer.greenMana = turnPlayer.maxGreenMana;
+		turnPlayer.blueMana = turnPlayer.maxBlueMana;
+		turnPlayer.purpleMana = turnPlayer.maxPurpleMana;
 		turnPlayer.draw(1);
 		
 		updateDisplays();
@@ -206,12 +217,36 @@ public class GameState {
 		dgs.enemyHandSize = p2.hand.cards.size();
 		dgs.selectingAffectTarget = selectingAffectTarget;
 		
-		dgs.mana = p1.mana;
-		dgs.maxMana = p1.maxMana;
+		dgs.redMana = p1.redMana;
+		dgs.orangeMana = p1.orangeMana;
+		dgs.yellowMana = p1.yellowMana;
+		dgs.greenMana = p1.greenMana;
+		dgs.blueMana = p1.blueMana;
+		dgs.purpleMana = p1.purpleMana;
+		
+		dgs.maxRedMana = p1.maxRedMana;
+		dgs.maxOrangeMana = p1.maxOrangeMana;
+		dgs.maxYellowMana = p1.maxYellowMana;
+		dgs.maxGreenMana = p1.maxGreenMana;
+		dgs.maxBlueMana = p1.maxBlueMana;
+		dgs.maxPurpleMana = p1.maxPurpleMana;
+		
 		dgs.life = p1.life;
 		
-		dgs.enemyMana = p2.mana;
-		dgs.enemyMaxMana = p2.maxMana;
+		dgs.enemyRedMana = p2.redMana;
+		dgs.enemyOrangeMana = p2.orangeMana;
+		dgs.enemyYellowMana = p2.yellowMana;
+		dgs.greenMana = p2.greenMana;
+		dgs.enemyBlueMana = p2.blueMana;
+		dgs.enemyPurpleMana = p2.purpleMana;
+		
+		dgs.enemyMaxRedMana = p2.maxRedMana;
+		dgs.enemyMaxOrangeMana = p2.maxOrangeMana;
+		dgs.enemyMaxYellowMana = p2.maxYellowMana;
+		dgs.enemyMaxGreenMana = p2.maxGreenMana;
+		dgs.enemyMaxBlueMana = p2.maxBlueMana;
+		dgs.enemyMaxPurpleMana = p2.maxPurpleMana;
+		
 		dgs.enemyLife = p2.life;
 		
 		if(turnPlayer == p1){

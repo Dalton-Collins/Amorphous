@@ -36,7 +36,7 @@ Commanders
 	3/2 Rush, When this unit dies, your active minions gain Rush.
 
 
-	Orange - Fighting strength - Buffing
+	Orange - Combat strength - Buffing
 
 	Torn - Generates 1 orange mana, Costs 4 orange mana.
 	4/5 When this unit attacks it gains 1 attack, when this unit is attacked it gains 1 health.
@@ -63,12 +63,14 @@ Commanders
 	or trigger their effects, passives still work).
 
 
-	Purple - Recursion - death
+	Purple - Recursion - death 
 
 	Mordread - Generates 1 purple mana , costs 3 purple mana
 	2/2 When this unit is destroyed, it is revived at the end of the owners turn.
 	When this unit is revived, it gains +1 attack.
 	
+	
+	deck concepts - self power/solo puzzle
 Effects
 	effects have an activation condition
 	a number of maximum activations per turn
