@@ -73,10 +73,10 @@ public class Server {
 	GameState makeNewGame(ServerThread st){
 		GameState gs = new GameState(st, this);
 		st.gs = gs;
-		gs.id = gameId;
 		games.put(gameId, gs);
 		
 		GameIdentifier gi = new GameIdentifier(gameId, "game " + gameId);
+		gs.gameIdentifier = gi;
 		joinableGames.add(gi);
 		
 		gameId+=1;
@@ -88,6 +88,7 @@ public class Server {
 		GameState gs = games.get(id);
 		gs.initGameState(st);
 		st.gs = gs;
+		joinableGames.remove(gs.gameIdentifier);
 	}
 	
 	void closeGame(Integer id){
