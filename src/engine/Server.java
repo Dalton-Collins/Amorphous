@@ -66,7 +66,7 @@ public class Server {
 		serverSocket.close();
 	}
 	
-	static Server getServer(){
+			//Does the server never close threads?
 		return self;
 	}
 	
@@ -80,7 +80,7 @@ public class Server {
 		joinableGames.add(gi);
 		
 		gameId+=1;
-		System.out.println("made new game");
+		System.out.println("Made new game: "+gameId);
 		return gs;
 	}
 	
@@ -124,6 +124,7 @@ public class Server {
 			System.out.println("account not found");
 			try {
 				st.oos.writeObject("loginFailed");
+				return; //Exits function if the user is not found in the database
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
