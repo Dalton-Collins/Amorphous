@@ -36,6 +36,7 @@ public class Minion {
 	}
 	//summons this minion to the field
 	public void summon(){
+		assert(owner.hand.cards.contains(this));
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
 		summoningSickness = true;

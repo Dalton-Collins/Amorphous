@@ -13,6 +13,7 @@ public class Event implements Serializable{
 	
 	public Event(String type){
 		eventType = type;
+		assert(eventType != null);
 	}
 	/* types include
 	summon

@@ -8,12 +8,12 @@ public class Player {
 	public Deck deck;
 	public ArrayList<Minion> minions;
 	public int totalMinions;
-	public int redMana;
-	public int orangeMana;
-	public int yellowMana;
-	public int greenMana;
-	public int blueMana;
-	public int purpleMana;
+	public int redMana = 1;
+	public int orangeMana = 1;
+	public int yellowMana = 1;
+	public int greenMana = 1;
+	public int blueMana = 1;
+	public int purpleMana = 1;
 	public int maxRedMana = 1;
 	public int maxOrangeMana = 1;
 	public int maxYellowMana = 1;

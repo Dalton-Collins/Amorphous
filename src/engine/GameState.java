@@ -31,7 +31,6 @@ public class GameState {
 	
 	public ActiveEffects activeEffects;
 	public AffectStack affectStack;
-	public MinionFactory minionFactory;
 	public MinionGenerator minionGenerator;
 	
 	public boolean selectingAffectTarget = false;
@@ -236,7 +235,7 @@ public class GameState {
 		dgs.enemyRedMana = p2.redMana;
 		dgs.enemyOrangeMana = p2.orangeMana;
 		dgs.enemyYellowMana = p2.yellowMana;
-		dgs.greenMana = p2.greenMana;
+		dgs.enemyGreenMana = p2.greenMana;
 		dgs.enemyBlueMana = p2.blueMana;
 		dgs.enemyPurpleMana = p2.purpleMana;
 		
