@@ -12,7 +12,7 @@ import affects.SelectAndDestroyMinionAffect;
 //uses the singleton pattern to allow global access to the single instance of this class
 public class GameState {
 	
-	Integer id;
+	GameIdentifier gameIdentifier;
 	Server server;
 	
 	public ArrayList<Player> players;

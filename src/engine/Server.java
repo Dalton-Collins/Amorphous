@@ -62,25 +62,26 @@ public class Server {
 			serverThread.start();
 			System.out.println("Accepted new client# " + threadId);
 			threadId+=1;
+			//Does the server never close threads?
 		}
 		serverSocket.close();
 	}
 	
-	static Server getServer(){
+	static Server getServer(){ //Is this ever used? It seems unnecessary.
 		return self;
 	}
 	
 	GameState makeNewGame(ServerThread st){
 		GameState gs = new GameState(st, this);
 		st.gs = gs;
-		gs.id = gameId;
 		games.put(gameId, gs);
 		
 		GameIdentifier gi = new GameIdentifier(gameId, "game " + gameId);
+		gs.gameIdentifier = gi;
 		joinableGames.add(gi);
 		
+		System.out.println("Made new game: "+gameId);
 		gameId+=1;
-		System.out.println("made new game");
 		return gs;
 	}
 	
@@ -88,6 +89,7 @@ public class Server {
 		GameState gs = games.get(id);
 		gs.initGameState(st);
 		st.gs = gs;
+		joinableGames.remove(gs.gameIdentifier);
 	}
 	
 	void closeGame(Integer id){
@@ -95,11 +97,7 @@ public class Server {
 	}
 	
 	void sendGamesList(ServerThread st){
-		try {
-			st.oos.writeObject(joinableGames);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		safeWriteObject(st,joinableGames);
 		System.out.println("sent games list with: " + joinableGames.size() + " size");
 	}
 	
@@ -121,28 +119,50 @@ public class Server {
 			password = (String) results.get(0);
 		}else{
 			System.out.println("account not found");
-			try {
-				st.oos.writeObject("loginFailed");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			safeWriteObject(st,"loginFailed");
+			return; //Exits function if the user is not found in the database
 		}
 		if(password.equals(gc.s2)){
 			st.accountName = gc.s1;
 			st.loggedIn = true;
 			System.out.println("login successful");
-			try {
-				st.oos.writeObject("loginSuccessful");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			safeWriteObject(st,"loginSuccessful");
 		}else{
 			System.out.println("incorrect Password");
-			try {
-				st.oos.writeObject("loginFailed");
-			} catch (IOException e) {
-				e.printStackTrace();
+			safeWriteObject(st,"loginFailed");
+		}
+	}
+	void tryRegister(GameCommand gc, ServerThread st){ ///WIP!!!
+		//Attempt to register a new account
+		String username=gc.s1;
+		String password=gc.s2;
+		System.out.println("Starting register: "+username);
+		ArrayList<Object> results = database.selectByAttribute(c, "Accounts", "ACCOUNTNAME", username, "PASSWORD");
+		if(results.size() > 0){
+			System.out.println("User already exists!");
+			safeWriteObject(st,"registerFailedUserAlreadyExists");
+			return; //Exit function if register failed
+		}else{
+			ArrayList<Object> res = database.selectByAttribute(c, "Accounts", "ID", "0000000000", "PASSWORD");
+			String id="";
+			for(int i=0;res.size()>0;i++){
+				id=String.format("%010d", i);
+				res = database.selectByAttribute(c, "Accounts", "ID", id, "PASSWORD");
+				//System.out.println(res.size()+":"+id);
 			}
+			System.out.println("Username available: \""+username+"\" with ID: "+id);
+			database.InsertAccount(c, id, username, password, "1", "100000", "0");
+			safeWriteObject(st,"registerSuccessful");
+			st.accountName=username;
+			st.loggedIn=true;
+			safeWriteObject(st,"loginSuccessful");
+		}
+	}
+	void safeWriteObject(ServerThread st, Object o){
+		try {
+			st.oos.writeObject(o);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
