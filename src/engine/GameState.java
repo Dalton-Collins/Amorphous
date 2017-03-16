@@ -199,6 +199,13 @@ public class GameState {
 			DisplayMinion dm = new DisplayMinion(m);
 			dgs.enemyFieldMinions.add(dm);
 		}
+		//update commanders
+		DisplayMinion cm = new DisplayMinion(p1.deck.commander);
+		dgs.commander = cm;
+		
+		DisplayMinion ecm = new DisplayMinion(p2.deck.commander);
+		dgs.enemyCommander = ecm;
+		
 		//update other stuff
 		if(winner == 1){
 			if(p1 == players.get(0)){

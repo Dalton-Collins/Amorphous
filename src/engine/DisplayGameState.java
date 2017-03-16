@@ -13,6 +13,9 @@ public class DisplayGameState implements Serializable{
 	ArrayList<DisplayMinion> friendlyFieldMinions;
 	ArrayList<DisplayMinion> enemyFieldMinions;
 	
+	DisplayMinion commander;
+	DisplayMinion enemyCommander;
+	
 	public int winner = 0;
 	public boolean selectingAttackTarget;
 	public boolean selectingAffectTarget;
