@@ -201,9 +201,15 @@ public class GameState {
 		}
 		//update commanders
 		DisplayMinion cm = new DisplayMinion(p1.deck.commander);
+		if(p1.deck.commander.inCommandZone){
+			cm.inCommandZone = true;
+		}
 		dgs.commander = cm;
 		
 		DisplayMinion ecm = new DisplayMinion(p2.deck.commander);
+		if(p2.deck.commander.inCommandZone){
+			ecm.inCommandZone = true;
+		}
 		dgs.enemyCommander = ecm;
 		
 		//update other stuff
