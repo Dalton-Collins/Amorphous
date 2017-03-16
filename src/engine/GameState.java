@@ -31,7 +31,6 @@ public class GameState {
 	
 	public ActiveEffects activeEffects;
 	public AffectStack affectStack;
-	public MinionFactory minionFactory;
 	public MinionGenerator minionGenerator;
 	
 	public boolean selectingAffectTarget = false;
@@ -200,6 +199,19 @@ public class GameState {
 			DisplayMinion dm = new DisplayMinion(m);
 			dgs.enemyFieldMinions.add(dm);
 		}
+		//update commanders
+		DisplayMinion cm = new DisplayMinion(p1.deck.commander);
+		if(p1.deck.commander.inCommandZone){
+			cm.inCommandZone = true;
+		}
+		dgs.commander = cm;
+		
+		DisplayMinion ecm = new DisplayMinion(p2.deck.commander);
+		if(p2.deck.commander.inCommandZone){
+			ecm.inCommandZone = true;
+		}
+		dgs.enemyCommander = ecm;
+		
 		//update other stuff
 		if(winner == 1){
 			if(p1 == players.get(0)){
@@ -236,7 +248,7 @@ public class GameState {
 		dgs.enemyRedMana = p2.redMana;
 		dgs.enemyOrangeMana = p2.orangeMana;
 		dgs.enemyYellowMana = p2.yellowMana;
-		dgs.greenMana = p2.greenMana;
+		dgs.enemyGreenMana = p2.greenMana;
 		dgs.enemyBlueMana = p2.blueMana;
 		dgs.enemyPurpleMana = p2.purpleMana;
 		
