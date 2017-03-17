@@ -18,5 +18,8 @@ public class Effect {
 		trigger = trig;
 		affect = aff;
 		maxActivationsPerTurn = actsperturn;
+		assert(owner != null);
+		assert(trigger != null);
+		assert(affect != null);
 	}
 }

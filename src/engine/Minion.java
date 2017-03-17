@@ -9,24 +9,31 @@ public class Minion {
 	public int id;
 	public Long uniqueId;
 	public String name;
+	
 	public int redCost;
 	public int orangeCost;
 	public int yellowCost;
 	public int greenCost;
 	public int blueCost;
 	public int purpleCost;
-	public int greyCost;
+	
 	public int atk;
 	public int baseAtk;
 	public int health;
 	public int maxHealth;
-	public String type;// curent types: humanoid beast machine
+	public String type;// curent types: humanoid beast machine Demonoid
 	public Player owner;
 	public Effect effect;
 	public int attacksThisTurn = 0;
 	public int maxAttacks = 1;
 	
 	boolean summoningSickness;
+	
+	//---------KeyWord Passive Effects
+	
+	boolean Rush = false;
+	
+	//---------End Keyword Passive Effects
 	
 	GameState gs;
 	
@@ -35,18 +42,22 @@ public class Minion {
 		owner  = ownerr;
 	}
 	//summons this minion to the field
+	//check for adequate mana is already done
 	public void summon(){
+		assert(owner.hand.cards.contains(this));
 		owner.hand.cards.remove(this);
 		owner.minions.add(this);
-		summoningSickness = true;
+		if(!Rush){
+			summoningSickness = true;
+		}
 		payMana();
 		
 		if(effect != null){
 			gs.activeEffects.addEffect(effect);
-			System.out.println("added minion :" + name + "'s effect");
+			//System.out.println("added minion :" + name + "'s effect");
 		}
 		
-		System.out.println("Minion " + id + " was summoned");
+		//System.out.println("Minion " + id + " was summoned");
 		gs.updateDisplays();
 		
 		//create and send out summon event

@@ -25,6 +25,7 @@ public class DisplayMinion implements Serializable{
 	public int attacksThisTurn = 0;
 	public int maxAttacks = 1;
 	boolean summoningSickness;
+	boolean inCommandZone = false;
 	
 	public int fieldLocation;//0 for my field, 1 for enemys field
 	

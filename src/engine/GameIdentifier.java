@@ -13,5 +13,6 @@ public class GameIdentifier implements Serializable{
 	public GameIdentifier(int idd, String namee){
 		id = idd;
 		name = namee;
+		assert(name != null);
 	}
 }

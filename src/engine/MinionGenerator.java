@@ -15,6 +15,7 @@ import affects.DamageAllEnemyMinionsAffect;
 import affects.DamageEnemyLifeAffect;
 import affects.DrawCardAffect;
 import affects.IncreaseThisAttackAffect;
+import affects.RemoveAllAlliesSummoningSickness;
 import affects.SelectAndDestroyMinionAffect;
 
 //this class handles the creation of new cards
@@ -33,6 +34,33 @@ public class MinionGenerator {
 	
 	MinionGenerator(GameState gss){
 		gs = gss;
+	}
+	
+	public Commander makeOzai(Player p){
+		
+		Commander m = new Commander(gs, p);
+
+		Affect af = new RemoveAllAlliesSummoningSickness(gs, m);
+		Trigger tr = new WhenDestroyedTrigger();
+		Effect e = new Effect(m, tr, af, 1);
+		m.effect = e;
+		m.type = "Demonoid";
+		m.atk = 3;
+		m.baseAtk = m.atk;
+		m.health = 2;
+		m.maxHealth = m.health;
+		m.name = "Ozai";
+		
+		m.Rush = true;
+		
+		m.redCost = 3;
+		m.orangeCost = 0;
+		m.yellowCost = 0;
+		m.greenCost = 0;
+		m.blueCost = 0;
+		m.purpleCost = 0;
+		
+		return m;
 	}
 	
 	public Minion makeRandomMinion(Player p){
@@ -70,6 +98,7 @@ public class MinionGenerator {
 	
 	public Deck makeRandomDeck(Player p){
 		Deck deck = new Deck();
+		deck.commander = makeOzai(p);
 		for(int i = 0; i < 30; i++){
 			Minion m = makeRandomMinion(p);
 			deck.cards.add(m);

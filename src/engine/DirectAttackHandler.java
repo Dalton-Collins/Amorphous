@@ -1,5 +1,6 @@
 package engine;
 
+//when a players declares a direct attack, this handles the attack
 public class DirectAttackHandler{
 	
 	GameState gs;
