@@ -133,6 +133,15 @@ Client Design
 	the main page allowing them to create a game, browse a list
 	of available games, or view their card bank
 	
+Stat Manipulator Design
+	A stat manipulator is an object that controls the changing
+	and reporting of a game stat(such as health or attack)
+	Stat manipulator objects can be changed out during gameplay
+	to change how a stat is changed.
+	for example a minions passive effect might say"your opponents
+	minions always have 0 attack", this effect would change your
+	opponents minions attack manipulator object to one that always 
+	returned 0 when asked what the minions attack is.
 	
 Cosmetics and personalization - goldmine
 */

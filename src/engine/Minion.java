@@ -17,8 +17,8 @@ public class Minion {
 	public int blueCost;
 	public int purpleCost;
 	
-	public int atk;
-	public int baseAtk;
+	int atk;
+	int baseAtk;
 	public int health;
 	public int maxHealth;
 	public String type;// curent types: humanoid beast machine Demonoid
@@ -36,6 +36,12 @@ public class Minion {
 	//---------End Keyword Passive Effects
 	
 	GameState gs;
+	
+	//---------Stat Manipulators
+	
+	AttackManipulator attackManipulator = new StandardAttackManipulator(this);
+	
+	//---------End Stat Manipulators
 	
 	public Minion(GameState gss, Player ownerr){
 		gs = gss;
@@ -185,5 +191,17 @@ public class Minion {
 		blueCost = blue;
 		purpleCost = purple;
 		
+	}
+	
+	public int getAttack(){
+		return attackManipulator.getAttack();
+	}
+	
+	public void changeAttack(int change){
+		attackManipulator.changeAttack(change);
+	}
+	
+	public void setAttack(int change){
+		attackManipulator.setAttack(change);
 	}
 }
