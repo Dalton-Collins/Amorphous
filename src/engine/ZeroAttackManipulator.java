@@ -1,6 +1,8 @@
 package engine;
 
 public class ZeroAttackManipulator implements AttackManipulator{
+	
+	//sets units attack to zero while this manipulator is active
 
 	@Override
 	public int getAttack() {

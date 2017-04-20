@@ -46,8 +46,8 @@ public class MinionGenerator {
 		m.effect = e;
 		m.type = "Demonoid";
 		m.setAttack(3);
-		m.health = 2;
-		m.maxHealth = m.health;
+		m.setHealth(2);
+		m.maxHealth = m.getHealth();
 		m.name = "Ozai";
 		
 		m.Rush = true;
@@ -79,8 +79,8 @@ public class MinionGenerator {
 		m.effect = e;
 		m.type = randomType();
 		m.setAttack(randomAttack());
-		m.health = randomHealth(m);
-		m.maxHealth = m.health;
+		m.setHealth(randomHealth(m));
+		m.maxHealth = m.getHealth();
 		m.name = randomName(m);
 		
 		m.redCost = redCost;
@@ -192,6 +192,9 @@ public class MinionGenerator {
 	
 	int randomHealth(Minion m){
 		int health = m.getAttack();
+		if(m.getAttack() < 1){
+			return 1;
+		}
 		return health;
 	}
 	
@@ -204,7 +207,7 @@ public class MinionGenerator {
 	
 	String randomName(Minion m){
 		String name = "";
-		name+= m.getAttack() + m.health + m.effect.trigger.getDescription().substring(0, 3)
+		name+= m.getAttack() + m.getHealth() + m.effect.trigger.getDescription().substring(0, 3)
 				+ m.effect.affect.getDescription().substring(0, 3);
 		return name;
 	}

@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import affects.DestroyMinionActionAffect;
 
@@ -17,9 +18,8 @@ public class Minion {
 	public int blueCost;
 	public int purpleCost;
 	
-	int atk;
-	int baseAtk;
-	public int health;
+	//int atk;
+	//int baseAtk;
 	public int maxHealth;
 	public String type;// curent types: humanoid beast machine Demonoid
 	public Player owner;
@@ -39,13 +39,22 @@ public class Minion {
 	
 	//---------Stat Manipulators
 	
-	AttackManipulator attackManipulator = new StandardAttackManipulator(this);
+	ArrayList<AttackManipulator> attackManipulatorStack = new ArrayList<AttackManipulator>();
+	
+	ArrayList<HealthManipulator> healthManipulatorStack = new ArrayList<HealthManipulator>();
+	
 	
 	//---------End Stat Manipulators
 	
 	public Minion(GameState gss, Player ownerr){
 		gs = gss;
 		owner  = ownerr;
+		
+		AttackManipulator standardAttackManipulator = new StandardAttackManipulator(this);
+		attackManipulatorStack.add(standardAttackManipulator);
+		
+		HealthManipulator standardHealthManipulator = new StandardHealthManipulator(this);
+		healthManipulatorStack.add(standardHealthManipulator);
 	}
 	//summons this minion to the field
 	//check for adequate mana is already done
@@ -84,14 +93,14 @@ public class Minion {
 	}
 	
 	public boolean canAttack(Minion target){
-		if(atk < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target.owner == owner){
+		if(getAttack() < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target.owner == owner){
 			return false;
 		}
 		return true;
 	}
 	
 	public boolean canAttack(Player target){
-		if(atk < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target == owner){
+		if(getAttack() < 1 || summoningSickness || (attacksThisTurn >= maxAttacks) || target == owner){
 			return false;
 		}
 		return true;
@@ -104,8 +113,8 @@ public class Minion {
 		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
-		target.damageMinion(atk, this);
-		damageMinion(target.atk, target);
+		target.damageMinion(getAttack(), this);
+		damageMinion(target.getAttack(), target);
 		gs.affectStack.processStack();
 		System.out.println("Minion " + id + " attacked minion " + target.id);
 	}
@@ -117,7 +126,7 @@ public class Minion {
 		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
-		target.damagePlayer(atk, this);
+		target.damagePlayer(getAttack(), this);
 		System.out.println("Minion " + id + " attacked player " + target.id);
 	}
 	
@@ -148,23 +157,23 @@ public class Minion {
 			healMinion(damage*-1, damager);
 			return;
 		}
-		health-=damage;
+		changeHealth(-damage);
 		Event e = new Event("tookDamage");
 		e.m = this;
 		e.m2 = damager;
 		e.amount = damage;
 		gs.affectStack.handleEvent(e);
 		
-		if(health <1){
+		if(getHealth() <1){
 			DestroyMinionActionAffect dmaa = new DestroyMinionActionAffect(this, damager);
 			gs.affectStack.addAction(dmaa);
 		}
 	}
 	
 	public void healMinion(int healing, Minion healer){
-		health+=healing;
-		if(health > maxHealth){
-			health = maxHealth;
+		changeHealth(healing);
+		if(getHealth() > maxHealth){
+			setHealth(maxHealth);
 		}
 		
 		Event e = new Event("wasHealed");
@@ -194,14 +203,26 @@ public class Minion {
 	}
 	
 	public int getAttack(){
-		return attackManipulator.getAttack();
+		return attackManipulatorStack.get(0).getAttack();
 	}
 	
 	public void changeAttack(int change){
-		attackManipulator.changeAttack(change);
+		attackManipulatorStack.get(0).changeAttack(change);
 	}
 	
 	public void setAttack(int change){
-		attackManipulator.setAttack(change);
+		attackManipulatorStack.get(0).setAttack(change);
+	}
+	
+	public int getHealth(){
+		return healthManipulatorStack.get(0).getHealth();
+	}
+	
+	public void changeHealth(int change){
+		healthManipulatorStack.get(0).changeHealth(change);
+	}
+	
+	public void setHealth(int change){
+		healthManipulatorStack.get(0).setHealth(change);
 	}
 }

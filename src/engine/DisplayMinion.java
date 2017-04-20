@@ -40,7 +40,7 @@ public class DisplayMinion implements Serializable{
 		blueCost = m.blueCost;
 		purpleCost = m.purpleCost;
 		atk = m.getAttack();
-		health = m.health;
+		health = m.getHealth();
 		maxHealth = m.maxHealth;
 		type = m.type;
 		owner = m.owner.id;
