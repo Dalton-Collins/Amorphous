@@ -37,7 +37,10 @@ public class ServerThread extends Thread{
 					//login command
 					if(gc.commandType.equals("accountInfo")){
 						server.tryLogin(gc, this);
-					}	
+					}
+					else if (gc.commandType.equals("regME")){
+						server.tryRegister(gc,this);
+					}
 					//menu commands
 					else if(loggedIn){
 						System.out.println();
