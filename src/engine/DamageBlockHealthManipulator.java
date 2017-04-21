@@ -30,5 +30,10 @@ public class DamageBlockHealthManipulator implements HealthManipulator{
 		
 		health = change;
 	}
+	
+	@Override
+	public String getDescription(){
+		return "this minion takes -" + damageBlock+" damage from hits";
+	}
 
 }

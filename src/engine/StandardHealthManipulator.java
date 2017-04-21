@@ -27,5 +27,10 @@ public class StandardHealthManipulator implements HealthManipulator{
 		
 		health = change;
 	}
+	
+	@Override
+	public String getDescription(){
+		return "this should not appear";
+	}
 
 }

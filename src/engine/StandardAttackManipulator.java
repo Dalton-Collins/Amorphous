@@ -39,5 +39,10 @@ public class StandardAttackManipulator implements AttackManipulator{
 		
 		atk = change;
 	}
+	
+	@Override
+	public String getDescription(){
+		return "This should not appear";
+	}
 
 }

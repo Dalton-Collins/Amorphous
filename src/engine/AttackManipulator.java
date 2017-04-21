@@ -9,5 +9,6 @@ public interface AttackManipulator {
 	public int getAttack(Player P);//this function requires a player target for the attack
 	public void changeAttack(Integer change);//a positive int to increase attack, negative to decrease
 	public void setAttack(Integer change);//set attack to this value
+	public String getDescription();
 	
 }

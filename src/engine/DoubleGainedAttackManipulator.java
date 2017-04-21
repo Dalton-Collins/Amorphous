@@ -33,5 +33,10 @@ public class DoubleGainedAttackManipulator implements AttackManipulator{
 		atk = change;
 		
 	}
+	
+	@Override
+	public String getDescription(){
+		return "Double any attack gains this minion receives";
+	}
 
 }

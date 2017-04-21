@@ -33,5 +33,10 @@ public class ZeroAttackManipulator implements AttackManipulator{
 		return;
 		
 	}
+	
+	@Override
+	public String getDescription(){
+		return "This minions attack is always 0";
+	}
 
 }
