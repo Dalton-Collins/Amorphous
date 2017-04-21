@@ -225,4 +225,14 @@ public class Minion {
 	public void setHealth(int change){
 		healthManipulatorStack.get(0).setHealth(change);
 	}
+	
+	public void setAttackManipulator(AttackManipulator am){
+		am.setAttack(attackManipulatorStack.get(0).getAttack());
+		attackManipulatorStack.add(0, am);
+	}
+	
+	public void setHealthManipulator(HealthManipulator hm){
+		hm.setHealth(healthManipulatorStack.get(0).getHealth());
+		healthManipulatorStack.add(0, hm);
+	}
 }

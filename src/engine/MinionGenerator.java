@@ -136,6 +136,33 @@ public class MinionGenerator {
 		return null;
 	}
 	
+	AttackManipulator randomAttackPassive(Minion m){
+		Random rand = new Random();
+		int i = rand.nextInt(0);
+		
+		AttackManipulator am = null;
+		
+		if(i == 0){
+			am = new DoubleGainedAttackManipulator();
+		}
+		
+		return am;
+	}
+	
+	HealthManipulator randomHealthPassive(){
+		Random rand = new Random();
+		int i = rand.nextInt(0);
+		HealthManipulator hm = null;
+		
+		if(i == 0){
+			int ablock = (rand.nextInt(3)+1);//range 1 - 3
+			orangeCost += ablock;
+			hm = new DamageBlockHealthManipulator(ablock);
+		}
+		
+		return hm;
+	}
+	
 	Trigger randomTrigger(){
 		Random rand = new Random();
 		int i = rand.nextInt(6);
