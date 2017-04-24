@@ -8,34 +8,41 @@ public class StandardAttackManipulator implements AttackManipulator{
 	
 	Minion m;
 	
+	int atk;
+	
 	@Override
 	public int getAttack() {
 		
-		return m.atk;
+		return atk;
 	}
 
 	@Override
 	public int getAttack(Minion m) {
 		
-		return m.atk;
+		return atk;
 	}
 
 	@Override
 	public int getAttack(Player P) {
 		
-		return m.atk;
+		return atk;
 	}
 
 	@Override
 	public void changeAttack(Integer change) {
 		
-		m.atk = m.atk + change;
+		atk = atk + change;
 	}
 
 	@Override
 	public void setAttack(Integer change) {
 		
-		m.atk = change;
+		atk = change;
+	}
+	
+	@Override
+	public String getDescription(){
+		return "This should not appear";
 	}
 
 }

@@ -4,6 +4,8 @@ import engine.GameState;
 import engine.Minion;
 
 public class SelectAndDestroyMinionAffect implements Affect{
+	//this affect is part of a minions effect
+	//pauses the stack and sends the client a message asking for input
 	
 	GameState gs;
 	public Minion owner;
@@ -13,13 +15,13 @@ public class SelectAndDestroyMinionAffect implements Affect{
 	}
 	@Override
 	public void applyAffect() {
-		owner.effect.activationsThisTurn+=1;
+		//owner.effect.activationsThisTurn+=1;
 		gs.affectStack.pauseProcessing = true;
 		gs.selectingAffectTarget = true;
 		
 		System.out.println("select and destroy called here");
 		gs.affectStack.afterSelectionAffect = new DestroyMinionAffect(gs, owner);
-		gs.updateDisplays(this);
+		gs.selectUpdateDisplays(this);
 	}
 	@Override
 	public String getDescription() {

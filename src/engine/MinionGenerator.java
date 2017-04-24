@@ -46,8 +46,8 @@ public class MinionGenerator {
 		m.effect = e;
 		m.type = "Demonoid";
 		m.setAttack(3);
-		m.health = 2;
-		m.maxHealth = m.health;
+		m.setHealth(2);
+		m.maxHealth = m.getHealth();
 		m.name = "Ozai";
 		
 		m.Rush = true;
@@ -79,8 +79,8 @@ public class MinionGenerator {
 		m.effect = e;
 		m.type = randomType();
 		m.setAttack(randomAttack());
-		m.health = randomHealth(m);
-		m.maxHealth = m.health;
+		m.setHealth(randomHealth(m));
+		m.maxHealth = m.getHealth();
 		m.name = randomName(m);
 		
 		m.redCost = redCost;
@@ -134,6 +134,33 @@ public class MinionGenerator {
 		}
 		System.out.println("failed to get random affect");
 		return null;
+	}
+	
+	AttackManipulator randomAttackPassive(Minion m){
+		Random rand = new Random();
+		int i = rand.nextInt(0);
+		
+		AttackManipulator am = null;
+		
+		if(i == 0){
+			am = new DoubleGainedAttackManipulator();
+		}
+		
+		return am;
+	}
+	
+	HealthManipulator randomHealthPassive(){
+		Random rand = new Random();
+		int i = rand.nextInt(0);
+		HealthManipulator hm = null;
+		
+		if(i == 0){
+			int ablock = (rand.nextInt(3)+1);//range 1 - 3
+			orangeCost += ablock;
+			hm = new DamageBlockHealthManipulator(ablock);
+		}
+		
+		return hm;
 	}
 	
 	Trigger randomTrigger(){
@@ -192,6 +219,9 @@ public class MinionGenerator {
 	
 	int randomHealth(Minion m){
 		int health = m.getAttack();
+		if(m.getAttack() < 1){
+			return 1;
+		}
 		return health;
 	}
 	
@@ -204,7 +234,7 @@ public class MinionGenerator {
 	
 	String randomName(Minion m){
 		String name = "";
-		name+= m.getAttack() + m.health + m.effect.trigger.getDescription().substring(0, 3)
+		name+= m.getAttack() + m.getHealth() + m.effect.trigger.getDescription().substring(0, 3)
 				+ m.effect.affect.getDescription().substring(0, 3);
 		return name;
 	}
