@@ -1,42 +1,42 @@
 package engine;
 
-public class ZeroAttackManipulator implements AttackManipulator{
+public class DoubleGainedAttackManipulator implements AttackManipulator{
 	
-	//sets units attack to zero while this manipulator is active
+	int atk;
 
 	@Override
 	public int getAttack() {
 		
-		return 0;
+		return atk;
 	}
 
 	@Override
 	public int getAttack(Minion m) {
 		
-		return 0;
+		return atk;
 	}
 
 	@Override
 	public int getAttack(Player P) {
 		
-		return 0;
+		return atk;
 	}
 
 	@Override
 	public void changeAttack(Integer change) {
-		return;
+		atk = atk + change*2;
 		
 	}
 
 	@Override
 	public void setAttack(Integer change) {
-		return;
+		atk = change;
 		
 	}
 	
 	@Override
 	public String getDescription(){
-		return "This minions attack is always 0";
+		return "Double any attack gains this minion receives";
 	}
 
 }

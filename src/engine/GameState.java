@@ -162,7 +162,8 @@ public class GameState {
 		
 	}
 	
-	public void updateDisplays(SelectAndDestroyMinionAffect sadma){
+	public void selectUpdateDisplays(SelectAndDestroyMinionAffect sadma){
+		//sends a message to the client asking them to select a target
 		if(sadma.owner.owner == players.get(0)){//if the affect activating belongs to player 1
 			DisplayGameState dgs = getUpdatedDisplayGameState(players.get(0), players.get(1));
 			dgs.selectingAffectTarget = true;
@@ -171,7 +172,7 @@ public class GameState {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else{
+		}else{//or player 2
 			DisplayGameState dgs = getUpdatedDisplayGameState(players.get(1), players.get(0));
 			dgs.selectingAffectTarget = true;
 			try {
