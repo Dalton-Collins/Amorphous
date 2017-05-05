@@ -22,6 +22,7 @@ public class DisplayMinion implements Serializable{
 	public int owner;//0 for player 1, 1 for player 2
 	public String affectText;
 	public String triggerText;
+	public String manipulatorText;
 	public int attacksThisTurn = 0;
 	public int maxAttacks = 1;
 	boolean summoningSickness;
@@ -46,6 +47,11 @@ public class DisplayMinion implements Serializable{
 		owner = m.owner.id;
 		affectText = m.effect.affect.getDescription();
 		triggerText = m.effect.trigger.getDescription();
+		if(m.attackManipulatorStack.get(0).getDescription().equals("")){
+			manipulatorText = m.healthManipulatorStack.get(0).getDescription();
+		}else{
+			manipulatorText = m.attackManipulatorStack.get(0).getDescription();
+		}
 		attacksThisTurn = m.attacksThisTurn;
 		maxAttacks = m.maxAttacks;
 		summoningSickness = m.summoningSickness;

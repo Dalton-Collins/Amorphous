@@ -1,6 +1,6 @@
 package engine;
 
-public class ZeroAttackManipulator implements AttackManipulator{
+public class AttackManipulatorZero implements AttackManipulator{
 	
 	//sets units attack to zero while this manipulator is active
 

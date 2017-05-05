@@ -72,11 +72,21 @@ public class MinionGenerator {
 		purpleCost = 0;
 		
 		Minion m = new Minion(gs, p);
-
+		
+		Random rand = new Random();
+		int i = rand.nextInt(4);
+		if(i == 0){
+			AttackManipulator am = randomAttackPassive();
+			m.setAttackManipulator(am);
+		}else if(i == 1){
+			HealthManipulator hm = randomHealthPassive();
+			m.setHealthManipulator(hm);
+		}
 		Affect af = randomAffect(m);
 		Trigger tr = randomTrigger();
 		Effect e = new Effect(m, tr, af, 1);
 		m.effect = e;
+		
 		m.type = randomType();
 		m.setAttack(randomAttack());
 		m.setHealth(randomHealth(m));
@@ -136,14 +146,18 @@ public class MinionGenerator {
 		return null;
 	}
 	
-	AttackManipulator randomAttackPassive(Minion m){
+	AttackManipulator randomAttackPassive(){
 		Random rand = new Random();
-		int i = rand.nextInt(0);
+		int i = rand.nextInt(2);
 		
 		AttackManipulator am = null;
 		
 		if(i == 0){
-			am = new DoubleGainedAttackManipulator();
+			am = new AttackManipulatorDoubleGained();
+			redCost+=2;
+		}else if(i==1){
+			am = new AttackManipulatorUnreduceable();
+			orangeCost+=1;
 		}
 		
 		return am;
@@ -151,13 +165,15 @@ public class MinionGenerator {
 	
 	HealthManipulator randomHealthPassive(){
 		Random rand = new Random();
-		int i = rand.nextInt(0);
+		int i = rand.nextInt(2);
 		HealthManipulator hm = null;
 		
 		if(i == 0){
 			int ablock = (rand.nextInt(3)+1);//range 1 - 3
 			orangeCost += ablock;
-			hm = new DamageBlockHealthManipulator(ablock);
+			hm = new HealthManipulatorDamageBlock(ablock);
+		}else if(i == 1){
+			
 		}
 		
 		return hm;

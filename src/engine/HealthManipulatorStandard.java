@@ -1,8 +1,8 @@
 package engine;
 
-public class StandardHealthManipulator implements HealthManipulator{
+public class HealthManipulatorStandard implements HealthManipulator{
 	
-	public StandardHealthManipulator(Minion mm){
+	public HealthManipulatorStandard(Minion mm){
 		m = mm;
 	}
 	
@@ -30,7 +30,7 @@ public class StandardHealthManipulator implements HealthManipulator{
 	
 	@Override
 	public String getDescription(){
-		return "this should not appear";
+		return "";
 	}
 
 }

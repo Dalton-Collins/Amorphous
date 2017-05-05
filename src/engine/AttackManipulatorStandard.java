@@ -1,8 +1,8 @@
 package engine;
 
-public class StandardAttackManipulator implements AttackManipulator{
+public class AttackManipulatorStandard implements AttackManipulator{
 	
-	public StandardAttackManipulator(Minion mm){
+	public AttackManipulatorStandard(Minion mm){
 		m = mm;
 	}
 	
@@ -42,7 +42,7 @@ public class StandardAttackManipulator implements AttackManipulator{
 	
 	@Override
 	public String getDescription(){
-		return "This should not appear";
+		return "";
 	}
 
 }

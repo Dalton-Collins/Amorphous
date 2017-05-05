@@ -1,6 +1,6 @@
 package engine;
 
-public class DoubleGainedAttackManipulator implements AttackManipulator{
+public class AttackManipulatorDoubleGained implements AttackManipulator{
 	
 	int atk;
 

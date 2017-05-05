@@ -50,10 +50,10 @@ public class Minion {
 		gs = gss;
 		owner  = ownerr;
 		
-		AttackManipulator standardAttackManipulator = new StandardAttackManipulator(this);
+		AttackManipulator standardAttackManipulator = new AttackManipulatorStandard(this);
 		attackManipulatorStack.add(standardAttackManipulator);
 		
-		HealthManipulator standardHealthManipulator = new StandardHealthManipulator(this);
+		HealthManipulator standardHealthManipulator = new HealthManipulatorStandard(this);
 		healthManipulatorStack.add(standardHealthManipulator);
 	}
 	//summons this minion to the field
