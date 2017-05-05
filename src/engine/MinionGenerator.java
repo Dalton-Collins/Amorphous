@@ -173,7 +173,9 @@ public class MinionGenerator {
 			orangeCost += ablock;
 			hm = new HealthManipulatorDamageBlock(ablock);
 		}else if(i == 1){
-			
+			hm = new HealthManipulatorReverseHealingDamage();
+			yellowCost +=3;
+			purpleCost+=1;
 		}
 		
 		return hm;
