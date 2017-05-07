@@ -1,8 +1,8 @@
 package engine;
 
-public class DamageBlockHealthManipulator implements HealthManipulator{
+public class HealthManipulatorDamageBlock implements HealthManipulator{
 	
-	public DamageBlockHealthManipulator(int block){
+	public HealthManipulatorDamageBlock(int block){
 		damageBlock = block;
 	}
 	int damageBlock;
