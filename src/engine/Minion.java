@@ -113,8 +113,8 @@ public class Minion {
 		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
-		target.damageMinion(getAttack(), this);
-		damageMinion(target.getAttack(), target);
+		target.damageMinion(getAttack(target), this);
+		damageMinion(target.getAttack(this), target);
 		gs.affectStack.processStack();
 		System.out.println("Minion " + id + " attacked minion " + target.id);
 	}
@@ -126,7 +126,7 @@ public class Minion {
 		gs.affectStack.handleEvent(e);
 		
 		attacksThisTurn+=1;
-		target.damagePlayer(getAttack(), this);
+		target.damagePlayer(getAttack(target), this);
 		System.out.println("Minion " + id + " attacked player " + target.id);
 	}
 	
@@ -204,6 +204,14 @@ public class Minion {
 	
 	public int getAttack(){
 		return attackManipulatorStack.get(0).getAttack();
+	}
+	
+	public int getAttack(Player p){
+		return attackManipulatorStack.get(0).getAttack(p);
+	}
+	
+	public int getAttack(Minion m){
+		return attackManipulatorStack.get(0).getAttack(m);
 	}
 	
 	public void changeAttack(int change){
