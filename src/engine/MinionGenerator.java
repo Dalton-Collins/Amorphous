@@ -32,6 +32,8 @@ public class MinionGenerator {
 	int blueCost;
 	int purpleCost;
 	
+	Long uniqueId = (long) 0;
+	
 	MinionGenerator(GameState gss){
 		gs = gss;
 	}
@@ -72,6 +74,9 @@ public class MinionGenerator {
 		purpleCost = 0;
 		
 		Minion m = new Minion(gs, p);
+		
+		m.uniqueId = this.uniqueId;
+		this.uniqueId+=1;
 		
 		Random rand = new Random();
 		int i = rand.nextInt(4);

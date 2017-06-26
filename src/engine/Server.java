@@ -37,7 +37,7 @@ public class Server {
 		database = new Database();
 		c = database.getConnection();
 		database.createAccountsTable(c);
-		//database.InsertAccount(c, "0000000000", "Master", "password", "1", "100000", "0");
+		//database.InsertAccount(c, "0000000001", "a", "a", "1", "100000", "0");
 		threads = new HashMap<Integer, ServerThread>();
 		outputSockets = new HashMap<Integer, Socket>();
 		games = new HashMap<Integer, GameState>();
