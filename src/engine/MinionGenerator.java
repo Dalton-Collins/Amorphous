@@ -117,7 +117,7 @@ public class MinionGenerator {
 	
 	Affect randomAffect(Minion m){
 		Random rand = new Random();
-		int i = rand.nextInt(5);
+		int i = rand.nextInt(4);
 		if(i == 0){
 			int damage = (rand.nextInt(6)+1);
 			yellowCost += 2 + damage;
@@ -137,10 +137,12 @@ public class MinionGenerator {
 			orangeCost += 1+ atk/2;
 			IncreaseThisAttackAffect itaa = new IncreaseThisAttackAffect(m, atk);
 			return itaa;
+		/*
 		}else if(i == 4){
 			purpleCost += 3;
 			SelectAndDestroyMinionAffect sadma = new SelectAndDestroyMinionAffect(gs, m);
 			return sadma;
+		*/
 		}
 		System.out.println("failed to get random affect");
 		return null;
