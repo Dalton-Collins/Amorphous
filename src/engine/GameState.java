@@ -15,6 +15,8 @@ public class GameState {
 	GameIdentifier gameIdentifier;
 	Server server;
 	
+	Long uniqueMinionId;
+	
 	public ArrayList<Player> players;
 	ServerThread serverThread1;
 	ServerThread serverThread2;
@@ -45,6 +47,8 @@ public class GameState {
 		server = serverr;
 		serverThread1 = st;
 		outputSocket1 = server.outputSockets.get(st.id);
+		
+		uniqueMinionId = (long) 0;
 	}
 	
 	public void initGameState(ServerThread s2){
@@ -284,5 +288,11 @@ public class GameState {
 		}else{
 			return players.get(0);
 		}
+	}
+	
+	Long getUniqueMinionId(){
+		
+		this.uniqueMinionId+=1;
+		return this.uniqueMinionId;
 	}
 }

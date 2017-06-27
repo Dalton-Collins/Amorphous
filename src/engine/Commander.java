@@ -6,8 +6,8 @@ public class Commander extends Minion{
 	String manaPattern; // example of a pattern string "RRB", for Red Red Blue mana
 	Boolean inCommandZone = true;
 	
-	public Commander(GameState gss, Player ownerr) {
-		super(gss, ownerr);
+	public Commander(GameState gss, Player ownerr, Long uniqueid) {
+		super(gss, ownerr, uniqueid);
 		gs = gss;
 	}
 	

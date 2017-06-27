@@ -32,15 +32,13 @@ public class MinionGenerator {
 	int blueCost;
 	int purpleCost;
 	
-	Long uniqueId = (long) 0;
-	
 	MinionGenerator(GameState gss){
 		gs = gss;
 	}
 	
 	public Commander makeOzai(Player p){
 		
-		Commander m = new Commander(gs, p);
+		Commander m = new Commander(gs, p, gs.getUniqueMinionId());
 
 		Affect af = new RemoveAllAlliesSummoningSickness(gs, m);
 		Trigger tr = new WhenDestroyedTrigger();
@@ -73,10 +71,7 @@ public class MinionGenerator {
 		blueCost = 0;
 		purpleCost = 0;
 		
-		Minion m = new Minion(gs, p);
-		
-		m.uniqueId = this.uniqueId;
-		this.uniqueId+=1;
+		Minion m = new Minion(gs, p, gs.getUniqueMinionId());
 		
 		Random rand = new Random();
 		int i = rand.nextInt(4);

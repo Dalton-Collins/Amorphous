@@ -46,9 +46,10 @@ public class Minion {
 	
 	//---------End Stat Manipulators
 	
-	public Minion(GameState gss, Player ownerr){
+	public Minion(GameState gss, Player ownerr, Long uniqueid){
 		gs = gss;
 		owner  = ownerr;
+		uniqueId = uniqueid;
 		
 		AttackManipulator standardAttackManipulator = new AttackManipulatorStandard(this);
 		attackManipulatorStack.add(standardAttackManipulator);
