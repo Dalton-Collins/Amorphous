@@ -17,6 +17,7 @@ public class GameState {
 	
 	Long uniqueMinionId;
 	
+	public CardDatabase CDB;
 	public ArrayList<Player> players;
 	ServerThread serverThread1;
 	ServerThread serverThread2;
@@ -58,6 +59,8 @@ public class GameState {
 		oos1 = serverThread1.oos;
 		oos2 = serverThread2.oos;
 		
+		CDB = new CardDatabase(this);
+		
 		//Set Handlers
     	
     	summonHandler = new SummonHandler(this);
@@ -71,7 +74,10 @@ public class GameState {
 		players = new ArrayList<Player>();
 		players.add(new Player(this, 0));
 		players.add(new Player(this, 1));
-		players.get(0).deck = minionGenerator.makeRandomDeck(players.get(0));
+		
+		players.get(0).deck = CDB.getPlantDeck(players.get(0));
+		
+		//players.get(0).deck = minionGenerator.makeRandomDeck(players.get(0));
 		players.get(1).deck = minionGenerator.makeRandomDeck(players.get(1));
 		setMinionUniqueIds(players.get(0).deck);
 		setMinionUniqueIds(players.get(1).deck);

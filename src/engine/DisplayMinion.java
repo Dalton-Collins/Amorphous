@@ -45,8 +45,11 @@ public class DisplayMinion implements Serializable{
 		maxHealth = m.maxHealth;
 		type = m.type;
 		owner = m.owner.id;
-		affectText = m.effect.affect.getDescription();
-		triggerText = m.effect.trigger.getDescription();
+		if(m.effect != null){
+			affectText = m.effect.affect.getDescription();
+			triggerText = m.effect.trigger.getDescription();
+		}
+		
 		if(m.attackManipulatorStack.get(0).getDescription().equals("")){
 			manipulatorText = m.healthManipulatorStack.get(0).getDescription();
 		}else{

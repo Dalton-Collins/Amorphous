@@ -81,6 +81,26 @@ public class Minion {
 		e.m = this;
 		gs.affectStack.handleEvent(e);
 	}
+	
+	//summons minion without cost or checks
+	public void forceSummon(){
+		
+		owner.minions.add(this);
+		if(!Rush){
+			summoningSickness = true;
+		}
+		
+		if(effect != null){
+			gs.activeEffects.addEffect(effect);
+		}
+		
+		gs.updateDisplays();
+		
+		//create and send out summon event
+		Event e = new Event("summon");
+		e.m = this;
+		gs.affectStack.handleEvent(e);
+	}
 	//checks if the minion can be summoned
 	//maybe have different summoning conditions in the future
 	public boolean canSummon(){
